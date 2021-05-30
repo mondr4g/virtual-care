@@ -172,40 +172,57 @@
 
 /* News */
 #top-doc {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 3em 0;
-    min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 3em 0;
+  min-height: 100vh;
 }
 
 #top-doc .card {
-    margin-top: 20px;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
-    0 2px 2px rgba(0,0,0,0.15), 
-    0 4px 4px rgba(0,0,0,0.15), 
-    0 8px 8px rgba(0,0,0,0.15);
-    border-radius: 10px;
-    cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15),
+    0 2px 2px rgba(0, 0, 0, 0.15),
+    0 4px 4px rgba(0, 0, 0, 0.15),
+    0 8px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 #top-doc .card img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 #top-doc .card img:hover {
-    filter: grayscale(80%);
-    transition: 1s;
+  filter: grayscale(80%);
+  transition: 1s;
 }
 
 .news-title {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
+  padding: 2.5em 1em;
 }
 
 .news-title h2 {
-    color: #4361ee;
+  color: #4361ee;
+}
+
+/* Contact */
+#up {
+    position: fixed;
+    font-size: 2.5rem;
+    border: none;
+    bottom: 7%;
+    right: 2%;
+}
+  
+#up i {
+    color: white;
+    background-color: #4361ee;
+    padding: 5px;
+    border-radius: 100%;
 }
 
 /* Respondive */
@@ -285,7 +302,7 @@
     display: block;
     margin: 0 auto;
     margin-bottom: 20px;
-    width: 100%;     
+    width: 100%;
   }
 
   .join .p-text a {

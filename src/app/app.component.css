@@ -38,18 +38,3 @@ footer h3 {
     font-size: 1rem;
 }
 
-/* Contact */
-#up {
-    position: fixed;
-    font-size: 2.5rem;
-    border: none;
-    bottom: 7%;
-    right: 2%;
-}
-  
-#up i {
-    color: white;
-    background-color: #4361ee;
-    padding: 5px;
-    border-radius: 100%;
-}

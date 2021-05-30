@@ -1,0 +1,54 @@
+#login-form {
+    display: flex;
+    width: 100%
+}
+
+form {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 35%;
+    text-align: center;
+}
+
+#log {
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+input, label, a {
+    width: 100%;
+}
+
+.f-title {
+    width: 100%;
+    color: #4361ee;
+}
+
+.f-data {
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Respondive */
+@media (max-width: 480px) {
+    form {
+        width: 80%;
+    }
+    
+    #log {
+        width: 100%;
+    }
+}
