@@ -1,3 +1,4 @@
+/* Banner */
 .banner {
     background-image: url(https://images.unsplash.com/photo-1613918108466-292b78a8ef95?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80);
     background-size: cover;
@@ -10,6 +11,246 @@
     font-family: 'Inter', sans-serif;
     font-size: 2.5rem; 
     color: #4361ee;
-    padding: 1em 2em;  
+    padding: 0.5em 2em;
+    width: 50%;  
+}
+
+.info {
+    color: black;
+    font-size: 0.8rem;
+}
+
+.rating {
+    display: flex;
+    font-size: 1.2rem;
+    color: #ffb703;
+    margin-top: 10px;
+}
+
+.rating i {
+    margin-top: 5px;
+}
+
+.calif {
+    color: black;
+    margin-left: 20px;
+}
+
+/* Patrocinadores */
+#pats {
+    background-color: #e2eafc;
+    color: #4361ee;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 3em;
+}
+
+.pat {
+    text-align: center;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pat:hover {
+    color: #455e89;
+    animation: zoom-in 1s linear 1;
+}
+
+/* Acerca de */
+#about {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2em 5em;
+}
+
+.p-text {
+    width: 45%;
+}
+
+.p-text input {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.p-text h2 {
+    color: #4361ee;
+}
+.p-img {
+    width: 30%;
+}
+
+/* Join Us */
+#join-us {
+    display: flex;
+    position: relative;
+}
+
+.join {
+    width: 70%;
+    background-color: #e2eafc;
+    padding-left: 5em;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.white-space {
+    width: 30%;
+}
+
+.join img {
+    position: absolute;
+    width: 35%;
+    bottom: 0;
+    right: 10%;
+}
+
+.join .p-text {
+    width: 70%;
+}
+
+.join .p-text input {
+    width: 50%;
+    margin: 0;
+}
+
+/* Testimonial */
+#testimony {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #4361ee 50%, #4361ee 100%);
+}
+
+.comment {
+    width: 50%;
+    height: auto;
+    background-color: white;
+    margin: auto auto;
+    text-align: center;
+    padding: 1em;
+    font-size: 0.9rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+    0 2px 2px rgba(0,0,0,0.12), 
+    0 4px 4px rgba(0,0,0,0.12), 
+    0 8px 8px rgba(0,0,0,0.12),
+    0 16px 16px rgba(0,0,0,0.12);
+}
+
+#testimony i {
+    position: absolute;
+    left: 20%;
+    top: 10%;
+    font-size: 7rem;
+    color: #e2eafc;
+    float: left;
+}
+
+.c-img {
+    position: absolute;
+    left: 45%;
+    top: 15%;
+    width: 100px;
+    height: 100px;
+    background-image: url(https://images.unsplash.com/photo-1618255697831-98736c0c142a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80);
+    background-size: cover;
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px#455e89;
+}
+
+.c-info p{
+    margin-top: 50px;
+    color: #4361ee;
+    font-style: italic;
+}
+
+/* Respondive */
+@media (max-width: 768px) {
+    .titles {
+        width: 80%;
+    }
+
+    .p-text {
+        width: 80%;
+    }
+
+    .white-space {
+        display: none;
+    }
+
+    .join {
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .join img {
+        position: relative;
+        width: 60%;
+        left: 60%;
+        bottom: 0%;
+    }
+}
+
+@media (max-width: 480px) {
+    .titles {
+        width: 100%;
+        text-align: center;
+    }
+
+    .comment {
+        width: 80%;
+    }
+
+    #testimony i {
+        display: none;
+    }
+
+    .c-img {
+        position: relative;
+        left: 35%;
+    }
+
+    #about {
+        padding: 2.5rem;
+    }
+
+    .p-text {
+        width: 100%;
+    }
+
+    .join .p-text {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .join {
+        padding: 2.5em 0;
+    }
+
+    .join img {
+        position: static;
+        width: 100%;
+    }
+
+    #about, #join-us {
+        text-align: center;
+    }
+
+    .join .p-text input {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+}
+
+@keyframes zoom-in {
+    0% {transform: scale(1);}
+    50% {transform: translateY(-10px);transform: scale(1.1);}
 }
 

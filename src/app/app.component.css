@@ -1,5 +1,36 @@
 main {
     min-height: 100vh;
     margin-top: 100px;
-    padding: 0em 2em;
+}
+
+nav a:hover, .navbar-nav .nav-link:hover, .navbar-brand, .navbar-brand:hover {
+    color: #4361ee;
+}
+
+footer {
+    padding: 1em;
+    background-color: #4361ee;
+    color: white;
+}
+
+#brand {
+    text-align: center;
+    border-radius: 10px;
+    padding: .5em 1em;
+    width: 50%;
+    background-color: white;
+    color: #4361ee;
+}
+
+#brand i {
+    color: #4361ee;
+}
+
+footer i {
+    margin-right: 10px;
+    color: white;
+}
+
+footer h3 {
+    font-size: 1rem;
 }
