@@ -64,13 +64,14 @@
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 2em 5em;
+  height: 100vh;
 }
 
 .p-text {
   width: 45%;
 }
 
-.p-text input {
+.p-text a {
   display: block;
   width: 50%;
   margin-top: 20px;
@@ -113,7 +114,7 @@
   width: 70%;
 }
 
-.join .p-text input {
+.join .p-text a {
   width: 50%;
   margin: 0;
 }
@@ -175,6 +176,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 3em 0;
+    min-height: 100vh;
 }
 
 #top-doc .card {
@@ -205,7 +207,6 @@
 .news-title h2 {
     color: #4361ee;
 }
-
 
 /* Respondive */
 @media (max-width: 768px) {
@@ -280,14 +281,14 @@
     text-align: center;
   }
 
-  .p-text input {
+  .p-text a {
     display: block;
     margin: 0 auto;
     margin-bottom: 20px;
     width: 100%;     
   }
 
-  .join .p-text input {
+  .join .p-text a {
     display: block;
     margin: 0 auto;
     margin-bottom: 20px;
