@@ -72,8 +72,7 @@
 
 .p-text input {
   display: block;
-  width: 100%;
-  margin: 0 auto;
+  width: 50%;
   margin-top: 20px;
 }
 
@@ -279,6 +278,13 @@
   #about,
   #join-us {
     text-align: center;
+  }
+
+  .p-text input {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 100%;     
   }
 
   .join .p-text input {
