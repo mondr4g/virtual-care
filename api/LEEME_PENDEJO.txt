@@ -1,0 +1,51 @@
+
+Para iniciar la api, lo mismo que el angular, instala los modulos, ya tiene el package json lo que se va a instalar
+si no lo hace 
+
+de todas formas puedes instalar uno a uno los paquetes que vienen especificados en el package.json 
+
+las dependencias se instalan con el @ tal como vienen solo al final le agregas -D, de argumento
+
+Si falla algo me dices para indicar que modulos instalar
+-------------------------------------------------------------------------------------------------------------------
+
+Para encenderla y que escuche los cambios en los archivos TS 
+
+en consola corre 
+
+*****************
+* npm run build *
+*****************
+y luego en otra terminal 
+
+***************
+* npm run dev *
+***************
+para que te compile cada que haya cambios y te muestre la info de las peticiones.
+
+-------------------------------------------------------------------------------------------------------------------
+
+Para seguir la estructura y que sea mas facil de organizar 
+
+el archivo gamesRoutes es un ejemplo, asi como estan ahi, debemos de poner las rutas con las que debe responder la api 
+Ahi vienen implementadas algunas consultas, de esa manera se realizan, todo se realiza en typescript 
+no tienes que meterte a js 
+
+cada archivo dentro de routes definira todas las posibles rutas por apartado, y dentro de controllers se especificara el comportamiento o lo que devolvera 
+
+-------------------------------------------------------------------------------------------------------------------
+
+Ya configure la conexion a BD para que use la BD de virtualcare 
+
+IMPORTANTE 
+
+tener prendido xamppp, especialmente el servicio de mysql.
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+Cualquier duda del funcionamiento o como definir algo me dices.
+
+---------------------------------------------------------------------------------------------------------------------
+
+@Nourish99
