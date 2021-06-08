@@ -1,8 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, {Application} from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import indexRoutes from './routes/indexRoutes';
 import gamesRoutes from './routes/gamesRoutes';
+import authRoutes from './routes/authRoutes';
+import registRoutes from './routes/registRoutes';
 
 class Server {
 
@@ -18,12 +22,15 @@ class Server {
         this.app.use(morgan('dev'));
         this.app.use(cors());
         this.app.use(express.json());
-        this.app.use(express.urlencoded({extended: false}))
+        this.app.use(express.urlencoded({extended: false}));
+
     }
 
     routes():void{
         this.app.use('/',indexRoutes);
         this.app.use('/api/games',gamesRoutes);
+        this.app.use('/api/auth', authRoutes);
+        this.app.use('/api/regist', registRoutes)
     }
 
     start():void{
