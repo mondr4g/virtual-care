@@ -20,7 +20,8 @@ class AuthController{
         }else{
             try {
                 const search = await connect().then((conn)=>{
-                    return conn.query('SELECT `password` FROM `personal` WHERE `email`="'+[req.body.account]
+                    return conn.query('SELECT `password`,`email_check`'+
+                    +' FROM `personal` WHERE `email`="'+[req.body.account]
                     +'" OR `username`="'+[req.body.account]+'" OR `idUsuario`="'+[req.body.account]+'"');
                 });
                 if(search.length > 0){
