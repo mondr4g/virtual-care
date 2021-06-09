@@ -24,14 +24,18 @@ class AuthController{
                     +'" OR `username`="'+[req.body.account]+'" OR `idUsuario`="'+[req.body.account]+'"');
                 });
                 if(search.length > 0){
-                    const pass =async ()=>{
-                        const salt = await bcp.genSalt(10);
-                        return bcp.hash(req.body.pass,salt);
-                    };
-                    if(search[0]==pass){
-                        //generar JWT
+                    if(search[1]==1){
+                        const pass =async ()=>{
+                            const salt = await bcp.genSalt(10);
+                            return bcp.hash(req.body.pass,salt);
+                        };
+                        if(search[0]==pass){
+                            //generar JWT
+                        }else{
+                            res.json("Contraseña Erronea");
+                        }
                     }else{
-                        res.json("Contraseña Erronea");
+                        res.json("Cuenta no verificada");
                     }
                 }else{
                     res.json("Usuario no encontrado");
