@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 import {connect} from '../database';
 
+import bcp from 'bcryptjs';
+
 class AuthController{
     public async list (req:Request, res:Response){
         const games = await connect().then((conn)=>{
@@ -18,17 +20,26 @@ class AuthController{
         }else{
             try {
                 const search = await connect().then((conn)=>{
-                    return conn.query('SELECT * FROM `personal` WHERE `email`="'+[req.body.account]
+                    return conn.query('SELECT `password` FROM `personal` WHERE `email`="'+[req.body.account]
                     +'" OR `username`="'+[req.body.account]+'" OR `idUsuario`="'+[req.body.account]+'"');
                 });
                 if(search.length > 0){
-                    
+                    const pass =async ()=>{
+                        const salt = await bcp.genSalt(10);
+                        return bcp.hash(req.body.pass,salt);
+                    };
+                    if(search[0]==pass){
+                        //generar JWT
+                    }else{
+                        res.json("Contraseña Erronea");
+                    }
                 }else{
                     res.json("Usuario no encontrado");
                 }
                 
             } catch (e) {
                 console.log(e);
+                res.json(e);
             }
         }
     }
