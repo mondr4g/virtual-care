@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
 const database_1 = require("../database");
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class AuthController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -28,6 +32,42 @@ class AuthController {
     signin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             res.json("signin");
+            if (req.body.account == "") {
+                res.json("ingrese una cuenta valida");
+            }
+            else {
+                try {
+                    const search = yield database_1.connect().then((conn) => {
+                        return conn.query('SELECT `password`,`email_check`' +
+                            +' FROM `personal` WHERE `email`="' + [req.body.account]
+                            + '" OR `username`="' + [req.body.account] + '" OR `idUsuario`="' + [req.body.account] + '"');
+                    });
+                    if (search.length > 0) {
+                        if (search[1] == 1) {
+                            const pass = () => __awaiter(this, void 0, void 0, function* () {
+                                const salt = yield bcryptjs_1.default.genSalt(10);
+                                return bcryptjs_1.default.hash(req.body.pass, salt);
+                            });
+                            if (search[0] == pass) {
+                                //generar JWT
+                            }
+                            else {
+                                res.json("Contraseña Erronea");
+                            }
+                        }
+                        else {
+                            res.json("Cuenta no verificada");
+                        }
+                    }
+                    else {
+                        res.json("Usuario no encontrado");
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                    res.json(e);
+                }
+            }
         });
     }
     profile(req, res) {
