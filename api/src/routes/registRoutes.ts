@@ -12,6 +12,8 @@ class RegistRoutes{
         this.router.post('/doctor', registController.registDoctor.bind(registController));
         this.router.post('/nurse', registController.registNurse.bind(registController));
         this.router.post('/pacient', registController.registPacient.bind(registController));
+        //this.router.post('/sendmail', registController.sendmail.bind(registController));
+        this.router.get('/verifyacount', registController.completeAcount.bind(registController));
     }
 }
 

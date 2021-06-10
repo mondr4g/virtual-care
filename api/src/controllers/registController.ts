@@ -3,6 +3,10 @@ import {connect} from '../database';
 
 import bcp from 'bcryptjs';
 
+import {mailHelper} from '../helpers/MailHelper';
+
+import moment from 'moment';
+
 import {UserPersonal} from '../models/userPersonal';
 import {UserAddress} from '../models/userAddress';
 import { UserNormal } from 'models/userNormal';
@@ -18,31 +22,35 @@ class RegistController{
             });
         }catch(e){
             console.log(e);
+            return res.status(500).json(e.message);
         }
-        res.json("Doctor registrado");
+        return  res.status(200).json("Doctor registrado");
     }
     public async registNurse (req:Request, res:Response){
         try{
             const p = await this.registPersonal(req,0);
+            console.log(p);
             req.body.userNurse.idpersonal=p;
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO enfermera set ?",[req.body.userNurse]);
             });
         }catch(e){
-            console.log(e);
+            //console.log(e);
+            return res.status(500).json(e.message);
         }
-        res.json("Enfermera resgistrada");
+        return res.status(200).json("Enfermera resgistrada");
+        
     }
     public async registPacient (req:Request, res:Response){
         try {
             const d = await this.registAddress(req);
             const u = await this.registUser(req, d);
+            req.body.userPacient.idusuario = u;
             await connect().then((conn)=>{
-                return conn.query("INSERT INTO enfermera set ?",[req.body.userNurse]);
+                return conn.query("INSERT INTO paciente set ?",[req.body.userPacient]);
             });
         } catch (error) {
             console.log(error);
-            res.json("Hubo un error");
         }
         res.json("Paciente registrado");
     }
@@ -63,6 +71,8 @@ class RegistController{
 
     private async registUser(req:Request, id:number):Promise<number>{
         req.body.userNormal.direccionId = id;
+        req.body.userNormal.fecha_nac = moment(req.body.userNormal.fecha_nac, ["MM-DD-YYYY", "DD-MM", "DD-MM-YYYY"]).format('YYYY/MM/DD');
+        console.log(req.body.userNormal.fecha_nac);
         await connect().then((conn)=>{
             return conn.query("INSERT INTO usuario set ?",[req.body.userNormal]);
         });
@@ -83,13 +93,31 @@ class RegistController{
         }else{
             req.body.userPersonal.idUsuario = id;
         }
-        //Aqui hacer la validacion del email
-
+        //Aqui hacer la creacion del token y enviar el mail
+        req.body.userPersonal.email_verify_token = this.createMailTKN();
+        //falta el token xd 
+        try{
+            await this.sendmail(req);
+        }catch(error){
+            throw new Error("No funciono el mail");
+            
+        }
         //contraseña encriptada
-        req.body.userPersonal.password = this.encryptPassword(req.body.userPersonal.password);
-        await connect().then((conn)=>{
-            return conn.query("INSERT INTO personal set ?",[req.body.userPersonal]);
-        });
+        req.body.userPersonal.password = await this.encryptPassword(req.body.userPersonal.password).then(a=>a);
+        console.log(req.body.userPersonal.password);
+        try{
+            await connect().then((conn)=>{
+                return conn.query("INSERT INTO personal set ?",[req.body.userPersonal]);
+            });
+            
+        }catch(err)
+        {
+            if(err.code == 'ER_DUP_ENTRY'){
+                throw new Error("Ya existe username o correo");
+            }else{
+                console.log(err);
+            }
+        }
         const i = await connect().then((conn)=>{
             return conn.query("SELECT MAX(Id) AS id FROM personal");
         }); 
@@ -103,6 +131,68 @@ class RegistController{
     private async encryptPassword(password:string): Promise<string>{
         const salt = await bcp.genSalt(10);
         return bcp.hash(password,salt);
+    }
+
+    private async sendmail(req: Request){
+        const message = Object.assign({}, req.body.userPersonal);
+
+        let url = "http://localhost:3000/api/regist/verifyacount?id="+message.email_verify_token;
+
+        let mensaje = "<a href='"+url+"' >Verifica tu cuenta</a>";
+        mailHelper.to = message.email;
+        mailHelper.subject = "Verificacion de cuenta Virtual Care";
+        mailHelper.message = mensaje;
+        
+        try{
+            let result = mailHelper.sendMail();
+
+            return "Mail enviado correctamente";
+            //res.status(200).json({ 'result': result })
+        }catch(err){
+            throw new Error("Hubo un problema con el mail");
+            
+        }  
+    } 
+
+    private createMailTKN():string{
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < charactersLength; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+
+        return result;
+    }
+
+    public async completeAcount(req:Request, res:Response){
+        console.log(req.query.id);
+        let p;
+        try{
+            p = await connect().then((conn)=>{
+                return conn.query("SELECT * FROM personal WHERE email_verify_token='"+req.query.id+"' AND email_check=0;");
+            });
+        }catch(err){
+            console.log(err);
+            return res.status(500).json("Hubo un error con la verificacion");
+        }
+        if(p==null){
+            console.log(p);
+            try {
+                const a = await connect().then((conn)=>{
+                    return conn.query("UPDATE personal SET email_check=1 WHERE email_verify_token='"+req.query.id+"';");
+                });
+            } catch (error) {
+                console.log(error);
+                return res.status(500).json("Hubo un error con la verificacion");
+            }
+            //Aqui poner la ruta del html de verificacion
+            return res.status(200).json("Cuenta verificada");
+        }
+
+        //return res.redirect("https://www.google.com");
+        return res.status(200).json("Tu cuenta ya esta verificada");
+       
     }
 }
 
