@@ -12,7 +12,7 @@ class AuthRoutes{
     config():void{
         this.router.get('/', authController.list);
         this.router.post('/signup', authController.signup);
-        this.router.post('/signin', authController.signin);
+        this.router.post('/signin', authController.signin.bind(authController));
         this.router.get('/profile', tokenValid , authController.profile);
     }
 }

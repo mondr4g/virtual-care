@@ -27,7 +27,7 @@ class AuthController{
                 });
                 if(search.length > 0){
                     if(search[0].email_check==1){
-                        const pass =await authController.verPass(req,search[0].password);
+                        const pass =await this.verPass(req,search[0].password);
                         console.log(pass);
                         if(search[0].password==pass){
                             //generar JWT
