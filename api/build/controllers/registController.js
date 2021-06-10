@@ -18,40 +18,48 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class RegistController {
     registDoctor(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.connect().then((conn) => {
-                return conn.query("INSERT INTO direccion set ?", [req.body.direccion]);
-            });
-            const i = yield database_1.connect().then((conn) => {
-                return conn.query("SELECT MAX(Id) AS id FROM direccion");
-            });
-            if (i.length > 0) {
-                console.log(i);
-                return res.json("signup");
-            }
-            res.json("signup");
-        });
-    }
-    registNurse(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
             try {
-                const a = yield this.registAddress(req);
-                console.log(a);
-                const u = yield this.registUser(req, a);
-                const p = yield this.registPersonal(req, u);
-                req.body.especific.idpersonal = p;
+                const p = yield this.registPersonal(req, 0);
+                req.body.userDoctor.idpersonal = p;
                 yield database_1.connect().then((conn) => {
-                    return conn.query("INSERT INTO enfermera set ?", [req.body.especific]);
+                    return conn.query("INSERT INTO doctor set ?", [req.body.userDoctor]);
                 });
             }
             catch (e) {
                 console.log(e);
             }
-            res.json("signin");
+            res.json("Doctor registrado");
+        });
+    }
+    registNurse(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const p = yield this.registPersonal(req, 0);
+                req.body.userNurse.idpersonal = p;
+                yield database_1.connect().then((conn) => {
+                    return conn.query("INSERT INTO enfermera set ?", [req.body.userNurse]);
+                });
+            }
+            catch (e) {
+                console.log(e);
+            }
+            res.json("Enfermera resgistrada");
         });
     }
     registPacient(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.json("profile");
+            try {
+                const d = yield this.registAddress(req);
+                const u = yield this.registUser(req, d);
+                yield database_1.connect().then((conn) => {
+                    return conn.query("INSERT INTO enfermera set ?", [req.body.userNurse]);
+                });
+            }
+            catch (error) {
+                console.log(error);
+                res.json("Hubo un error");
+            }
+            res.json("Paciente registrado");
         });
     }
     registAddress(req) {
@@ -87,7 +95,15 @@ class RegistController {
     }
     registPersonal(req, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            req.body.userPersonal.idUsuario = id;
+            if (id == 0) {
+                req.body.userPersonal.idUsuario = null;
+            }
+            else {
+                req.body.userPersonal.idUsuario = id;
+            }
+            //Aqui hacer la validacion del email
+            //contraseña encriptada
+            req.body.userPersonal.password = this.encryptPassword(req.body.userPersonal.password);
             yield database_1.connect().then((conn) => {
                 return conn.query("INSERT INTO personal set ?", [req.body.userPersonal]);
             });
