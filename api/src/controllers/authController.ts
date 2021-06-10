@@ -22,7 +22,7 @@ class AuthController{
         }else{
             try {
                 const search = await connect().then((conn)=>{
-                    return conn.query("SELECT `password`,`email_check`,`idUsuario` FROM `personal` WHERE `email`=\'"+
+                    return conn.query("SELECT * FROM `personal` WHERE `email`=\'"+
                     [req.body.account]+"\' OR `username`=\'"+[req.body.account]+"\' OR `idUsuario`=\'"+[req.body.account]+"\'");
                 });
                 if(search.length > 0){
@@ -38,7 +38,13 @@ class AuthController{
                                 case 2:i=2;break;//enfermera
                                 default: res.status(500).json("Error con la Base de Datos"); return; break;
                             }
-                            const token:string = jwt.sign({usrnmae: req.body.account,type: i}, process.env.TOKE_SECRET || 'uW0tM8', {expiresIn: '1d'});
+                            const token:string = jwt.sign(
+                                {
+                                    usrname: search[0].username,
+                                    email: search[0].email,
+                                    pfp: search[0].profileimg,
+                                    type: i},
+                                process.env.TOKE_SECRET || 'uW0tM8', {expiresIn: '1d'});
                             res.header('auth-token',token).json("Login Exitoso");
                         }else{
                             res.status(400).json("Contraseña Erronea");
@@ -57,7 +63,7 @@ class AuthController{
         }
     }
     public async profile (req:Request, res:Response){
-        res.json("profile");
+        res.json(req.usrInfo);
     }
 
     private async guesswho (id:number): Promise<number>{

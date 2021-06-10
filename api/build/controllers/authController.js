@@ -39,7 +39,7 @@ class AuthController {
             else {
                 try {
                     const search = yield database_1.connect().then((conn) => {
-                        return conn.query("SELECT `password`,`email_check`,`idUsuario` FROM `personal` WHERE `email`=\'" +
+                        return conn.query("SELECT * FROM `personal` WHERE `email`=\'" +
                             [req.body.account] + "\' OR `username`=\'" + [req.body.account] + "\' OR `idUsuario`=\'" + [req.body.account] + "\'");
                     });
                     if (search.length > 0) {
@@ -63,7 +63,12 @@ class AuthController {
                                         return;
                                         break;
                                 }
-                                const token = jsonwebtoken_1.default.sign({ usrnmae: req.body.account, type: i }, process.env.TOKE_SECRET || 'uW0tM8', { expiresIn: '1d' });
+                                const token = jsonwebtoken_1.default.sign({
+                                    usrname: search[0].username,
+                                    email: search[0].email,
+                                    pfp: search[0].profileimg,
+                                    type: i
+                                }, process.env.TOKE_SECRET || 'uW0tM8', { expiresIn: '1d' });
                                 res.header('auth-token', token).json("Login Exitoso");
                             }
                             else {
@@ -87,7 +92,7 @@ class AuthController {
     }
     profile(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.json("profile");
+            res.json(req.usrInfo);
         });
     }
     guesswho(id) {

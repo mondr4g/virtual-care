@@ -10,6 +10,8 @@ const tokenValid = (req, res, next) => {
     if (!token)
         return res.status(401).json("Acceso denegado");
     const payload = jsonwebtoken_1.default.verify(token, process.env.TOKE_SECRET || 'uW0tM8');
+    req.usrInfo = payload;
     console.log(payload);
+    next();
 };
 exports.tokenValid = tokenValid;
