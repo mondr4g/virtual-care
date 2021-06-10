@@ -44,24 +44,20 @@ class AuthController {
                     });
                     if (search.length > 0) {
                         if (search[0].email_check == 1) {
-                            const pass = yield this.verPass(req, search[0].password);
-                            console.log(pass);
-                            if (search[0].password == pass) {
+                            if (yield bcryptjs_1.default.compare(req.body.pass, search[0].password)) {
                                 //generar JWT
                                 var i;
-                                switch (yield exports.authController.guesswho(search[0].idUsuario)) {
+                                console.log(yield this.guesswho(search[0].idUsuario));
+                                switch (yield this.guesswho(search[0].idUsuario)) {
                                     case 0:
                                         i = 0;
-                                        res.json("Es Admin");
-                                        break;
+                                        break; //admin
                                     case 1:
                                         i = 1;
-                                        res.json("Es Dotor");
-                                        break;
+                                        break; //doctor
                                     case 2:
                                         i = 2;
-                                        res.json("Es Enfer");
-                                        break;
+                                        break; //enfermera
                                     default:
                                         res.status(500).json("Error con la Base de Datos");
                                         return;
@@ -99,19 +95,19 @@ class AuthController {
             try {
                 var i;
                 i = yield database_1.connect().then((conn) => {
-                    return conn.query("SELECT * FROM `admin` WHERE `idpersonal`=", id);
+                    return conn.query("SELECT * FROM `admin` WHERE `idpersonal`=" + id);
                 });
                 if (i.length > 0) {
                     return 0;
                 }
                 i = yield database_1.connect().then((conn) => {
-                    return conn.query("SELECT * FROM `doctor` WHERE `idpersonal`=", id);
+                    return conn.query("SELECT * FROM `doctor` WHERE `idpersonal`=" + id);
                 });
                 if (i.length > 0) {
                     return 1;
                 }
                 i = yield database_1.connect().then((conn) => {
-                    return conn.query("SELECT * FROM `enfermera` WHERE `idpersonal`=", id);
+                    return conn.query("SELECT * FROM `enfermera` WHERE `idpersonal`=" + id);
                 });
                 if (i.length > 0) {
                     return 2;
@@ -119,27 +115,9 @@ class AuthController {
                 return 3;
             }
             catch (e) {
+                console.log(e);
                 return 5;
             }
-        });
-    }
-    verPass(req, dbpas) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(yield this.encryptPassword(req.body.pass));
-            console.log(dbpas);
-            console.log(yield bcryptjs_1.default.compare(dbpas, yield this.encryptPassword(req.body.pass)));
-            if (yield bcryptjs_1.default.compare(dbpas, yield this.encryptPassword(req.body.pass))) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-    }
-    encryptPassword(password) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const salt = yield bcryptjs_1.default.genSalt(10);
-            return bcryptjs_1.default.hash(password, salt);
         });
     }
 }
