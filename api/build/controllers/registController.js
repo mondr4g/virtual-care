@@ -152,7 +152,7 @@ class RegistController {
     sendmail(req) {
         return __awaiter(this, void 0, void 0, function* () {
             const message = Object.assign({}, req.body.userPersonal);
-            let url = "http://localhost:3000/api/regist/verifyacount?id=" + message.email_verify_token;
+            let url = "http://localhost:3000/api/regist/verifyAccount?id=" + message.email_verify_token;
             let mensaje = "<a href='" + url + "' >Verifica tu cuenta</a>";
             MailHelper_1.mailHelper.to = message.email;
             MailHelper_1.mailHelper.subject = "Verificacion de cuenta Virtual Care";
@@ -175,6 +175,24 @@ class RegistController {
             result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
+    }
+    completeProfile(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const u = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT Id FROM personal WHERE username='" + req.usrInfo.usrname + "';");
+                });
+                const d = this.registAddress(req);
+                yield database_1.connect().then((conn) => {
+                    return conn.query("UPDATE personal SET idUsuario=" + d + " WHERE Id=" + u + ";");
+                });
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(500).json("Hubo un error con la actualizacion");
+            }
+            return res.status(200).json("Perfil actuyalizado");
+        });
     }
     completeAcount(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

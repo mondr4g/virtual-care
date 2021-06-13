@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import {registController} from '../controllers/registController';
+import {tokenValid} from '../libs/verifyToken';
 
 class RegistRoutes{
     public router: Router = Router();
@@ -13,7 +14,8 @@ class RegistRoutes{
         this.router.post('/nurse', registController.registNurse.bind(registController));
         this.router.post('/pacient', registController.registPacient.bind(registController));
         //this.router.post('/sendmail', registController.sendmail.bind(registController));
-        this.router.get('/verifyacount', registController.completeAcount.bind(registController));
+        this.router.get('/verifyAccount', registController.completeAcount.bind(registController));
+        this.router.post('/completeProfile', tokenValid, registController.completeProfile.bind(registController));
     }
 }
 

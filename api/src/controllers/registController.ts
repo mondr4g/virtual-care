@@ -136,7 +136,7 @@ class RegistController{
     private async sendmail(req: Request){
         const message = Object.assign({}, req.body.userPersonal);
 
-        let url = "http://localhost:3000/api/regist/verifyacount?id="+message.email_verify_token;
+        let url = "http://localhost:3000/api/regist/verifyAccount?id="+message.email_verify_token;
 
         let mensaje = "<a href='"+url+"' >Verifica tu cuenta</a>";
         mailHelper.to = message.email;
@@ -163,6 +163,22 @@ class RegistController{
         }
 
         return result;
+    }
+
+    public async completeProfile(req:Request, res:Response){
+        try{
+            const u = await connect().then((conn)=>{
+                return conn.query("SELECT Id FROM personal WHERE username='"+req.usrInfo.usrname+"';");
+            });
+            const d = this.registAddress(req);
+            await connect().then((conn)=>{
+                return conn.query("UPDATE personal SET idUsuario="+d+" WHERE Id="+u+";");
+            });
+        }catch(error){
+            console.log(error);
+                return res.status(500).json("Hubo un error con la actualizacion");
+        }
+        return res.status(200).json("Perfil actuyalizado");
     }
 
     public async completeAcount(req:Request, res:Response){

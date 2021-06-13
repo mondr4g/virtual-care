@@ -31,8 +31,8 @@ class AuthController{
                         if(await bcp.compare(req.body.pass,search[0].password)){
                             //generar JWT
                             var i;
-                            console.log(await this.guesswho(search[0].idUsuario));
-                            switch(await this.guesswho(search[0].idUsuario)){
+                            console.log(await this.guesswho(search[0].Id));
+                            switch(await this.guesswho(search[0].Id)){
                                 case 0:i=0;break;//admin
                                 case 1:i=1;break;//doctor
                                 case 2:i=2;break;//enfermera

@@ -47,8 +47,8 @@ class AuthController {
                             if (yield bcryptjs_1.default.compare(req.body.pass, search[0].password)) {
                                 //generar JWT
                                 var i;
-                                console.log(yield this.guesswho(search[0].idUsuario));
-                                switch (yield this.guesswho(search[0].idUsuario)) {
+                                console.log(yield this.guesswho(search[0].Id));
+                                switch (yield this.guesswho(search[0].Id)) {
                                     case 0:
                                         i = 0;
                                         break; //admin
