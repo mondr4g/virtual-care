@@ -19,17 +19,52 @@ class UsersController {
         return __awaiter(this, void 0, void 0, function* () {
             const ds = yield database_1.connect().then((conn) => {
                 return conn.query("SELECT * FROM doctor INNER JOIN personal ON doctor.idpersonal = personal.Id;");
+            }).catch(error => {
+                console.log(error);
+                return res.status(400).json("Medico no encontrado");
             });
             return res.json(ds);
         });
     }
-    getNurse(req, res) {
+    getDoctorInfo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const d = yield database_1.connect().then((conn) => {
+                return conn.query("SELECT * FROM doctor INNER JOIN personal ON doctor.idpersonal = personal.Id WHERE Id=" + req.query.id + ";");
+            }).catch(err => {
+                console.log(err);
+                return res.status(400).json("Medico no encontrado");
+            });
+            return res.json(d);
+        });
+    }
+    getNurses(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const es = yield database_1.connect().then((conn) => {
                 return conn.query("SELECT * FROM enfermera INNER JOIN personal ON enfermera.idpersonal = personal.Id;");
+            }).catch(error => {
+                console.log(error);
+                return res.status(400).json("Medico no encontrado");
             });
-            console.log(es);
             return res.json(es);
+        });
+    }
+    getNurseInfo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const d = yield database_1.connect().then((conn) => {
+                return conn.query("SELECT * FROM enfermera INNER JOIN personal ON doctor.idpersonal = personal.Id WHERE Id=" + req.query.id + ";");
+            }).catch(err => {
+                console.log(err);
+                return res.status(400).json("Medico no encontrado");
+            });
+            return res.json(d);
+        });
+    }
+    getPacients(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    getPacientInfo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
         });
     }
 }

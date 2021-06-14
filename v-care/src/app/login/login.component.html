@@ -5,13 +5,13 @@
         </div>
         <div class="f-data">
             <label for="uname">Username:</label>
-            <input type="text" id="uname" placeholder="username" required>
+            <input type="text" id="uname" name="uname" placeholder="username" required>
         </div>
         <div class="f-data">
             <label for="upass">Password:</label>
-            <input type="password" id="upass" placeholder="password" required>
+            <input type="password" id="upass" name="upass" placeholder="password" required>
         </div>
-        <input type="button" id="log" class="btn btn-primary" value="login">
+        <input type="button" id="log" class="btn btn-primary" value="login" (click)="login()">
         <a href="">No tienes cuenta?</a>
     </form>
 </div>
