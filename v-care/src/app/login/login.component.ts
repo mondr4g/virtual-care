@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { SessionService } from '../services/session.service';
 import { IBody } from '../login/bodyIntf';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,9 @@ export class LoginComponent implements OnInit {
     account: "",
     pass: ""
   };
-  constructor(private session:SessionService) {
+  helper = new JwtHelperService();
+
+  constructor(private session:SessionService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,10 +30,45 @@ export class LoginComponent implements OnInit {
     let b = (document.getElementById("upass")) as HTMLInputElement;
     this.cuerpo.pass = b.value;
     this.session.login(this.cuerpo).subscribe(
-      res=>{console.log(res);}, err=>{console.log(err);}
+      res=>{
+        console.log(res.headers.get('auth-token'));
+        var token=res.headers.get('auth-token');
+        console.log("estoy aqui");
+        
+        if(token){ 
+          localStorage.setItem("auth-token", token);
+          //muestra un mensaje que te diga que si se hizo el login y cuando le de en continuar lo redireccione
+          this.succLogin(token);
+        }else{
+          //muestra mensaje de fallo en el login 
+        } 
+      }, 
+      err=>{
+        //Aqui igual muestra el error usando err.error 
+        console.log(err.error);
+      }
     );
+    //this.router.navigateByUrl('/');
   }
-
+  
+  succLogin(token:any){
+    if(token){
+      var url;
+      var decToken = this.helper.decodeToken(token);
+      //console.log(decToken);
+      switch(decToken.type){
+        case 0: url='/dashboard/admin'; break;
+        case 1: url='/dashboard/doc'; break;
+        case 2: url='/dashboard/nurse'; break;
+        default: url='/login'; break;//no creo que este se active pero por si las moscas
+      }
+      this.router.navigateByUrl(url);
+    }
+    else{
+      console.log("error con el token"); //igual con este xd
+      return;
+    }
+  }
 }
 
 

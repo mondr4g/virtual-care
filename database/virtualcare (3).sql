@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2021 a las 08:51:19
+-- Tiempo de generación: 14-06-2021 a las 18:40:39
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.3.28
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -28,7 +29,7 @@ USE `virtualcare`;
 --
 -- Estructura de tabla para la tabla `admin`
 --
--- Creación: 13-06-2021 a las 20:55:24
+-- Creación: 14-06-2021 a las 15:57:55
 --
 
 DROP TABLE IF EXISTS `admin`;
@@ -424,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `personal` (
   `idUsuario` int(11) DEFAULT NULL,
   `email` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(160) COLLATE utf8_unicode_ci NOT NULL,
   `profileimg` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `email_check` tinyint(1) NOT NULL,
   `email_verify_token` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -575,7 +576,7 @@ TRUNCATE TABLE `unidad_medica`;
 --
 -- Estructura de tabla para la tabla `usuario`
 --
--- Creación: 13-06-2021 a las 20:55:24
+-- Creación: 14-06-2021 a las 16:11:15
 --
 
 DROP TABLE IF EXISTS `usuario`;
@@ -584,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `apellido` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `genero` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `direccionId` int(11) NOT NULL,
+  `direccionId` int(11) DEFAULT NULL,
   `fecha_nac` date NOT NULL,
   `telefono` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `celular` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
@@ -639,7 +640,7 @@ TRUNCATE TABLE `videollamada`;
 -- Filtros para la tabla `admin`
 --
 ALTER TABLE `admin`
-  ADD CONSTRAINT `PERSONAL` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `PERSONALA` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `chat`
@@ -733,6 +734,7 @@ ALTER TABLE `unidad_medica`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `DIRECCION` FOREIGN KEY (`direccionId`) REFERENCES `direccion` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
