@@ -4,6 +4,36 @@
             <h1>Registro</h1>
         </div>
         <div class="f-subtitle">
+            <h2>Cuenta</h2>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="uname">Username:</label>
+                <input type="text" id="uname" name="uname" placeholder="Username" required>
+            </div>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Ex. vacre@gmail.com" required>
+            </div>
+            <div class="f-data">
+                <label for="vemail">Verify Email:</label>
+                <input type="email" id="vemail" name="vemail" placeholder="Ex. vacre@gmail.com" required>
+            </div>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="pswd">Password:</label>
+                <input type="password" id="pswd" name="pswd" placeholder="Password" required>
+            </div>
+            <div class="f-data">
+                <label for="vpswd">Verify Password:</label>
+                <input type="password" id="vpswd" name="vpswd" placeholder="Password" required>
+            </div>
+            <hr>
+        </div>
+        <div class="f-subtitle">
             <h2>Informacion Personal</h2>
         </div>
         <div class="container dflex">
@@ -17,6 +47,12 @@
             </div>
         </div>
         <div class="container dflex">
+            <div class="f-data">
+                <label for="fnac">Fecha Nac.:</label>
+                <input type="date" id="fnac" name="fnac" required>
+            </div>
+        </div>
+        <div class="container dflex">
             <div class="f-data list">
                 <label id="title-list">Genero:</label>
                 <label for="hombre">Hombre</label>
@@ -25,10 +61,6 @@
                 <input type="radio" id="mujer" name="genero" required>
                 <label for="otro">Otro</label>
                 <input type="radio" id="otro" name="genero" required>
-            </div>
-            <div class="f-data">
-                <label for="fnac">Fecha Nac.:</label>
-                <input type="date" id="fnac" name="fnac" required>
             </div>
             <hr>
         </div>
@@ -100,6 +132,7 @@
                     <option value="Ortopedista">Ortopedista</option>
                     <option value="Otorrinolaringologo">Otorrinolaringologo</option>
                     <option value="Internista">Internista</option>
+                    <option value="Internista">Otra</option>
                 </select>
             </div>
         </div>
