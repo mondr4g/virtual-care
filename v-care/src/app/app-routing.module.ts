@@ -8,6 +8,7 @@ import { AdminComponent } from './dashboard/a/admin/admin.component';
 import { DocComponent } from './dashboard/d/doc/doc.component';
 import { NurseComponent } from './dashboard/n/nurse/nurse.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegistComponent } from './regist/regist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'dashboard/admin', component: AdminComponent },
   { path: 'dashboard/doc', component: DocComponent },
   { path: 'dashboard/nurse', component: NurseComponent },
-  { path: 'dashboard', component: DashboardComponent}
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'registro', component: RegistComponent }
 ];
 
 @NgModule({
