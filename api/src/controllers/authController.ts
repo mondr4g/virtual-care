@@ -17,6 +17,7 @@ class AuthController{
     }
     public async signin (req:Request, res:Response){
         //verificando al usuario
+        console.log(req.body);
         if(req.body.account==""){
             res.json("ingrese una cuenta valida");
         }else{
@@ -27,7 +28,6 @@ class AuthController{
                 });
                 if(search.length > 0){
                     if(search[0].email_check==1){
-                        
                         if(await bcp.compare(req.body.pass,search[0].password)){
                             //generar JWT
                             var i;

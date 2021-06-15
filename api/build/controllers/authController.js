@@ -33,6 +33,7 @@ class AuthController {
     signin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             //verificando al usuario
+            console.log(req.body);
             if (req.body.account == "") {
                 res.json("ingrese una cuenta valida");
             }
