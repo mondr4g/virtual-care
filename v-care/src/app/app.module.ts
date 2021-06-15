@@ -9,6 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { RegistComponent } from './regist/regist.component';
 import { LoginComponent } from './login/login.component';
 import { RecordsComponent } from './records/records.component';
+import { AdminComponent } from './dashboard/a/admin/admin.component';
+import { DocComponent } from './dashboard/d/doc/doc.component';
+import { NurseComponent } from './dashboard/n/nurse/nurse.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -18,7 +22,11 @@ import { RecordsComponent } from './records/records.component';
     HomeComponent,
     RegistComponent,
     LoginComponent,
-    RecordsComponent
+    RecordsComponent,
+    AdminComponent,
+    DocComponent,
+    NurseComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

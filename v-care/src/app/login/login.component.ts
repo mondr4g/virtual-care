@@ -55,11 +55,11 @@ export class LoginComponent implements OnInit {
     if(token){
       var url;
       var decToken = this.helper.decodeToken(token);
-      console.log(decToken);
+      //console.log(decToken);
       switch(decToken.type){
-        case 0: url='/dashboard/doc'; break;
-        case 1: url='/dashboard/nurse'; break;
-        case 2: url='/dashboard/admin'; break;
+        case 0: url='/dashboard/admin'; break;
+        case 1: url='/dashboard/doc'; break;
+        case 2: url='/dashboard/nurse'; break;
         default: url='/login'; break;//no creo que este se active pero por si las moscas
       }
       this.router.navigateByUrl(url);
