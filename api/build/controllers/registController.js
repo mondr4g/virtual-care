@@ -23,12 +23,15 @@ class RegistController {
             try {
                 const p = yield this.registPersonal(req, 0);
                 req.body.userDoctor.idpersonal = p;
+                if (req.body.idEspecialidad == null) {
+                    req.body.idEspecialidad = yield this.registEsp(req);
+                }
                 yield database_1.connect().then((conn) => {
                     return conn.query("INSERT INTO doctor set ?", [req.body.userDoctor]);
                 });
             }
             catch (e) {
-                console.log(e);
+                console.log(e.message);
                 return res.status(500).json(e.message);
             }
             return res.status(200).json("Doctor registrado");
@@ -62,7 +65,7 @@ class RegistController {
                 });
             }
             catch (error) {
-                console.log(error);
+                console.log(error.message);
             }
             res.json("Paciente registrado");
         });
@@ -125,12 +128,12 @@ class RegistController {
                     return conn.query("INSERT INTO personal set ?", [req.body.userPersonal]);
                 });
             }
-            catch (err) {
-                if (err.code == 'ER_DUP_ENTRY') {
+            catch (error) {
+                if (error.code == 'ER_DUP_ENTRY') {
                     throw new Error("Ya existe username o correo");
                 }
                 else {
-                    console.log(err);
+                    console.log(error);
                 }
             }
             const i = yield database_1.connect().then((conn) => {
@@ -223,6 +226,23 @@ class RegistController {
             }
             //return res.redirect("https://www.google.com");
             return res.status(200).json("Tu cuenta ya esta verificada");
+        });
+    }
+    registEsp(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.connect().then((conn) => {
+                return conn.query("INSERT INTO especialidades set ?", [req.body.especialidad.nombre]);
+            }).catch(error => {
+                throw new Error("No se creo la especialidad");
+            });
+            const i = yield database_1.connect().then((conn) => {
+                return conn.query("SELECT MAX(Id) AS id FROM especialidades;");
+            });
+            if (i.length > 0) {
+                console.log(i);
+                return i[0].id;
+            }
+            return 0;
         });
     }
 }

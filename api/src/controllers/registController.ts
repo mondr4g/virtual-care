@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import {Errback, Request, Response} from 'express';
 import {connect} from '../database';
 
 import bcp from 'bcryptjs';
@@ -17,11 +17,14 @@ class RegistController{
         try{
             const p = await this.registPersonal(req,0);
             req.body.userDoctor.idpersonal=p;
+            if(req.body.idEspecialidad == null){
+                req.body.idEspecialidad = await this.registEsp(req);
+            }
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO doctor set ?",[req.body.userDoctor]);
             });
-        }catch(e){
-            console.log(e);
+        }catch(e: any){
+            console.log(e.message);
             return res.status(500).json(e.message);
         }
         return  res.status(200).json("Doctor registrado");
@@ -34,7 +37,7 @@ class RegistController{
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO enfermera set ?",[req.body.userNurse]);
             });
-        }catch(e){
+        }catch(e:any){
             //console.log(e);
             return res.status(500).json(e.message);
         }
@@ -49,8 +52,8 @@ class RegistController{
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO paciente set ?",[req.body.userPacient]);
             });
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            console.log(error.message);
         }
         res.json("Paciente registrado");
     }
@@ -110,12 +113,12 @@ class RegistController{
                 return conn.query("INSERT INTO personal set ?",[req.body.userPersonal]);
             });
             
-        }catch(err)
+        }catch(error:any)
         {
-            if(err.code == 'ER_DUP_ENTRY'){
+            if(error.code == 'ER_DUP_ENTRY'){
                 throw new Error("Ya existe username o correo");
             }else{
-                console.log(err);
+                console.log(error);
             }
         }
         const i = await connect().then((conn)=>{
@@ -209,6 +212,23 @@ class RegistController{
         //return res.redirect("https://www.google.com");
         return res.status(200).json("Tu cuenta ya esta verificada");
        
+    }
+
+    private async registEsp(req: Request):Promise<number>{
+        await connect().then((conn)=>{
+            return conn.query("INSERT INTO especialidades set ?",[req.body.especialidad.nombre]);
+        }).catch(error=>{
+            throw new Error("No se creo la especialidad");
+        });
+        const i = await connect().then((conn)=>{
+            return conn.query("SELECT MAX(Id) AS id FROM especialidades;");
+        }); 
+        if(i.length>0){
+            console.log(i);
+            return i[0].id;
+        }
+        return 0;
+        
     }
 }
 
