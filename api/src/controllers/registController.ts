@@ -230,6 +230,20 @@ class RegistController{
         return 0;
         
     }
+
+    public async registStaf(req: Request, res: Response){
+        try {
+            const p = await this.registPersonal(req,0);
+            req.body.userAyudante.idpersonal=p;
+            await connect().then((conn)=>{
+                return conn.query("INSERT INTO ayudante set ?", [req.body.userAyudante]);
+            });
+        } catch (error: any) {
+            //console.log(e);
+            return res.status(500).json(error.message);
+        }
+        return res.status(200).json("Ayudante Registrado");
+    }
 }
 
 export const registController = new RegistController();
