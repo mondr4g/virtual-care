@@ -8,7 +8,7 @@ import { IBody } from '../login/bodyIntf';
 })
 export class SessionService {
 
-  url='http://localhost:3000/api/auth';
+  url='/api/auth';
   constructor(private http: HttpClient) {
 
   }
