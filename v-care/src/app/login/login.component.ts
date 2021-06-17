@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
         case 0: url='/dashboard/admin'; break;
         case 1: url='/dashboard/doc'; break;
         case 2: url='/dashboard/nurse'; break;
+        case 3: url=''; break; //url del componente de registro de pacientes
         default: url='/login'; break;//no creo que este se active pero por si las moscas
       }
       this.router.navigateByUrl(url);

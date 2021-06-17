@@ -36,11 +36,13 @@ class AuthController{
                                 case 0:i=0;break;//admin
                                 case 1:i=1;break;//doctor
                                 case 2:i=2;break;//enfermera
+                                case 3:i=3;break;//ayudante
                                 default: res.status(500).json("Error con la Base de Datos"); return; break;
                             }
                             const token:string = jwt.sign(
                                 {
                                     usrname: search[0].username,
+                                    id: search[0].id,
                                     email: search[0].email,
                                     pfp: search[0].profileimg,
                                     type: i},
@@ -90,8 +92,15 @@ class AuthController{
             if(i.length>0){
                 return 2;
             }
+            i = await connect().then((conn)=>{
+                return conn.query("SELECT * FROM `ayudante` WHERE `idpersonal`="+id);
+            });
 
-            return 3;
+            if(i.length>0){
+                return 3;
+            }
+
+            return 4;
         } catch (e) {
             console.log(e);
             return 5;

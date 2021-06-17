@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2021 a las 18:40:39
+-- Tiempo de generación: 17-06-2021 a las 01:10:00
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.3.28
 
@@ -54,37 +54,36 @@ TRUNCATE TABLE `admin`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `chat`
+-- Estructura de tabla para la tabla `ayudante`
 --
--- Creación: 14-06-2021 a las 05:17:22
+-- Creación: 16-06-2021 a las 22:05:52
 --
 
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE IF NOT EXISTS `chat` (
+DROP TABLE IF EXISTS `ayudante`;
+CREATE TABLE IF NOT EXISTS `ayudante` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `idpersonal` int(11) NOT NULL,
-  `idconsulta` int(11) NOT NULL,
-  `mensaje` text COLLATE utf8_unicode_ci NOT NULL,
-  `fecha` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `idPersonal` int(11) NOT NULL,
+  `idUnidadMedica` int(11) NOT NULL,
+  `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`),
-  KEY `CONSULTACH` (`idconsulta`),
-  KEY `PERSONALCH` (`idpersonal`)
+  KEY `PERONALAYUDA` (`idPersonal`),
+  KEY `UNIDADAYUDA` (`idUnidadMedica`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- RELACIONES PARA LA TABLA `chat`:
---   `idconsulta`
---       `consulta` -> `Id`
---   `idpersonal`
+-- RELACIONES PARA LA TABLA `ayudante`:
+--   `idPersonal`
 --       `personal` -> `Id`
+--   `idUnidadMedica`
+--       `unidad_medica` -> `IdUnidad`
 --
 
 --
--- Truncar tablas antes de insertar `chat`
+-- Truncar tablas antes de insertar `ayudante`
 --
 
-TRUNCATE TABLE `chat`;
+TRUNCATE TABLE `ayudante`;
 -- --------------------------------------------------------
 
 --
@@ -153,15 +152,16 @@ TRUNCATE TABLE `diagenf`;
 --
 -- Estructura de tabla para la tabla `diagnostico`
 --
--- Creación: 13-06-2021 a las 20:55:23
+-- Creación: 16-06-2021 a las 22:18:12
 --
 
 DROP TABLE IF EXISTS `diagnostico`;
 CREATE TABLE IF NOT EXISTS `diagnostico` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idconsulta` int(11) NOT NULL,
-  `causas` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `observaciones` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `recomendaciones` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `receta` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `CONSULTAD` (`idconsulta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -384,7 +384,7 @@ TRUNCATE TABLE `historialmedico`;
 --
 -- Estructura de tabla para la tabla `paciente`
 --
--- Creación: 14-06-2021 a las 04:23:20
+-- Creación: 14-06-2021 a las 18:01:03
 --
 
 DROP TABLE IF EXISTS `paciente`;
@@ -392,6 +392,7 @@ CREATE TABLE IF NOT EXISTS `paciente` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idusuario` int(11) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `CURP` varchar(160) COLLATE utf8_unicode_ci NOT NULL,
   `idUnidadmedica` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `USUARIOP` (`idusuario`),
@@ -433,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `personal` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `USUARIO` (`idUsuario`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `personal`:
@@ -446,6 +447,13 @@ CREATE TABLE IF NOT EXISTS `personal` (
 --
 
 TRUNCATE TABLE `personal`;
+--
+-- Volcado de datos para la tabla `personal`
+--
+
+INSERT INTO `personal` VALUES
+(1, NULL, 'aaaaa', 'aaaaasassas', 'sdsadsadsadsa', 'dsadsadsa', 1, 'dssadsadsadsad');
+
 -- --------------------------------------------------------
 
 --
@@ -522,17 +530,18 @@ TRUNCATE TABLE `signosconsulta`;
 --
 -- Estructura de tabla para la tabla `signovital`
 --
--- Creación: 13-06-2021 a las 20:55:23
+-- Creación: 16-06-2021 a las 06:00:03
 --
 
 DROP TABLE IF EXISTS `signovital`;
 CREATE TABLE IF NOT EXISTS `signovital` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `rango_superior` decimal(5,3) NOT NULL,
-  `rango_inferior` decimal(5,3) NOT NULL,
+  `rango_superior` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `rango_inferior` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `unidades` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `signovital`:
@@ -543,6 +552,16 @@ CREATE TABLE IF NOT EXISTS `signovital` (
 --
 
 TRUNCATE TABLE `signovital`;
+--
+-- Volcado de datos para la tabla `signovital`
+--
+
+INSERT INTO `signovital` VALUES
+(1, 'Presion Arterial', '120/80', '90/60', 'mm Hg'),
+(2, 'Respiracion', '18', '12', 'por minuto'),
+(3, 'Pulso', '100', '60', 'latidos por minuto'),
+(4, 'Temperatura', '37.3', '36.5', '°C');
+
 -- --------------------------------------------------------
 
 --
@@ -643,11 +662,11 @@ ALTER TABLE `admin`
   ADD CONSTRAINT `PERSONALA` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `chat`
+-- Filtros para la tabla `ayudante`
 --
-ALTER TABLE `chat`
-  ADD CONSTRAINT `CONSULTACH` FOREIGN KEY (`idconsulta`) REFERENCES `consulta` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `PERSONALCH` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ayudante`
+  ADD CONSTRAINT `PERONALAYUDA` FOREIGN KEY (`idPersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `UNIDADAYUDA` FOREIGN KEY (`idUnidadMedica`) REFERENCES `unidad_medica` (`IdUnidad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `consulta`

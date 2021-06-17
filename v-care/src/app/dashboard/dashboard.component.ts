@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
         case 0: this.router.navigateByUrl('/dashboard/admin'); break;
         case 1: this.router.navigateByUrl('/dashboard/doc'); break;
         case 2: this.router.navigateByUrl('/dashboard/nurse'); break;
+        case 3: this.router.navigateByUrl(''); break; //registro de pacientes
         default: this.router.navigateByUrl('/login'); break;//no creo que este se active pero por si las moscas
       }
     }else{
