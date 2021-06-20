@@ -13,6 +13,9 @@ import { AdminComponent } from './dashboard/a/admin/admin.component';
 import { DocComponent } from './dashboard/d/doc/doc.component';
 import { NurseComponent } from './dashboard/n/nurse/nurse.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NurseFormComponent } from './nurse-form/nurse-form.component';
+import { AyudanteFormComponent } from './ayudante-form/ayudante-form.component';
+import { PacientFormComponent } from './pacient-form/pacient-form.component';
 
 
 
@@ -26,7 +29,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminComponent,
     DocComponent,
     NurseComponent,
-    DashboardComponent
+    DashboardComponent,
+    NurseFormComponent,
+    AyudanteFormComponent,
+    PacientFormComponent
   ],
   imports: [
     BrowserModule,
