@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-06-2021 a las 01:10:00
+-- Tiempo de generación: 20-06-2021 a las 08:21:14
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.3.28
 
@@ -56,24 +56,24 @@ TRUNCATE TABLE `admin`;
 --
 -- Estructura de tabla para la tabla `ayudante`
 --
--- Creación: 16-06-2021 a las 22:05:52
+-- Creación: 20-06-2021 a las 00:30:16
 --
 
 DROP TABLE IF EXISTS `ayudante`;
 CREATE TABLE IF NOT EXISTS `ayudante` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `idPersonal` int(11) NOT NULL,
+  `idpersonal` int(11) NOT NULL,
   `idUnidadMedica` int(11) NOT NULL,
   `nombre` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `apellido` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`),
-  KEY `PERONALAYUDA` (`idPersonal`),
-  KEY `UNIDADAYUDA` (`idUnidadMedica`)
+  KEY `UNIDADAYUDA` (`idUnidadMedica`),
+  KEY `PERONALAYUDA` (`idpersonal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `ayudante`:
---   `idPersonal`
+--   `idpersonal`
 --       `personal` -> `Id`
 --   `idUnidadMedica`
 --       `unidad_medica` -> `IdUnidad`
@@ -89,26 +89,36 @@ TRUNCATE TABLE `ayudante`;
 --
 -- Estructura de tabla para la tabla `consulta`
 --
--- Creación: 14-06-2021 a las 06:48:03
+-- Creación: 20-06-2021 a las 06:16:54
 --
 
 DROP TABLE IF EXISTS `consulta`;
 CREATE TABLE IF NOT EXISTS `consulta` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `idDoctor` int(11) NOT NULL,
+  `idPaciente` int(11) NOT NULL,
+  `idEnfermera` int(11) NOT NULL,
   `idvllamada` int(11) DEFAULT NULL,
-  `idpeticionc` int(11) DEFAULT NULL,
   `anotaciones` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `sintomas` text COLLATE utf8_unicode_ci NOT NULL,
-  `fecha` datetime NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `aceptada` tinyint(1) NOT NULL,
+  `rechazada` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `VIDEOLL` (`idvllamada`) USING BTREE,
-  KEY `PETICIONID` (`idpeticionc`)
+  KEY `CONSULTADOC` (`idDoctor`),
+  KEY `CONSULTAENF` (`idEnfermera`),
+  KEY `CONSULTAPAC` (`idPaciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `consulta`:
---   `idpeticionc`
---       `peticiones_consulta` -> `Id`
+--   `idDoctor`
+--       `doctor` -> `Id`
+--   `idEnfermera`
+--       `enfermera` -> `Id`
+--   `idPaciente`
+--       `paciente` -> `Id`
 --   `idvllamada`
 --       `videollamada` -> `Id`
 --
@@ -457,45 +467,6 @@ INSERT INTO `personal` VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `peticiones_consulta`
---
--- Creación: 14-06-2021 a las 06:51:06
---
-
-DROP TABLE IF EXISTS `peticiones_consulta`;
-CREATE TABLE IF NOT EXISTS `peticiones_consulta` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `idDoctor` int(11) NOT NULL,
-  `idPaciente` int(11) NOT NULL,
-  `idEnfermera` int(11) NOT NULL,
-  `tokenPeticion` varchar(180) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `rechazada` tinyint(1) NOT NULL,
-  `aceptada` tinyint(1) NOT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `DOCTORC` (`idDoctor`),
-  KEY `ENFERMERAC` (`idEnfermera`),
-  KEY `PACIENTEC` (`idPaciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- RELACIONES PARA LA TABLA `peticiones_consulta`:
---   `idDoctor`
---       `doctor` -> `Id`
---   `idEnfermera`
---       `enfermera` -> `Id`
---   `idPaciente`
---       `paciente` -> `Id`
---
-
---
--- Truncar tablas antes de insertar `peticiones_consulta`
---
-
-TRUNCATE TABLE `peticiones_consulta`;
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `signosconsulta`
 --
 -- Creación: 13-06-2021 a las 20:55:23
@@ -665,14 +636,16 @@ ALTER TABLE `admin`
 -- Filtros para la tabla `ayudante`
 --
 ALTER TABLE `ayudante`
-  ADD CONSTRAINT `PERONALAYUDA` FOREIGN KEY (`idPersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `PERONALAYUDA` FOREIGN KEY (`idpersonal`) REFERENCES `personal` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `UNIDADAYUDA` FOREIGN KEY (`idUnidadMedica`) REFERENCES `unidad_medica` (`IdUnidad`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  ADD CONSTRAINT `PETICIONID` FOREIGN KEY (`idpeticionc`) REFERENCES `peticiones_consulta` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTADOC` FOREIGN KEY (`idDoctor`) REFERENCES `doctor` (`Id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTAENF` FOREIGN KEY (`idEnfermera`) REFERENCES `enfermera` (`Id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTAPAC` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`Id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `VIDEOLL` FOREIGN KEY (`idvllamada`) REFERENCES `videollamada` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -726,14 +699,6 @@ ALTER TABLE `paciente`
 --
 ALTER TABLE `personal`
   ADD CONSTRAINT `USUARIO` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `peticiones_consulta`
---
-ALTER TABLE `peticiones_consulta`
-  ADD CONSTRAINT `DOCTORC` FOREIGN KEY (`idDoctor`) REFERENCES `doctor` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ENFERMERAC` FOREIGN KEY (`idEnfermera`) REFERENCES `enfermera` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `PACIENTEC` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `signosconsulta`
