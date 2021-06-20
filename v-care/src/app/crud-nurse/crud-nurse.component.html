@@ -1,0 +1,43 @@
+<div class="title">
+    <h1>Administracion de Enfermeras/os</h1>
+</div>
+<div class="operations">
+    <div class="input-group serach-bar">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+          aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary">search</button>
+    </div>
+    <a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-plus-square add"></i></a>
+</div>
+<div class="table-responsive" id="table-info">
+    <table class="table">
+        <thead class="bg-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Operacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
+          </tr>
+        </tbody>
+    </table>
+</div>
