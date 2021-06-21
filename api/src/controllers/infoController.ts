@@ -5,9 +5,13 @@ import bcp from 'bcryptjs';
 
 import jwt from 'jsonwebtoken';
 
-class infoController{
+class InfoController{
+    public list(req:Request, res: Response){
+        res.send('hola');
+    }
+    
     public async subirDiagnostico(req: Request, res: Response){
-        req.body.diagInfo.receta = JSON.parse(req.body.diagInfo.receta);
+        req.body.diagInfo.receta = JSON.stringify(req.body.diagInfo.receta);
         try{
             const search = await connect().then((conn)=>{
                 return conn.query("INSERT INTO diagnostico ?",[req.body.diagInfo]);
@@ -62,7 +66,7 @@ class infoController{
     }
 }
 
-export const authController = new infoController();
+export const infoController = new InfoController();
 
 interface IDiag{
     idcons:number,

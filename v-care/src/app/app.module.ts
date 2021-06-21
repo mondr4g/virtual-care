@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NurseFormComponent } from './nurse-form/nurse-form.component';
 import { AyudanteFormComponent } from './ayudante-form/ayudante-form.component';
 import { PacientFormComponent } from './pacient-form/pacient-form.component';
+import { RecetaComponent } from './dashboard/a/receipt/receta/receta.component';
 import { CrudNurseComponent } from './crud-nurse/crud-nurse.component';
 import { CrudPatientComponent } from './crud-patient/crud-patient.component';
 import { CrudDoctorComponent } from './crud-doctor/crud-doctor.component';
@@ -37,6 +38,7 @@ import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
     NurseFormComponent,
     AyudanteFormComponent,
     PacientFormComponent,
+    RecetaComponent,
     CrudNurseComponent,
     CrudPatientComponent,
     CrudDoctorComponent,
