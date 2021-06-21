@@ -21,7 +21,7 @@ class RegistController {
     registDoctor(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const p = yield this.registPersonal(req, 0);
+                const p = yield this.registPersonal(req, 0, true);
                 req.body.userDoctor.idpersonal = p;
                 if (req.body.idEspecialidad == null) {
                     req.body.idEspecialidad = yield this.registEsp(req);
@@ -40,7 +40,7 @@ class RegistController {
     registNurse(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const p = yield this.registPersonal(req, 0);
+                const p = yield this.registPersonal(req, 0, false);
                 console.log(p);
                 req.body.userNurse.idpersonal = p;
                 yield database_1.connect().then((conn) => {
@@ -103,7 +103,7 @@ class RegistController {
             return 0;
         });
     }
-    registPersonal(req, id) {
+    registPersonal(req, id, ned) {
         return __awaiter(this, void 0, void 0, function* () {
             if (id == 0) {
                 req.body.userPersonal.idUsuario = null;
@@ -111,14 +111,20 @@ class RegistController {
             else {
                 req.body.userPersonal.idUsuario = id;
             }
-            //Aqui hacer la creacion del token y enviar el mail
-            req.body.userPersonal.email_verify_token = this.createMailTKN();
-            //falta el token xd 
-            try {
-                yield this.sendmail(req);
+            if (ned) {
+                //Aqui hacer la creacion del token y enviar el mail
+                req.body.userPersonal.email_verify_token = this.createMailTKN();
+                //falta el token xd 
+                try {
+                    yield this.sendmail(req);
+                }
+                catch (error) {
+                    throw new Error("No funciono el mail");
+                }
             }
-            catch (error) {
-                throw new Error("No funciono el mail");
+            else {
+                req.body.userPersonal.email_verify_token = "completo";
+                req.body.userPersonal.email_check = true;
             }
             //contraseña encriptada
             req.body.userPersonal.password = yield this.encryptPassword(req.body.userPersonal.password).then(a => a);
@@ -248,7 +254,7 @@ class RegistController {
     registStaf(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const p = yield this.registPersonal(req, 0);
+                const p = yield this.registPersonal(req, 0, false);
                 req.body.userAyudante.idpersonal = p;
                 yield database_1.connect().then((conn) => {
                     return conn.query("INSERT INTO ayudante set ?", [req.body.userAyudante]);
@@ -259,22 +265,6 @@ class RegistController {
                 return res.status(500).json(error.message);
             }
             return res.status(200).json("Ayudante Registrado");
-        });
-    }
-    pruebaMail(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            MailHelper_1.mailHelper.to = req.body.target;
-            MailHelper_1.mailHelper.subject = "Verificacion de cuenta Virtual Care";
-            MailHelper_1.mailHelper.message = req.body.msj;
-            try {
-                let result = MailHelper_1.mailHelper.sendMail();
-                return res.json("Mail enviado correctamente");
-                //res.status(200).json({ 'result': result })
-            }
-            catch (err) {
-                console.log(err);
-                throw new Error("Hubo un problema con el mail");
-            }
         });
     }
 }
