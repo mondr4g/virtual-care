@@ -22,6 +22,9 @@ class AdminController{
         });
         return  res.status(200).json(uns);
     }
+    public async getEsp(req: Request, res: Response){
+        
+    }
     //post
     public async postUnit(req: Request, res: Response){
         req.body.unitInfo.idDireccion = registController.registAddress(req);
@@ -32,6 +35,7 @@ class AdminController{
         });
         return  res.status(200).json("Unidad registrada correctamente");
     }
+    
     //put //Faltan estas
     public async putUnit(req:Request, res:Response){
 
