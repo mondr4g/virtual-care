@@ -38,7 +38,7 @@ class Server {
         this.app.use('/api/regist', registRoutes);
         this.app.use('/api/users', usersRoutes);
         this.app.use('/api/consulta', consultaRoutes);
-        this.app.use('/api/administracion', adminRoutes);
+        this.app.use('/api/adminis', adminRoutes);
     }
 
     start():void{

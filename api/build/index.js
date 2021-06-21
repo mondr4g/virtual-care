@@ -37,7 +37,7 @@ class Server {
         this.app.use('/api/regist', registRoutes_1.default);
         this.app.use('/api/users', usersRoutes_1.default);
         this.app.use('/api/consulta', consultaRoutes_1.default);
-        this.app.use('/api/administracion', adminRoutes_1.default);
+        this.app.use('/api/adminis', adminRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

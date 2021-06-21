@@ -34,6 +34,10 @@ class AdminController {
             return res.status(200).json(uns);
         });
     }
+    getEsp(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
     //post
     postUnit(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
