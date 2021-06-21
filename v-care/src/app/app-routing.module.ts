@@ -14,6 +14,7 @@ import { AyudanteFormComponent } from './ayudante-form/ayudante-form.component';
 import { PacientFormComponent } from './pacient-form/pacient-form.component';
 import { CrudNurseComponent } from './crud-nurse/crud-nurse.component';
 import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
+import { CrudPatientComponent } from './crud-patient/crud-patient.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'dashboard/admin/view-nurse/add-nurse', component: NurseFormComponent },
   { path: 'dashboard/admin/view-ayudante', component: CrudAyudanteComponent },
   { path: 'dashboard/admin/view-ayudante/add-ayudante', component: AyudanteFormComponent },
-  { path: 'dashboard/admin/add-pacient', component: PacientFormComponent },
+  { path: 'dashboard/admin/view-patient', component: CrudPatientComponent },
+  { path: 'dashboard/admin/view-patient/add-pacient', component: PacientFormComponent },
   { path: 'dashboard/doc', component: DocComponent },
   { path: 'dashboard/nurse', component: NurseComponent },
   { path: 'dashboard/nurse/add-pacient', component: PacientFormComponent },
