@@ -17,6 +17,7 @@ class RegistRoutes{
         this.router.get('/verifyAccount', registController.completeAcount.bind(registController));
         this.router.post('/completeProfile', tokenValid, registController.completeProfile.bind(registController));
         this.router.post('/staf', tokenValid, registController.registStaf.bind(registController));
+
     }
 }
 
