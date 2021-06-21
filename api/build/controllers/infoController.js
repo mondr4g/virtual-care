@@ -49,7 +49,7 @@ class InfoController {
                             " (SELECT idusuario FROM paciente WHERE id=" + search[c].idPaciente + ")");
                     });
                     dia = yield database_1.connect().then((conn) => {
-                        return conn.query("SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id=", search[c].Id);
+                        return conn.query("SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id=" + search[c].Id);
                     });
                     temp = {
                         idcons: search[c].Id,
@@ -61,8 +61,8 @@ class InfoController {
                     diagnostico.push(temp);
                     c++;
                     //diagnostico.push();
-                } while (search);
-                res.status(200).send(diagnostico);
+                } while (search[c]);
+                res.status(200).json(diagnostico);
             }
             catch (e) {
                 console.log(e);
