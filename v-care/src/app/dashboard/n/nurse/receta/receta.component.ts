@@ -62,9 +62,9 @@ export class RecetaComponent implements OnInit {
 
   genFile(nu:number){
     console.log("nu:"+nu);
-    var datum = new Date(this.recetas[nu].fecha);
+    var datum = this.recetas[nu].fecha.toDateString().slice(0,9);
     console.log(datum);
-    //let titulo = 
+    let titulo = this.recetas[nu].idcons+datum; 
     let cadena = "Paciente: "+this.recetas[nu].nmbPac+"\nFecha: "+this.recetas[nu].fecha
     +"\nRecomendaciones:\n"+this.recetas[nu].reco+"\nMedicamentos: \n";
     for(let i=0;i < this.recetas[nu].receta.meds.length;i++){
@@ -75,7 +75,7 @@ export class RecetaComponent implements OnInit {
       cadena += this.recetas[nu].receta.inst[i]+"\n";
     }
     this.doc.text(cadena,10,10);
-    this.doc.save("hola.pdf");
+    this.doc.save(titulo+".pdf");
   }
 
 }
