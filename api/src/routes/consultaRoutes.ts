@@ -10,11 +10,16 @@ class ConsultaRoutes{
     }
 
     config():void{
-        //agregar todas
+        //agregar todas y ponerles su tokenvalid
         //get
         this.router.get('/getSigns', consultaController.getSigns.bind(consultaController));
-         //post
+        this.router.get('/getConsByMed', consultaController.getConsultasByMed.bind(consultaController));
+        this.router.get('/confirmCons', consultaController.getSigns.bind(consultaController));
+        this.router.get('/getSignsDoctor', consultaController.getSignsCons.bind(consultaController));
+        
+        //post
         this.router.post('/setSigns',consultaController.setSigns.bind(consultaController));
+        this.router.post('/newCons', consultaController.newPeticion.bind(consultaController));
         //put
         
         //del
