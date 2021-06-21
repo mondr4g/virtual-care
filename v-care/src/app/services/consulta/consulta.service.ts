@@ -33,6 +33,10 @@ export class ConsultaService {
   }
 
   //revisar validez de consulta
+  revisarConsulta(id: number):Observable<any>{
+    const params =new HttpParams().set("id", String(id));
+    return this.http.get(this.url+'/revizarCons',{params});
+  }
 
   //confirmar consulta
   confirmConsulta(id: number):Observable<any>{
@@ -41,6 +45,7 @@ export class ConsultaService {
     return this.http.get(this.url+'/confirmCons',{params});
     //Aqui se desencadena la info de la consulta
   }
+
   //Rechazar
 
   //Obtener consultas por medico
@@ -49,6 +54,7 @@ export class ConsultaService {
     const params =new HttpParams().set("Id", String(id));
     return this.http.get(this.url+'/getConsByMed',{params});
   }
+
   //obtener consulta info
 
 
