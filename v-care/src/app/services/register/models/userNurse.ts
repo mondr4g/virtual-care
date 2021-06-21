@@ -1,4 +1,4 @@
 export interface UserNurse{
-    idpersonal?:number,
+    idpersonal:number,
     idUnidadmedica: number
 }

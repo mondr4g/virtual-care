@@ -68,7 +68,7 @@ class ConsultaController{
 
     public async getSignsCons(req: Request, res: Response){
         const ss = await connect().then((conn)=>{
-            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+req.query.id+" ;");
+            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+req.params.id+" ;");
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
@@ -81,7 +81,7 @@ class ConsultaController{
     public async checkValidity(req: Request, res: Response){
         //traemos el id en el request
         const a = await connect().then((conn)=>{
-            return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE Id="+req.params.id+" ;");
+            return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+req.params.id+" ;");
         }).catch((error)=>{
             console.log(error);
             return res.status(500).json("No se a encontrado la consulta");
