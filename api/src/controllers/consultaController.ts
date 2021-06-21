@@ -5,6 +5,8 @@ import {v4 as uuidv4} from 'uuid';
 class ConsultaController{
     //esta cosa retorna el id de la peticion para saber si fue aceptada.
     public async newPeticion(req: Request, res: Response){
+        console.log(req.body);
+        
         //Recibimos toda la info de los forms de la enfermera
         //llenar registro en BD sin videollamada
         req.body.infoConsulta.aceptada = false;
@@ -22,8 +24,10 @@ class ConsultaController{
             return conn.query("SELECT MAX(Id) AS id FROM consulta;");
         });
         //pendientes los datos del doctor
-        return res.status(200).json({"idCons":i[0].id});
-        //Retornar, idconsulta, los datos del doctor asignado 
+        //return res.status(200).json({"idCons":i[0].id});
+        //Retornar, idconsulta, los datos del doctor asignado
+         
+        return res.status(200).header('idConsulta',""+i[0].id).json("ahi esta tu chingadera");
     }
     //Llenar los signos vitales
     //Tener en cuenta que es un vector de signos vitales con los sig campos
@@ -37,16 +41,16 @@ class ConsultaController{
      */
     public async setSigns(req: Request, res: Response){
         console.log(req.body);
-        /**
-         *req.body.signos.array.forEach(async (e:any) => {
-            e.idconsulta = req.body.idconsulta;
+        req.body.signos.forEach(async (e:any) => {
+            console.log(e);
+            //e.idconsulta = null;
             await connect().then((conn)=>{
-                conn.query("INSERT INTO consulta SET ?", [req.body.infoConsulta]);
+                conn.query("INSERT INTO signosconsulta SET ?", [e]);
             }).catch((error:any)=>{
                 return res.status(500).json(error.message);
             });
         }); 
-         */
+        
         
         return res.status(200).json("signos agregados correctamente");
     }
@@ -64,7 +68,7 @@ class ConsultaController{
 
     public async getSignsCons(req: Request, res: Response){
         const ss = await connect().then((conn)=>{
-            return conn.query("SELECT * FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+req.params.idcons+" ;");
+            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+req.query.id+" ;");
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
@@ -96,7 +100,7 @@ class ConsultaController{
     
     public async confirmConsulta(req: Request, res: Response){
         //Creamos el registro en la videollamada
-        const v = await this.createVideoCallR(Number(req.params.id));
+        const v = await this.createVideoCallR(Number(req.query.id));
         //se supone que recibimos el id de la consulta en e request
         await connect().then((conn)=>{
             return conn.query("UPDATE consulta SET aceptada=true, rechazada=false, idvllamada="+v+" ;");
@@ -142,11 +146,13 @@ class ConsultaController{
             console.log(error);
             return null;
         });
-        return a[0].seleccionado;
+        return a[0].seleccionado || 0;
     }
     //Retornar las consultas pendientes que tiene un medico ordenadas por antiguedad de entrada. 
     public async getConsultasByMed(req: Request, res: Response){
-        const a = await connect().then((conn)=>{
+        console.log(req.query.Id);
+        /**
+         * const a = await connect().then((conn)=>{
             return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad', e.Id , u2.nombre AS 'enfermera' "+
             "FROM consulta AS c "+ 
             "INNER JOIN paciente AS p ON c.idPaciente = p.Id "+
@@ -158,7 +164,9 @@ class ConsultaController{
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
-        return res.status(200).json(a);
+         */
+          
+        return res.status(200).json("aasa");
         
     }
     //retornar la info relevante, como fecha y doctor que se le asigno.
@@ -193,7 +201,7 @@ class ConsultaController{
         });
         return i[0].id;
     }
-
+  
     /*
      * Importante aqui se realizaran diversas llamadas asincronas.  
      */

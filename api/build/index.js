@@ -15,6 +15,7 @@ const registRoutes_1 = __importDefault(require("./routes/registRoutes"));
 const usersRoutes_1 = __importDefault(require("./routes/usersRoutes"));
 const infoRoutes_1 = __importDefault(require("./routes/infoRoutes"));
 const consultaRoutes_1 = __importDefault(require("./routes/consultaRoutes"));
+const adminRoutes_1 = __importDefault(require("routes/adminRoutes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -36,6 +37,7 @@ class Server {
         this.app.use('/api/regist', registRoutes_1.default);
         this.app.use('/api/users', usersRoutes_1.default);
         this.app.use('/api/consulta', consultaRoutes_1.default);
+        this.app.use('/api/administracion', adminRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
