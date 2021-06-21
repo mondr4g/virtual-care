@@ -93,6 +93,7 @@ class ConsultaController {
         return __awaiter(this, void 0, void 0, function* () {
             const idd = Number(req.params.id);
             //traemos el id en el request
+            console.log(req.params);
             const a = yield database_1.connect().then((conn) => {
                 return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id=" + idd + " ;");
             }).catch((error) => {

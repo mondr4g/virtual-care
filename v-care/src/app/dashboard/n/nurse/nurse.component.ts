@@ -53,12 +53,19 @@ this.sendSign.push({idsigno:1,idconsulta:1,medida:13.2});
       sintomas: "xsdsd",
       //fecha: string,
       aceptada: false,
-      rechazada: true}).subscribe(data =>{
+      rechazada: false}).subscribe(data =>{
         //console.log(data);
         //console.log(data.headers.get("idConsulta"));
         localStorage.setItem("idConsulta", data.headers.get("idConsulta"));
 
       });
+      
+      setTimeout(()=>{
+        this.consultaService.revisarConsulta(1).subscribe(data=>{
+          console.log(data);
+        });
+      }, 5000);
   }
+
 
 }

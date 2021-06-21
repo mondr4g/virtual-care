@@ -82,6 +82,7 @@ class ConsultaController{
     public async checkValidity(req: Request, res: Response){
         const idd = Number(req.params.id);
         //traemos el id en el request
+        console.log(req.params);
         const a = await connect().then((conn)=>{
             return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+idd+" ;");
         }).catch((error)=>{
