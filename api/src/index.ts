@@ -10,7 +10,7 @@ import registRoutes from './routes/registRoutes';
 import usersRoutes from './routes/usersRoutes';
 import infoRoutes from './routes/infoRoutes';
 import consultaRoutes from './routes/consultaRoutes';
-import adminRoutes from 'routes/adminRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 class Server {
 
