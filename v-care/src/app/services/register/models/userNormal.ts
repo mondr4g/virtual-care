@@ -6,5 +6,5 @@ export interface UserNormal{
     direccionId:number,
     fecha_nac:Date,
     telefono:string,
-    calular:string
+    celular:string
 }
