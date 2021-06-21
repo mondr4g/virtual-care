@@ -1,1 +1,21 @@
-<p>admin works!</p>
+<div class="container-fluid" id="panel-admin">
+    <h1>ADMIN DASHBOARD</h1>
+    <div class="row manage">
+        <div class="col-md-6">
+            <div class="container manage-card" id="m-nurse">
+                <a routerLink="/dashboard/admin/view-nurse" routerLinkActive="active">Enfermeras/os</a>            
+            </div>
+            <div class="container manage-card" id="m-doctor">
+                <a routerLink="/dashboard/admin/view-ayudante" routerLinkActive="active">Doctores</a>            
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container manage-card" id="m-ayudante">
+                <a routerLink="/dashboard/admin/view-ayudante" routerLinkActive="active">Ayudantes</a>            
+            </div>
+            <div class="container manage-card" id="m-pacient">
+                <a routerLink="/dashboard/admin/add-pacient" routerLinkActive="active">Pacientes</a>            
+            </div>
+        </div>
+    </div>
+</div>
