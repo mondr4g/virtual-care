@@ -15,8 +15,12 @@ export class InfoService {
     return this.http.post(this.url+'/subir', cuerpo, {observe: 'response'});
   }
 
-  dwnDoot(cuerpo: any){
-    
-    return this.http.post(this.url+'/obtener', cuerpo, {observe: 'response'});
+  dwnDoot(cuerpo: number){
+    var token = localStorage.getItem("auth-token");
+    if(token){
+      return this.http.post(this.url+'/obtener',{idpersonal: cuerpo}, {observe: 'response'});
+    }else{
+      return this.http.post(this.url+'/obtener',{idpersonal: cuerpo}, {observe: 'response'});
+    }
   }
 }

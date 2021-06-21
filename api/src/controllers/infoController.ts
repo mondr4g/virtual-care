@@ -25,10 +25,10 @@ class InfoController{
     public async obtenerDiagnostico(req: Request, res: Response) {
         try{
             const idenf = await connect().then((conn)=>{
-                return conn.query("SELECT Id FROM `enfermera` WHERE `idpersonal`=",req.body.idpersonal);
+                return conn.query("SELECT Id FROM `enfermera` WHERE `idpersonal`="+req.body.idpersonal);
             });
             const search = await connect().then((conn)=>{
-                return conn.query("SELECT Id,idPaciente,fecha FROM `consulta` WHERE `idEnfermera`=",idenf[0].Id);
+                return conn.query("SELECT Id,idPaciente,fecha FROM `consulta` WHERE `idEnfermera`="+idenf[0].Id);
             });
             let c=0;
             var diagnostico:Array<IDiag>=[];
@@ -43,7 +43,7 @@ class InfoController{
                 });
                 dia = await connect().then((conn)=>{
                     return conn.query(
-                        "SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id=",search[c].Id
+                        "SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id="+search[c].Id
                     );
                 });
 
@@ -58,8 +58,8 @@ class InfoController{
                 diagnostico.push(temp);
                 c++;
                 //diagnostico.push();
-            }while(search);
-            res.status(200).send(diagnostico);
+            }while(search[c]);
+            res.status(200).json(diagnostico);
         }catch (e){
             console.log(e);
         }

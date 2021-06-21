@@ -69,7 +69,7 @@ class AuthController {
                                 }
                                 const token = jsonwebtoken_1.default.sign({
                                     usrname: search[0].username,
-                                    id: search[0].id,
+                                    id: search[0].Id,
                                     email: search[0].email,
                                     pfp: search[0].profileimg,
                                     type: i

@@ -33,10 +33,17 @@ class InfoController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const idenf = yield database_1.connect().then((conn) => {
+<<<<<<< HEAD
                     return conn.query("SELECT Id FROM `enfermera` WHERE `idpersonal`=", req.body.idpersonal);
                 });
                 const search = yield database_1.connect().then((conn) => {
                     return conn.query("SELECT Id,idPaciente,fecha FROM `consulta` WHERE `idEnfermera`=", idenf[0].Id);
+=======
+                    return conn.query("SELECT Id FROM `enfermera` WHERE `idpersonal`=" + req.body.idpersonal);
+                });
+                const search = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT Id,idPaciente,fecha FROM `consulta` WHERE `idEnfermera`=" + idenf[0].Id);
+>>>>>>> b3bed880b683b4347f829549d96dab6aa1903b0f
                 });
                 let c = 0;
                 var diagnostico = [];
@@ -49,7 +56,11 @@ class InfoController {
                             " (SELECT idusuario FROM paciente WHERE id=" + search[c].idPaciente + ")");
                     });
                     dia = yield database_1.connect().then((conn) => {
+<<<<<<< HEAD
                         return conn.query("SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id=", search[c].Id);
+=======
+                        return conn.query("SELECT d.* FROM diagnostico AS d INNER JOIN consulta AS c ON d.idconsulta=c.Id WHERE c.Id=" + search[c].Id);
+>>>>>>> b3bed880b683b4347f829549d96dab6aa1903b0f
                     });
                     temp = {
                         idcons: search[c].Id,
@@ -61,8 +72,13 @@ class InfoController {
                     diagnostico.push(temp);
                     c++;
                     //diagnostico.push();
+<<<<<<< HEAD
                 } while (search);
                 res.status(200).send(diagnostico);
+=======
+                } while (search[c]);
+                res.status(200).json(diagnostico);
+>>>>>>> b3bed880b683b4347f829549d96dab6aa1903b0f
             }
             catch (e) {
                 console.log(e);
