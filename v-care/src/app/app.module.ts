@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,11 +16,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NurseFormComponent } from './nurse-form/nurse-form.component';
 import { AyudanteFormComponent } from './ayudante-form/ayudante-form.component';
 import { PacientFormComponent } from './pacient-form/pacient-form.component';
-import { RecetaComponent } from './dashboard/a/receipt/receta/receta.component';
+import { RecetaComponent } from './dashboard/n/nurse/receta/receta.component';
 import { CrudNurseComponent } from './crud-nurse/crud-nurse.component';
 import { CrudPatientComponent } from './crud-patient/crud-patient.component';
 import { CrudDoctorComponent } from './crud-doctor/crud-doctor.component';
 import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
+import { GivheadInterceptor } from './givhead.interceptor';
 
 
 
@@ -50,7 +51,13 @@ import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GivheadInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

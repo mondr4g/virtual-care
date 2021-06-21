@@ -15,6 +15,7 @@ class RegistRoutes {
         //this.router.post('/sendmail', registController.sendmail.bind(registController));
         this.router.get('/verifyAccount', registController_1.registController.completeAcount.bind(registController_1.registController));
         this.router.post('/completeProfile', verifyToken_1.tokenValid, registController_1.registController.completeProfile.bind(registController_1.registController));
+        this.router.post('/staf', verifyToken_1.tokenValid, registController_1.registController.registStaf.bind(registController_1.registController));
     }
 }
 const registRoutes = new RegistRoutes();

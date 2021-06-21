@@ -7,6 +7,7 @@ exports.tokenValid = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const tokenValid = (req, res, next) => {
     const token = req.header('auth-token');
+    console.log(token);
     if (!token)
         return res.status(401).json("Acceso denegado");
     const payload = jsonwebtoken_1.default.verify(token, process.env.TOKE_SECRET || 'uW0tM8');

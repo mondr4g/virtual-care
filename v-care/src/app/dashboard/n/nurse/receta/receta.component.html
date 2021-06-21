@@ -1,0 +1,11 @@
+<p>receta works!</p>
+<div>
+    <table id="tabla">
+        <tr><th>Nombre del Paciente:</th><th>Fecha</th><th></th></tr>
+        <tr *ngFor="let receta of this.recetas,let i = index">
+            <td>{{receta.nmbPac}}</td>
+            <td>{{receta.fecha}}</td>
+            <td><button (click)="genFile(i)" value="">Descargar Receta</button></td>
+        </tr>
+    </table>
+</div>

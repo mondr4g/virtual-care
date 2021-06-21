@@ -13,6 +13,7 @@ const gamesRoutes_1 = __importDefault(require("./routes/gamesRoutes"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const registRoutes_1 = __importDefault(require("./routes/registRoutes"));
 const usersRoutes_1 = __importDefault(require("./routes/usersRoutes"));
+const infoRoutes_1 = __importDefault(require("./routes/infoRoutes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -30,6 +31,7 @@ class Server {
         this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/games', gamesRoutes_1.default);
         this.app.use('/api/auth', authRoutes_1.default);
+        this.app.use('/api/info', infoRoutes_1.default);
         this.app.use('/api/regist', registRoutes_1.default);
         this.app.use('/api/users', usersRoutes_1.default);
     }

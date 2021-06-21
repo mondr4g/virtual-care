@@ -245,5 +245,21 @@ class RegistController {
             return 0;
         });
     }
+    registStaf(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const p = yield this.registPersonal(req, 0);
+                req.body.userAyudante.idpersonal = p;
+                yield database_1.connect().then((conn) => {
+                    return conn.query("INSERT INTO ayudante set ?", [req.body.userAyudante]);
+                });
+            }
+            catch (error) {
+                //console.log(e);
+                return res.status(500).json(error.message);
+            }
+            return res.status(200).json("Ayudante Registrado");
+        });
+    }
 }
 exports.registController = new RegistController();
