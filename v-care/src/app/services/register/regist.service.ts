@@ -13,7 +13,7 @@ import { UserNurse } from './models/userNurse';
   providedIn: 'root'
 })
 export class RegistService {
-  private urlUsers = '/api/users';
+  private urlAdmin = '/api/adminis';
   private urlRegist = '/api/regist';
 
   constructor(private http: HttpClient) { }
@@ -43,7 +43,7 @@ export class RegistService {
 
   
   newPacient(address: UserAddress, normal: UserNormal, unid: IMedUnit):Observable<any>{
-    return this.http.post(this.urlRegist+'/nurse', 
+    return this.http.post(this.urlRegist+'/pacient', 
     {
       "userAddress":address,
       "userNormal":normal,
@@ -53,12 +53,23 @@ export class RegistService {
 
   
   newStaff(personal: UserPersonal, unid: IMedUnit):Observable<any>{
-    return new Observable<any>();
+    return this.http.post(this.urlRegist+'/staff', 
+    {
+      "userPersonal":personal,
+      "unitInfo": unid 
+    }, {observe: 'response'});
   }
 
   
-  newUnit(dire: UserAddress):Observable<any>{
-    return new Observable<any>();
+  newUnit(address: UserAddress):Observable<any>{
+    return this.http.post(this.urlAdmin+'/newUnit', 
+    {
+      "userAddress":address 
+    }, {observe: 'response'});
+  }
+
+  getEsp():Observable<any>{
+    return this.http.get(this.urlAdmin + '/');
   }
 
 }
