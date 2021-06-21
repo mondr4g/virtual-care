@@ -267,5 +267,21 @@ class RegistController {
             return res.status(200).json("Ayudante Registrado");
         });
     }
+    registAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const p = yield this.registPersonal(req, 0, false);
+                req.body.userAdmin.idpersonal = p;
+                yield database_1.connect().then((conn) => {
+                    return conn.query("INSERT INTO admin set ?", [req.body.userAdmin]);
+                });
+            }
+            catch (error) {
+                //console.log(error);
+                return res.status(500).json(error.message);
+            }
+            return res.status(200).json("Admin Registrado");
+        });
+    }
 }
 exports.registController = new RegistController();

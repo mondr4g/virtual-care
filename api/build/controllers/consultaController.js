@@ -48,14 +48,17 @@ class ConsultaController {
      */
     setSigns(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            req.body.signos.array.forEach((e) => __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            /**
+             *req.body.signos.array.forEach(async (e:any) => {
                 e.idconsulta = req.body.idconsulta;
-                yield database_1.connect().then((conn) => {
+                await connect().then((conn)=>{
                     conn.query("INSERT INTO consulta SET ?", [req.body.infoConsulta]);
-                }).catch((error) => {
+                }).catch((error:any)=>{
                     return res.status(500).json(error.message);
                 });
-            }));
+            });
+             */
             return res.status(200).json("signos agregados correctamente");
         });
     }

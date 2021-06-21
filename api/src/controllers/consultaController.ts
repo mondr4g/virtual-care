@@ -36,14 +36,18 @@ class ConsultaController{
      *    
      */
     public async setSigns(req: Request, res: Response){
-        req.body.signos.array.forEach(async (e:any) => {
+        console.log(req.body);
+        /**
+         *req.body.signos.array.forEach(async (e:any) => {
             e.idconsulta = req.body.idconsulta;
             await connect().then((conn)=>{
                 conn.query("INSERT INTO consulta SET ?", [req.body.infoConsulta]);
             }).catch((error:any)=>{
                 return res.status(500).json(error.message);
             });
-        });
+        }); 
+         */
+        
         return res.status(200).json("signos agregados correctamente");
     }
     //retornar los signos vitales disponibles

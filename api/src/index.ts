@@ -9,6 +9,7 @@ import authRoutes from './routes/authRoutes';
 import registRoutes from './routes/registRoutes';
 import usersRoutes from './routes/usersRoutes';
 import infoRoutes from './routes/infoRoutes';
+import consultaRoutes from './routes/consultaRoutes';
 
 class Server {
 
@@ -35,6 +36,7 @@ class Server {
         this.app.use('/api/info', infoRoutes);
         this.app.use('/api/regist', registRoutes);
         this.app.use('/api/users', usersRoutes);
+        this.app.use('/api/consulta', consultaRoutes);
     }
 
     start():void{

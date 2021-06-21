@@ -93,6 +93,7 @@ class RegistController{
     private async registPersonal(req:Request, id:number, ned:boolean):Promise<number>{
         if(id==0){
             req.body.userPersonal.idUsuario = null;
+            
         }else{
             req.body.userPersonal.idUsuario = id;
         }
@@ -251,6 +252,19 @@ class RegistController{
         return res.status(200).json("Ayudante Registrado");
     }
 
+    public async registAdmin(req: Request, res: Response){
+        try {
+            const p = await this.registPersonal(req,0,false);
+            req.body.userAdmin.idpersonal=p;
+            await connect().then((conn)=>{
+                return conn.query("INSERT INTO admin set ?", [req.body.userAdmin]);
+            });
+        } catch (error: any) {
+            //console.log(error);
+            return res.status(500).json(error.message);
+        }
+        return res.status(200).json("Admin Registrado");
+    }
     
 }
 
