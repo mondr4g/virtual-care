@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg  navbar-light bg-light fixed-top">
+    <div class="container-fluid"  id="navigation">
+      <a class="navbar-brand" href="#"><i class="fas fa-laptop-medical"></i> Virtual Care</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" id="ham-toggle"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav" id="vcare-nav" #vcarenav>
+          <!-- No logged -->
+          <div id="nav-null" #navNull [style.display]='checkDisplay1()'>
+            <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Home</a>
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </div>
+          <!-- Admin -->
+          <div id="nav-admin" #navAdmin [style.display]='checkDisplay2()'>
+            <a class="nav-link active" aria-current="page" routerLink="/dashboard/admin" routerLinkActive="active">Admin</a>
+            <a class="nav-link" (click)="logOut()">Logout</a>
+          </div>
+          <div id="nav-doc" #navDoc [style.display]='checkDisplay3()'>
+            <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Enfermera</a>
+            <a class="nav-link" (click)="logOut()">Logout</a>
+          </div>
+          <!-- Nurse -->
+          <div id="nav-nurse" #navNurse [style.display]='checkDisplay4()'>
+            <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Enfermera</a>
+            <a class="nav-link" (click)="logOut()">Logout</a>
+          </div>
+          <!-- Ayudante -->
+          <div id="nav-help" #navHelp [style.display]='checkDisplay5()'>
+            <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Registro Paciente</a>
+            <a class="nav-link" (click)="logOut()">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>

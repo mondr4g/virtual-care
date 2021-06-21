@@ -1,0 +1,8 @@
+/* Nav */
+nav a:hover, .navbar-nav .nav-link:hover, .navbar-brand, .navbar-brand:hover {
+    color: #4361ee;
+}
+
+#vcare-nav a {
+    cursor: pointer;
+}

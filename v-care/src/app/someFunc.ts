@@ -11,7 +11,7 @@ export class someFunc{
     logout(){
         if(localStorage.getItem('auth-token')){
             localStorage.removeItem('auth-token');
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('/login');
         }
     }  
 }
