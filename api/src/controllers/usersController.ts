@@ -44,7 +44,8 @@ class UsersController{
             "FROM usuario AS u "+
             "INNER JOIN personal AS p ON u.Id=p.idUsuario "+
             "INNER JOIN enfermera AS e ON p.Id = e.idpersonal "+
-            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.idUnidad;");
+            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.IdUnidad"+
+            "WHERE e.idUnidadmedica = "+req.body.idUnidad+";");
         }).catch(error=>{
             console.log(error);
             return res.status(400).json("Medico no encontrado"); 
@@ -57,7 +58,7 @@ class UsersController{
             return conn.query("SELECT * "+
             "FROM enfermera AS e "+
             "INNER JOIN personal AS p ON e.idpersonal = p.Id "+
-            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.idUnidad "+
+            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.IdUnidad "+
             "WHERE e.Id="+req.query.id+";");
         }).catch(err=>{
             console.log(err)
@@ -73,7 +74,7 @@ class UsersController{
             "FROM usuario AS u"+
             "INNER JOIN direccion AS d ON u.direccionId = d.Id"+
             "INNER JOIN paciente AS p ON p.idusuario = u.Id"+
-            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.Id"+
+            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.IdUnidad"+
             "WHERE p.idUnidadmedica = "+req.query.unidad+""+
             ";");
         }).catch(error=>{
@@ -89,7 +90,7 @@ class UsersController{
             "FROM usuario AS u"+
             "INNER JOIN direccion AS d ON u.direccionId = d.Id"+
             "INNER JOIN paciente AS p ON p.idusuario = u.Id"+
-            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.Id"+
+            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.IdUnidad"+
             "WHERE p.Id = "+req.query.paciente+""+
             ";");
         }).catch(error=>{

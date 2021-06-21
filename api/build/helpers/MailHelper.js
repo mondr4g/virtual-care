@@ -29,10 +29,10 @@ class MailHelper {
     }
     sendMail() {
         let mailOptions = {
-            from: "elyisusrr99@gmail.com",
-            to: this.to,
-            subject: this.subject,
-            html: this.message
+            from: "virtualcare.mai@gmail.com" || '',
+            to: this.to || '',
+            subject: this.subject || '',
+            html: this.message || ''
         };
         /*
         host: mailConfig.host,
@@ -48,8 +48,8 @@ class MailHelper {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: "elyisusrr99@gmail.com",
-                pass: "PutaMadre99"
+                user: "virtualcare.mai@gmail.com",
+                pass: "vcareMAI6A"
             }
         });
         console.log(mailOptions);

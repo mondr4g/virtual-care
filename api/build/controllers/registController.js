@@ -245,5 +245,37 @@ class RegistController {
             return 0;
         });
     }
+    registStaf(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const p = yield this.registPersonal(req, 0);
+                req.body.userAyudante.idpersonal = p;
+                yield database_1.connect().then((conn) => {
+                    return conn.query("INSERT INTO ayudante set ?", [req.body.userAyudante]);
+                });
+            }
+            catch (error) {
+                //console.log(e);
+                return res.status(500).json(error.message);
+            }
+            return res.status(200).json("Ayudante Registrado");
+        });
+    }
+    pruebaMail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            MailHelper_1.mailHelper.to = req.body.target;
+            MailHelper_1.mailHelper.subject = "Verificacion de cuenta Virtual Care";
+            MailHelper_1.mailHelper.message = req.body.msj;
+            try {
+                let result = MailHelper_1.mailHelper.sendMail();
+                return res.json("Mail enviado correctamente");
+                //res.status(200).json({ 'result': result })
+            }
+            catch (err) {
+                console.log(err);
+                throw new Error("Hubo un problema con el mail");
+            }
+        });
+    }
 }
 exports.registController = new RegistController();

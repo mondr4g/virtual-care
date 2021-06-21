@@ -15,7 +15,7 @@ class RegistController{
 
     public async registDoctor (req:Request, res:Response){
         try{
-            const p = await this.registPersonal(req,0);
+            const p = await this.registPersonal(req,0,true);
             req.body.userDoctor.idpersonal=p;
             if(req.body.idEspecialidad == null){
                 req.body.idEspecialidad = await this.registEsp(req);
@@ -31,7 +31,7 @@ class RegistController{
     }
     public async registNurse (req:Request, res:Response){
         try{
-            const p = await this.registPersonal(req,0);
+            const p = await this.registPersonal(req,0,false);
             console.log(p);
             req.body.userNurse.idpersonal=p;
             await connect().then((conn)=>{
@@ -58,7 +58,7 @@ class RegistController{
         res.json("Paciente registrado");
     }
 
-    private async registAddress(req:Request):Promise<number>{
+    public async registAddress(req:Request):Promise<number>{
         await connect().then((conn)=>{
             return conn.query("INSERT INTO direccion set ?",[req.body.userAddress]);
         });
@@ -90,21 +90,27 @@ class RegistController{
     }
 
     
-    private async registPersonal(req:Request, id:number):Promise<number>{
+    private async registPersonal(req:Request, id:number, ned:boolean):Promise<number>{
         if(id==0){
             req.body.userPersonal.idUsuario = null;
         }else{
             req.body.userPersonal.idUsuario = id;
         }
-        //Aqui hacer la creacion del token y enviar el mail
-        req.body.userPersonal.email_verify_token = this.createMailTKN();
-        //falta el token xd 
-        try{
-            await this.sendmail(req);
-        }catch(error){
-            throw new Error("No funciono el mail");
-            
+        if(ned){
+            //Aqui hacer la creacion del token y enviar el mail
+            req.body.userPersonal.email_verify_token = this.createMailTKN();
+            //falta el token xd 
+            try{
+                await this.sendmail(req);
+            }catch(error){
+                throw new Error("No funciono el mail");
+                
+            }
+        }else{
+            req.body.userPersonal.email_verify_token = "completo";
+            req.body.userPersonal.email_check = true;
         }
+        
         //contraseña encriptada
         req.body.userPersonal.password = await this.encryptPassword(req.body.userPersonal.password).then(a=>a);
         console.log(req.body.userPersonal.password);
@@ -233,7 +239,7 @@ class RegistController{
 
     public async registStaf(req: Request, res: Response){
         try {
-            const p = await this.registPersonal(req,0);
+            const p = await this.registPersonal(req,0,false);
             req.body.userAyudante.idpersonal=p;
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO ayudante set ?", [req.body.userAyudante]);
@@ -244,6 +250,8 @@ class RegistController{
         }
         return res.status(200).json("Ayudante Registrado");
     }
+
+    
 }
 
 export const registController = new RegistController();
