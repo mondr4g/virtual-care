@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NurseFormComponent } from './nurse-form/nurse-form.component';
 import { AyudanteFormComponent } from './ayudante-form/ayudante-form.component';
 import { PacientFormComponent } from './pacient-form/pacient-form.component';
+import { RecetaComponent } from './dashboard/a/receipt/receta/receta.component';
 
 
 
@@ -32,7 +33,8 @@ import { PacientFormComponent } from './pacient-form/pacient-form.component';
     DashboardComponent,
     NurseFormComponent,
     AyudanteFormComponent,
-    PacientFormComponent
+    PacientFormComponent,
+    RecetaComponent
   ],
   imports: [
     BrowserModule,
