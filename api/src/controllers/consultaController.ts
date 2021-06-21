@@ -67,8 +67,9 @@ class ConsultaController{
     //retornar los signos de la consulta
 
     public async getSignsCons(req: Request, res: Response){
+        const a = Number(req.params.id);
         const ss = await connect().then((conn)=>{
-            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+req.params.id+" ;");
+            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+a+" ;");
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
@@ -79,9 +80,10 @@ class ConsultaController{
     //* Por el momento la idea es que el cliente revise esta funcion cada vez, en lugar de suscribirlo a notificaciones *//
     //Una vez confirmada, se habilita el link en la vista
     public async checkValidity(req: Request, res: Response){
+        const idd = Number(req.params.id);
         //traemos el id en el request
         const a = await connect().then((conn)=>{
-            return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+req.params.id+" ;");
+            return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+idd+" ;");
         }).catch((error)=>{
             console.log(error);
             return res.status(500).json("No se a encontrado la consulta");
