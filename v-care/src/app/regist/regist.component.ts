@@ -74,7 +74,6 @@ export class RegistComponent implements OnInit {
   checkLink() {
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
-      this.router.navigateByUrl('');
     }
     else {
       let decToken = this.helper.decodeToken(token);
@@ -82,6 +81,7 @@ export class RegistComponent implements OnInit {
         case 0:
           break; //admin
         case 1:
+          this.router.navigateByUrl('/dashboard/doc');
           break; //doc
         case 2:
           this.router.navigateByUrl('/dashboard/nurse');
@@ -90,7 +90,6 @@ export class RegistComponent implements OnInit {
           this.router.navigateByUrl('/dashboard/registConsulta');
           break; //url del componente de registro de pacientes
         default:
-          this.router.navigateByUrl('');
           break;
       }
     }
