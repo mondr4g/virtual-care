@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 45], label: 'Doctores' },
+    { data: [2, 2, 1, 5], label: 'Doctores' },
   ];
 
   // events
@@ -58,7 +58,7 @@ export class AdminComponent implements OnInit {
     }
   };
   public pieChartLabels: Label[] = ['Mujeres', 'Otros', 'Hombres'];
-  public pieChartData: number[] = [300, 100, 500];
+  public pieChartData: number[] = [4, 3, 5];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
@@ -71,7 +71,7 @@ export class AdminComponent implements OnInit {
   // GRAFICA POLAR ----------------------------------------------------------------------------------------------------
   // PolarArea
   public polarAreaChartLabels: Label[] = ['Unidad-M1', 'Unidad-M2', 'Unidad-M3', 'Unidad-M4', 'Unidad-M5'];
-  public polarAreaChartData: SingleDataSet = [300, 250, 100, 40, 120];
+  public polarAreaChartData: SingleDataSet = [4, 2, 1, 1, 1];
   public polarAreaLegend = true;
 
   public polarAreaChartType: ChartType = 'polarArea';
@@ -92,7 +92,7 @@ export class AdminComponent implements OnInit {
       }
     };
     public pieChartLabels2: Label[] = ['0-15', '15=20', '20-30', '30-50', '50-70', '70-*'];
-    public pieChartData2: number[] = [300, 100, 500, 134, 200, 56];
+    public pieChartData2: number[] = [5, 2, 1, 3, 1, 1];
     public pieChartType2: ChartType = 'pie';
     public pieChartLegend2 = true;
     public pieChartPlugins2 = [];
@@ -121,7 +121,7 @@ export class AdminComponent implements OnInit {
   public barChartPlugins2 = [];
 
   public barChartData2: ChartDataSets[] = [
-    { data: [65, 59, 80, 35], label: 'Doctores' },
+    { data: [2, 3, 1, 5], label: 'Doctores' },
   ];
 
   public colors2 = [
