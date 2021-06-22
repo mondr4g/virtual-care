@@ -79,7 +79,7 @@ export class RegistComponent implements OnInit {
       this.esp.id = 0; 
     }
     this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
-      alert(a);
+      alert(a.message);
     });
   }
 
