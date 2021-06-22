@@ -17,7 +17,7 @@
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
           <div id="nav-doc" #navDoc [style.display]='checkDisplay3()' class="links-nav">
-            <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Enfermera</a>
+            <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Doctor</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
           <!-- Nurse -->
@@ -27,7 +27,7 @@
           </div>
           <!-- Ayudante -->
           <div id="nav-help" #navHelp [style.display]='checkDisplay5()' class="links-nav">
-            <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Registro Paciente</a>
+            <a class="nav-link active" aria-current="page" routerLink="/registConsulta" routerLinkActive="active">Registro Paciente</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
         </div>
