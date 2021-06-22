@@ -47,11 +47,11 @@ this.sendSign.push({idsigno:1,idconsulta:1,medida:13.2});
 
     this.consultaService.newPeticion({idDoctor: 1,
       idPaciente: 1,
-      idEnfermera: 1,
+      idEnfermera: 3,
       idvllamada: 1,
       anotaciones: "string",
       sintomas: "xsdsd",
-      //fecha: string,
+      especialidad: "caca",
       aceptada: false,
       rechazada: false}).subscribe(data =>{
         //console.log(data);
@@ -60,11 +60,11 @@ this.sendSign.push({idsigno:1,idconsulta:1,medida:13.2});
 
       });
       
-      setTimeout(()=>{
+      /*setTimeout(()=>{*/
         this.consultaService.revisarConsulta(1).subscribe(data=>{
           console.log(data);
         });
-      }, 5000);
+      /*}, 5000);*/
   }
 
 
