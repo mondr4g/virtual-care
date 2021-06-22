@@ -59,6 +59,7 @@ navigator.mediaDevices
 
     socket.on("user-connected", (userId) => {
       //Aqui mero
+      alert("dar acceso");
       console.log("aqui mero");
       console.log(stream);
       connectToNewUser(userId, stream);

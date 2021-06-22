@@ -257,7 +257,7 @@ class RegistController {
             return 0;
         });
     }
-    registStaf(req, res) {
+    registStaff(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const p = yield this.registPersonal(req, 0, false);
@@ -287,6 +287,24 @@ class RegistController {
                 return res.status(500).json(error.message);
             }
             return res.status(200).json("Admin Registrado");
+        });
+    }
+    sendmail_Prueba(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //const message = Object.assign({}, req.body.userPersonal);
+            //let url = "http://localhost:3000/api/regist/verifyAccount?id="+message.email_verify_token;
+            //let mensaje = "<a href='"+url+"' >Verifica tu cuenta</a>";
+            MailHelper_1.mailHelper.to = req.body.email;
+            MailHelper_1.mailHelper.subject = "Verificacion de cuenta Virtual Care";
+            MailHelper_1.mailHelper.message = req.body.mensaje;
+            try {
+                let result = MailHelper_1.mailHelper.sendMail();
+                //return "Mail enviado correctamente";
+                return res.status(200).json("Mail enviado correctamente");
+            }
+            catch (err) {
+                throw new Error("Hubo un problema con el mail");
+            }
         });
     }
 }

@@ -79,7 +79,9 @@ export class RegistComponent implements OnInit {
       this.esp.id = 0; 
     }
     this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
-      alert(a.message);
+      alert("Registrado correctamente verifica tu email!!");
+    }, (error)=>{
+      alert("Algo ha ido mal, revisa tus datos!!")
     });
   }
 

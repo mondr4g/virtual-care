@@ -8,6 +8,8 @@ import { UserDoctor } from './models/userDoctor';
 import { IEsp } from './models/IEsp';
 import { IMedUnit } from './models/IMedUnit';
 import { UserNurse } from './models/userNurse';
+import { UserPacient } from './models/userPacient';
+import { UserStaff } from './models/userStaff';
 
 @Injectable({
   providedIn: 'root'
@@ -41,21 +43,21 @@ export class RegistService {
   }
 
   
-  newPacient(address: UserAddress, normal: UserNormal, unid: IMedUnit):Observable<any>{
+  newPacient(address: UserAddress, normal: UserNormal, pac: UserPacient):Observable<any>{
     return this.http.post(this.urlRegist+'/pacient', 
     {
       "userAddress":address,
       "userNormal":normal,
-      "unitInfo": unid 
+      "userPacient": pac 
     }, {observe: 'response'});
   }
 
   
-  newStaff(personal: UserPersonal, unid: IMedUnit):Observable<any>{
+  newStaff(personal: UserPersonal, staff: UserStaff):Observable<any>{
     return this.http.post(this.urlRegist+'/staff', 
     {
       "userPersonal":personal,
-      "unitInfo": unid 
+      "userAyudante": staff 
     }, {observe: 'response'}); 
   }
 
@@ -73,5 +75,10 @@ export class RegistService {
 
   getUnits():Observable<any>{
     return this.http.get(this.urlAdmin + '/getUnits', {observe:"response"});
+  }
+
+  getUnitById(id:number, tipo:number): Observable<any>{
+    const params =new HttpParams().set("id", String(id)).set("tipo",String(tipo));
+    return this.http.get(this.urlAdmin + '/getUnitById', {observe:"response",params});
   }
 }
