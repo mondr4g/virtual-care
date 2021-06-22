@@ -33,7 +33,7 @@ class UsersRoutes{
         this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
         this.router.get('/getHelper', usersController.getHelpers.bind(usersController));
         this.router.get('/getDoctorInfo', usersController.getDoctorInfo.bind(usersController));
-        this.router.get('/getHelperInfo', usersController.getPacients.bind(usersController));
+        this.router.get('/getHelperInfo', usersController.getHelperInfo.bind(usersController));
         this.router.get('/getPacients', usersController.getPacients.bind(usersController));
         this.router.get('/getPacientInfo/:id', usersController.getPacientInfo.bind(usersController));
         this.router.get('/getEspecialities', usersController.getEspecialidades.bind(usersController));
