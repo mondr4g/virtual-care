@@ -1,22 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { Diagnostic } from '../services/consulta/models/Diagnostic';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-diagnostico',
+  templateUrl: './diagnostico.component.html',
+  styleUrls: ['./diagnostico.component.css']
 })
-export class AdminComponent implements OnInit {
+export class DiagnosticoComponent implements OnInit {
   helper = new JwtHelperService();
+
+  public d: Diagnostic={
+    idConsulta: 0,
+    observaciones: '',
+    recomendaciones: '',
+    receta: ''  
+  }
 
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    this.checkLink();
+    this.checkLink(1);
   }
 
-  checkLink() {
+  checkLink(typeLink: number) {
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
       this.router.navigateByUrl('');
@@ -25,9 +33,9 @@ export class AdminComponent implements OnInit {
       let decToken = this.helper.decodeToken(token);
       switch(decToken.type){
         case 0:
+          this.router.navigateByUrl('/dashboard/admin');
           break; //admin
         case 1:
-          this.router.navigateByUrl('/dashboard/doc');
           break; //doc
         case 2:
           this.router.navigateByUrl('/dashboard/nurse');
@@ -41,5 +49,4 @@ export class AdminComponent implements OnInit {
       }
     }
   }
-
 }

@@ -3,6 +3,8 @@ import { IMedUniShow } from '../services/register/models/IMedUnitShow';
 import { UserPersonal } from '../services/register/models/userPersonal';
 import { UserStaff } from '../services/register/models/userStaff';
 import { RegistService } from '../services/register/regist.service';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-ayudante-form',
@@ -10,6 +12,7 @@ import { RegistService } from '../services/register/regist.service';
   styleUrls: ['./ayudante-form.component.css']
 })
 export class AyudanteFormComponent implements OnInit {
+  helper = new JwtHelperService();
 
   public personal: UserPersonal={
     idUsuario:0,
@@ -34,7 +37,7 @@ export class AyudanteFormComponent implements OnInit {
   };
 
   public unidades!: IMedUniShow[];
-  constructor(private registService: RegistService) {
+  constructor(private registService: RegistService, private router:Router) {
     this.registService.getUnits().subscribe(data=>{
       console.log(data.body);
       this.unidades = data.body;
@@ -44,6 +47,33 @@ export class AyudanteFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checkLink();
+  }
+
+  checkLink() {
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
+      this.router.navigateByUrl('');
+    }
+    else {
+      let decToken = this.helper.decodeToken(token);
+      switch(decToken.type){
+        case 0:
+          break; //admin
+        case 1:
+          this.router.navigateByUrl('/dashboard/doc');
+          break; //doc
+        case 2:
+          this.router.navigateByUrl('/dashboard/nurse');
+          break; //nurse
+        case 3:
+          this.router.navigateByUrl('/dashboard/registConsulta');
+          break; //url del componente de registro de pacientes
+        default:
+          this.router.navigateByUrl('');
+          break;
+      }
+    }
   }
 
   public registrar(){

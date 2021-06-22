@@ -8,12 +8,15 @@ import { ConsultaService } from '../services/consulta/consulta.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-consult-form',
   templateUrl: './consult-form.component.html',
   styleUrls: ['./consult-form.component.css']
 })
 export class ConsultFormComponent implements OnInit {
+  helper = new JwtHelperService();
+
   public consulta: INewCons= {
     idDoctor: 0,
     idPaciente: 0,
@@ -25,8 +28,6 @@ export class ConsultFormComponent implements OnInit {
     aceptada: true,
     rechazada: true
   }
-
-  private helper = new JwtHelperService();
 
   public signos_info?: ISignRecived[];
 

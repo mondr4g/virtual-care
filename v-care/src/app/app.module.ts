@@ -25,6 +25,11 @@ import { GivheadInterceptor } from './givhead.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ConsultFormComponent } from './consult-form/consult-form.component';
 import { WaitingConsComponent } from './consulta-form/waiting/waiting-cons/waiting-cons.component';
+import { ViewPeticionesComponent } from './view-peticiones/view-peticiones.component';
+import { ViewHistConsComponent } from './view-hist-cons/view-hist-cons.component';
+import { DocConsultaComponent } from './doc-consulta/doc-consulta.component';
+import { InfoConsultaComponent } from './info-consulta/info-consulta.component';
+import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
 
 
 
@@ -49,7 +54,12 @@ import { WaitingConsComponent } from './consulta-form/waiting/waiting-cons/waiti
     CrudAyudanteComponent,
     NavbarComponent,
     ConsultFormComponent,
-    WaitingConsComponent
+    WaitingConsComponent,
+    ViewPeticionesComponent,
+    ViewHistConsComponent,
+    DocConsultaComponent,
+    InfoConsultaComponent,
+    DiagnosticoComponent
   ],
   imports: [
     BrowserModule,
