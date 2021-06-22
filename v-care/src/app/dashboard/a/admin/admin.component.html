@@ -37,10 +37,74 @@
         </div>
         <div class="estadisticas d-flex">
             <div id="estd1">
-
+                <div style="display: block">
+                    <p>Num. Doctores por Especialidad</p>
+                    <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+                    </canvas>
+                </div>          
             </div>
             <div id="estd2">
-
+                <div class="chart">
+                    <p>Numero de Pacientes por Sexo</p>
+                    <canvas baseChart
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      [chartType]="pieChartType"
+                      [options]="pieChartOptions"
+                      [plugins]="pieChartPlugins"
+                      [colors]="pieChartColors"
+                      [legend]="pieChartLegend">
+                    </canvas>
+                </div>            
+            </div>
+        </div>
+        <div class="estadisticas d-flex">
+            <div id="estd3">
+                <p>Numero de Consultas por Unidad M.</p>
+                <div style="display: block">
+                    <canvas baseChart
+                      [data]="polarAreaChartData"
+                      [labels]="polarAreaChartLabels"
+                      [legend]="polarAreaLegend"
+                      [chartType]="polarAreaChartType">
+                    </canvas>
+                </div>            
+            </div>
+            <div id="estd4">
+                <div class="chart">
+                    <p>Numero de Pacientes por Edad</p>
+                    <canvas baseChart
+                      [data]="pieChartData2"
+                      [labels]="pieChartLabels2"
+                      [chartType]="pieChartType2"
+                      [options]="pieChartOptions2"
+                      [plugins]="pieChartPlugins2"
+                      [colors]="pieChartColors2"
+                      [legend]="pieChartLegend2">
+                    </canvas>
+                </div>              
+            </div>
+        </div>
+        <div class="estadisticas d-flex">
+            <div id="estd5">
+                <p>Num. de Doctores con 5 Estrellas</p>
+                <div style="display: block">
+                    <canvas baseChart
+                      [datasets]="barChartData2"
+                      [labels]="barChartLabels2"
+                      [options]="barChartOptions2"
+                      [plugins]="barChartPlugins2"
+                      [legend]="barChartLegend2"
+                      [colors]="colors2"
+                      [chartType]="barChartType2">
+                    </canvas>
+                </div>             
             </div>
         </div>
     </div>

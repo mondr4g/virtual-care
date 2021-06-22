@@ -83,6 +83,16 @@ a {
     background: linear-gradient(rgba(100,43,115,.9),rgba(198,66,110,.9)), url(https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);        
 }
 
+.estadisticas {
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#estd1, #estd2, #estd3, #estd4, #estd5 {
+    width: 50%;
+    margin-bottom: 50px;
+}
+
 /* Respondive */
 @media (max-width: 750px) {
     #info-admin {
@@ -92,6 +102,10 @@ a {
    #panel-admin {
         width: 70%;
    }
+
+   #estd1, #estd2, #estd3, #estd4, #estd5 {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {

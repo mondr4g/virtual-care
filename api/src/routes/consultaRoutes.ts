@@ -17,10 +17,14 @@ class ConsultaRoutes{
         this.router.get('/confirmCons', consultaController.getSigns.bind(consultaController));
         this.router.get('/getSignsDoctor', consultaController.getSignsCons.bind(consultaController));
         this.router.get('/revizarCons', consultaController.checkValidity.bind(consultaController));
+        this.router.get('/getPacientHistory', consultaController.getPacientHistory.bind(consultaController));
         
         //post
         this.router.post('/setSigns',consultaController.setSigns.bind(consultaController));
         this.router.post('/newCons', consultaController.newPeticion.bind(consultaController));
+        this.router.post('/postPacientHistory', consultaController.postPacientHistory.bind(consultaController));
+        
+        //postPacientHistory
         //put
         
         //del
