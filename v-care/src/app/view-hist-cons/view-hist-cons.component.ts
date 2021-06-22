@@ -13,7 +13,7 @@ export class ViewHistConsComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    //this.checkLink(1);
+    this.checkLink(1);
   }
 
   checkLink(typeLink: number) {

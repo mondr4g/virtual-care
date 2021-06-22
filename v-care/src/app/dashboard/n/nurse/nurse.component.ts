@@ -33,6 +33,7 @@ export class NurseComponent implements OnInit {
    this.Apellido="";
    this.Nombre="";
    this.CURP="";
+   this.checkLink();
     
   }
 

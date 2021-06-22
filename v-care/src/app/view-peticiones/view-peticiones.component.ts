@@ -32,7 +32,7 @@ export class ViewPeticionesComponent implements OnInit {
     });
     
 
-    //this.checkLink();
+    this.checkLink();
   }
 
   aceptar(i:number){

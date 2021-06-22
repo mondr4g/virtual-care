@@ -18,7 +18,7 @@ export class DocConsultaComponent implements OnInit {
       console.log(a)
     });
     
-    //this.checkLink();
+    this.checkLink();
   }
 
   iniciar(){
