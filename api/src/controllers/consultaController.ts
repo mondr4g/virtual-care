@@ -120,7 +120,7 @@ class ConsultaController{
     //Rechzamos la consulta y eliminamos de la bd
     public async rejectConsulta(req: Request, res: Response){
         await connect().then((conn)=>{
-            return conn.query("UPDATE consulta SET aceptada=false, rechazada=true WHERE ;");
+            return conn.query("UPDATE consulta SET aceptada=false, rechazada=true WHERE idDoctor="+req.body.Id+" ;");
         }).catch((error)=>{
             console.log(error);
         });
@@ -154,7 +154,25 @@ class ConsultaController{
     //Retornar las consultas pendientes que tiene un medico ordenadas por antiguedad de entrada. 
     public async getConsultasByMed(req: Request, res: Response){
         console.log(req.query.Id);
-        
+         const a = await connect().then((conn)=>{
+            return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad',  u2.nombre AS 'enfermera' "+
+            "FROM consulta AS c "+ 
+            "INNER JOIN paciente AS p ON c.idPaciente = p.Id "+
+            "INNER JOIN usuario AS u ON p.idusuario = u.Id "+
+            "INNER JOIN unidad_medica AS um ON um.IdUnidad = p.idUnidadmedica "+
+            "INNER JOIN enfermera AS e ON e.Id = idEnfermera "+
+            "INNER JOIN personal AS p2 ON e.idpersonal = p2.Id "+
+            "INNER JOIN usuario AS u2 ON p.idUsuario = u2.Id "+
+            "WHERE c.rechazada=0 AND c.aceptada=0 AND c.idDoctor="+req.query.Id+";");
+        }).catch((error)=>{
+            return res.status(500).json(error.message);
+        });
+        return res.status(200).json(a);
+    }
+
+    //Retornar todas
+    public async getAllConsultas(req: Request, res: Response){
+        console.log(req.query.Id);
          const a = await connect().then((conn)=>{
             return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad', e.Id , u2.nombre AS 'enfermera' "+
             "FROM consulta AS c "+ 
@@ -163,15 +181,14 @@ class ConsultaController{
             "INNER JOIN unidad_medica AS um ON um.IdUnidad = p.idUnidadmedica "+
             "INNER JOIN enfermera AS e ON e.Id = idEnfermera "+
             "INNER JOIN personal AS p ON e.idpersonal = p.Id "+
-            "INNER JOIN usuario AS u2 ON p.idUsuario = u2.Id");
+            "INNER JOIN usuario AS u2 ON p.idUsuario = u2.Id "+
+            "WHERE c.idDoctor="+req.query.Id+";");
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
-        
-          
-        return res.status(200).json("aasa");
-        
+        return res.status(200).json(a);
     }
+
     //retornar la info relevante, como fecha y doctor que se le asigno.
     public async getConsultaInfo(roomId:string){
 

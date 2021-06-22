@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ConsultaService } from '../services/consulta/consulta.service';
 
 @Component({
   selector: 'app-doc-consulta',
@@ -10,11 +11,31 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class DocConsultaComponent implements OnInit {
   helper = new JwtHelperService();
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private consultaService: ConsultaService) { }
 
   ngOnInit(): void {
-    this.checkLink();
+    this.consultaService.getUser(6).subscribe(a=>{
+      console.log(a)
+    });
+    
+    //this.checkLink();
   }
+
+  iniciar(){
+
+  }
+  cerrar(){
+
+  }
+
+  diagnostico(){
+
+  }
+
+  informacionCons(){
+    
+  }
+
 
   checkLink() {
     let token = localStorage.getItem('auth-token'); 
@@ -41,4 +62,5 @@ export class DocConsultaComponent implements OnInit {
       }
     }
   }
+  
 }

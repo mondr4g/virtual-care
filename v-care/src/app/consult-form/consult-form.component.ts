@@ -56,7 +56,7 @@ export class ConsultFormComponent implements OnInit {
     if(token){
       var deckToken = this.helper.decodeToken(token);
       this.consultaService.getPersonalId(deckToken.id).subscribe(a=>{
-        this.consulta.idEnfermera=a.body[0].idUnidadMedica;
+        this.consulta.idEnfermera=a.body[0].idpersonal;
       });
     }
     //paciente
