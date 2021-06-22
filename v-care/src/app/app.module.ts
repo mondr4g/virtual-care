@@ -24,6 +24,7 @@ import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
 import { GivheadInterceptor } from './givhead.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ConsultFormComponent } from './consult-form/consult-form.component';
+import { WaitingConsComponent } from './consulta-form/waiting/waiting-cons/waiting-cons.component';
 
 
 
@@ -47,7 +48,8 @@ import { ConsultFormComponent } from './consult-form/consult-form.component';
     CrudDoctorComponent,
     CrudAyudanteComponent,
     NavbarComponent,
-    ConsultFormComponent
+    ConsultFormComponent,
+    WaitingConsComponent
   ],
   imports: [
     BrowserModule,

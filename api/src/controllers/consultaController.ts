@@ -154,8 +154,8 @@ class ConsultaController{
     //Retornar las consultas pendientes que tiene un medico ordenadas por antiguedad de entrada. 
     public async getConsultasByMed(req: Request, res: Response){
         console.log(req.query.Id);
-        /**
-         * const a = await connect().then((conn)=>{
+        
+         const a = await connect().then((conn)=>{
             return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad', e.Id , u2.nombre AS 'enfermera' "+
             "FROM consulta AS c "+ 
             "INNER JOIN paciente AS p ON c.idPaciente = p.Id "+
@@ -167,7 +167,7 @@ class ConsultaController{
         }).catch((error)=>{
             return res.status(500).json(error.message);
         });
-         */
+        
           
         return res.status(200).json("aasa");
         
@@ -177,8 +177,22 @@ class ConsultaController{
 
     }
     //Recuperar el historial medico del paciente
-    public async getPacientHistory(){
-
+    public async getPacientHistory(req:Request, res:Response){
+        const h = await connect().then((conn)=>{
+            return conn.query("SELECT * FROM historialmedico WHERE idpaciente="+req.query.id+";");
+        }).catch((error)=>{
+            return res.status(500).json(error.message);
+        });
+        return res.status(200).json(h); 
+    }
+    //Insertar historial medico
+    public async postPacientHistory(req:Request, res:Response){
+        await connect().then((conn)=>{
+            return conn.query("INSERT INTO historialmedico SET ? ;",[req.body.historialMedico]);
+        }).catch((error)=>{
+            return res.status(500).json(error.message);
+        });
+        return res.status(200).json("Insertado correctamente");
     }
 
     //Recuperar los resultados de laboratorio.

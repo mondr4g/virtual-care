@@ -14,42 +14,76 @@
   <div class="container-fluid" id="panel-admin">
       <h1>Dashboard</h1>
       <div class="row manage">
-          <div class="col-md-6">
+        <div class="col-md-6">
               <div class="container manage-card" id="m-1">
-                  <a routerLink="/registConsulta" routerLinkActive="active">Form Consulta</a>            
+                  <a routerLink="/registConsulta" routerLinkActive="active" (click)="guardar()">Form Consulta</a>            
               </div>
-          </div>
-          <div class="col-md-6">
-              <div class="container manage-card" id="m-2">
-                  <a routerLink="/dashboard/nurse/add-pacient" routerLinkActive="active">Registrar Paciente</a>            
-              </div>
-          </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container manage-card" id="m-2">
+                <a routerLink="/dashboard/nurse/add-pacient" routerLinkActive="active">Registrar Paciente</a>            
+            </div>
+        </div>
       </div>
       <div class="busqueda">
         <h2>Buscar Paciente por CURP:</h2>
-        <div class="input-group serach-bar">
-            <input type="search" class="form-control rounded" placeholder="CURP del Paciente" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-info">Buscar</button>
-        </div>
-        <div class="container" id="user-data">
-            <div class="f-data d-flex">
-                <label for="ids">ID:</label>
-                <input type="text" id="ids" name="ids" placeholder="ID">
+        <form action="">
+            <div class="input-group serach-bar">
+                <input type="search" class="form-control rounded" [(ngModel)]="CURP" placeholder="CURP del Paciente" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-info" (click)="buscar()">Buscar</button>
             </div>
-            <div class="f-data d-flex">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" placeholder="Nombre">
+        </form>
+            <div class="container" id="user-data">
+                <div class="f-data d-flex">
+                    <label for="ids">ID:</label>
+                    <input type="text" id="ids" name="ids" [(ngModel)]="ID" placeholder="ID">
+                </div>
+                <div class="f-data d-flex">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" [(ngModel)]="Nombre" placeholder="Nombre">
+                </div>
+                <div class="f-data d-flex">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" [(ngModel)]="Apellido" placeholder="Apellido">
+                </div>
             </div>
-            <div class="f-data d-flex">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" placeholder="Apellido">
-            </div>
+        
+      </div>
+      <div class="col-md-6">
+        <div class="receta">
+            <h2>Receta Medica: </h2>
+            <a class="btn btn-warning" id="recet" aria-current="page" routerLink="/dashboard/nurse/recetas" routerLinkActive="active">Ver Receta</a>
         </div>
       </div>
-      <div class="receta">
-        <h2>Receta Medica: </h2>
-        <a class="btn btn-warning" id="recet" aria-current="page" routerLink="/dashboard/nurse/recetas" routerLinkActive="active">Ver Receta</a>
+      
+      <!--
+<div class="table-responsive" id="table-info">
+        <table class="table">
+            <thead class="bg-dark">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">CURP</th>
+                <th scope="col">Operacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let paciente of pacientes; let i = index">
+                <td>{{paciente.nombre}}</td>
+                <td>{{paciente.apellido}}</td>
+                <td>{{paciente.CURP}}</td>
+                <td class="op">
+                  <a [routerLink]="['/registConsulta/',paciente.Id]" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a>
+                  
+                  <a routerLink="#" (click)="elim(nurse.Id)" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a>
+                  
+                </td>
+            </tr>
+          </tbody>
+      </table>
+      -->
+      
     </div>
-  </div>
 </div>
+
 

@@ -70,18 +70,18 @@ class UsersController{
 
     public async getPacients(req:Request, res:Response){
         const es =await connect().then((conn)=>{
-            return conn.query("SELECT u.nombre, u.apellido"+
-            "FROM usuario AS u"+
-            "INNER JOIN direccion AS d ON u.direccionId = d.Id"+
-            "INNER JOIN paciente AS p ON p.idusuario = u.Id"+
-            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.IdUnidad"+
-            "WHERE p.idUnidadmedica = "+req.query.unidad+""+
+            return conn.query("SELECT p.Id, u.nombre, u.apellido, p.CURP "+
+            "FROM usuario AS u "+
+            "INNER JOIN direccion AS d ON u.direccionId = d.Id "+
+            "INNER JOIN paciente AS p ON p.idusuario = u.Id "+
+            "INNER JOIN unidad_medica AS un ON p.idUnidadmedica = un.IdUnidad "+
+            "WHERE p.CURP = '"+req.query.curp+"'"+
             ";");
         }).catch(error=>{
             console.log(error);
             return res.status(400).json("Pacientes no encontrados"); 
         })
-        return res.json(es);
+        return res.status(200).json(es);
     }
 
     public async getPacientInfo(req:Request, res:Response){

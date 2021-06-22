@@ -19,10 +19,10 @@
             </div>
             <hr>
         </div>
-        <div class="f-subtitle">
-            <h2>Signos Vitales</h2>
-        </div>
-        <div class="container dflex">
+
+        <!--
+            No hay tiempo para pruebas
+            <div class="container dflex">
             <div class="f-data">
                 <label for="presion">Presion Arterial:</label>
                 <input type="number" id="presion" name="presion" [(ngModel)]="presionArt.medida" placeholder="Presion Art." required>
@@ -43,22 +43,34 @@
             </div>
             <hr>
         </div>
+        -->
         <div class="f-subtitle">
-            <h2>Historial Medico</h2>
+            <h2>Signos Vitales</h2>
         </div>
         <div class="container dflex">
+            <div class="f-data" *ngFor="let sig of signos_info;let i=index">
+                <label for="presion">{{sig.nombre}}</label>
+                <input type="number" id="presion" name="presion" [(ngModel)]="signos_medida[i].medida" placeholder="Ingrese medida" required>
+                <label>{{sig.unidades}}</label>
+            </div>
+        </div>
+
+        <div class="f-subtitle" *ngIf="isnew">
+            <h2>Historial Medico</h2>
+        </div>
+        <div class="container dflex" *ngIf="isnew">
             <div class="f-data">
                 <label for="alergias">Alergias:</label>
                 <textarea name="alergias" id="alergias" [(ngModel)]="historial.alergias" placeholder="Alergias...." required></textarea>
             </div>
         </div>
-        <div class="container dflex">
+        <div class="container dflex" *ngIf="isnew">
             <div class="f-data">
                 <label for="ecronic">Enfermedades Cronicas:</label>
                 <textarea name="ecronic" id="ecronic" [(ngModel)]="historial.enf_cronicas" placeholder="Enfermedades Cronicas...." required></textarea>
             </div>
         </div>
-        <div class="container dflex">
+        <div class="container dflex" *ngIf="isnew">
             <div class="f-data">
                 <label for="egen">Enfermedades Geneticas:</label>
                 <textarea name="egen" id="egen" [(ngModel)]="historial.enf_geneticas" placeholder="Enfermedades Geneticas...." required></textarea>
