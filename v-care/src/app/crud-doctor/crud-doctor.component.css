@@ -1,0 +1,49 @@
+thead {
+    color: white;
+}
+
+.op {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit {
+    color: greenyellow;
+}
+
+.delete {
+    color: brown;
+}
+
+.add {
+    color: #4361ee;
+    font-size: 2rem;
+}
+
+#table-info {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.operations {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.serach-bar {
+    width: 50%;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #4361ee;
+    margin-bottom: 50px;
+}

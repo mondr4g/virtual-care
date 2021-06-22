@@ -1,1 +1,33 @@
-<p>crud-doctor works!</p>
+<div class="title">
+    <h1>Administracion de Dotores/as</h1>
+</div>
+<div class="operations">
+    <div class="input-group serach-bar">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+          aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary">search</button>
+    </div>
+</div>
+<div class="table-responsive" id="table-info">
+    <table class="table">
+        <thead class="bg-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Email</th>
+            <th scope="col">Operacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let nurse of this.nurss,let i = index">
+            <td>{{nurse.Id}}</td>
+            <td>{{nurse.username}}</td>
+            <td>{{nurse.email}}</td>
+            <td class="op">
+              <a [routerLink]="['registro',nurse.Id]" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a>
+              <a (click)="elim(nurse.direccionId)"><i class="fas fa-trash-alt delete"></i></a>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>
