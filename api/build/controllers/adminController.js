@@ -17,7 +17,18 @@ class AdminController {
     getUnits(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const uns = yield database_1.connect().then((result) => {
-                result.query("SELECT *,u.IdUnidad FROM unidad_medica AS u INNER JOIN direccion AS d ON u.idDireccion = d.Id;");
+                return result.query("SELECT * FROM unidad_medica ;");
+            }).catch((err) => {
+                return res.status(500).json(err.message);
+            });
+            console.log(uns);
+            return res.status(200).json(uns);
+        });
+    }
+    getUnitsFull(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const uns = yield database_1.connect().then((result) => {
+                return result.query("SELECT * FROM unidad_medica AS u INNER JOIN direccion AS d ON u.idDireccion = d.Id;");
             }).catch((err) => {
                 return res.status(500).json(err.message);
             });
@@ -41,6 +52,7 @@ class AdminController {
             }).catch((err) => {
                 return res.status(500).json(err.message);
             });
+            console.log(uns);
             return res.status(200).json(uns);
         });
     }

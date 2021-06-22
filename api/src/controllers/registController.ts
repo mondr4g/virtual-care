@@ -35,7 +35,9 @@ class RegistController{
     }
     public async registNurse (req:Request, res:Response){
         try{
-            const p = await this.registPersonal(req,0,false);
+            const un = await this.registAddress(req);
+            const u = await this.registUser(req, un);
+            const p = await this.registPersonal(req,u,false);
             console.log(p);
             req.body.userNurse.idpersonal=p;
             await connect().then((conn)=>{

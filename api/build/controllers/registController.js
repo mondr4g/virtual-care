@@ -44,7 +44,9 @@ class RegistController {
     registNurse(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const p = yield this.registPersonal(req, 0, false);
+                const un = yield this.registAddress(req);
+                const u = yield this.registUser(req, un);
+                const p = yield this.registPersonal(req, u, false);
                 console.log(p);
                 req.body.userNurse.idpersonal = p;
                 yield database_1.connect().then((conn) => {

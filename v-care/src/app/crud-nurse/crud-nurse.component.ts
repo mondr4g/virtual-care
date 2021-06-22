@@ -20,11 +20,15 @@ export class CrudNurseComponent implements OnInit {
   async bring(){
     const aux = await this.amost.getEnfe().subscribe(
       res=>{
-        console.log(res);
+        this.nurss = res.body;
       },
       err=>{
         console.log(err);
       }
     );
+  }
+
+  elim(nu:number){
+    console.log(nu);
   }
 }

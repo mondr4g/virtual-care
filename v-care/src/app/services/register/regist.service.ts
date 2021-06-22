@@ -30,14 +30,13 @@ export class RegistService {
   }
 
   
-  newNurse(address: UserAddress, personal: UserPersonal, normal: UserNormal, nurse: UserNurse, unid: IMedUnit):Observable<any>{
+  newNurse(address: UserAddress, personal: UserPersonal, normal: UserNormal, nurse: UserNurse):Observable<any>{
     return this.http.post(this.urlRegist+'/nurse', 
     {
       "userPersonal":personal,
       "userAddress":address,
       "userNormal":normal,
-      "userNurse": nurse,
-      "unitInfo": unid 
+      "userNurse": nurse
     }, {observe: 'response'});
   }
 
@@ -69,7 +68,10 @@ export class RegistService {
   }
 
   getEsp():Observable<any>{
-    return this.http.get(this.urlAdmin + '/getEspes');
+    return this.http.get(this.urlAdmin + '/getEspes', {observe:"response"});
   }
 
+  getUnits():Observable<any>{
+    return this.http.get(this.urlAdmin + '/getUnits', {observe:"response"});
+  }
 }

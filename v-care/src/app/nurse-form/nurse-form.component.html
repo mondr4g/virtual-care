@@ -1,5 +1,5 @@
 <div id="regist-form-doctor">
-    <form action="">
+    <form action="" (submit)="registrar()">
         <div class="f-title">
             <h1>Registro Enfermer@</h1>
         </div>
@@ -59,9 +59,9 @@
                 <label for="hombre">Hombre</label>
                 <input type="radio" id="hombre" value="hombre" name="genero" [(ngModel)]="normal.genero"  required>
                 <label for="mujer">Mujer</label>
-                <input type="radio" id="mujer" mujer="mujer"  name="genero" [(ngModel)]="normal.genero"  required>
+                <input type="radio" id="mujer" value="mujer"  name="genero" [(ngModel)]="normal.genero"  required>
                 <label for="otro">Otro</label>
-                <input type="radio" id="otro" mujer="otro" name="genero" [(ngModel)]="normal.genero"  required>
+                <input type="radio" id="otro" value="otro" name="genero" [(ngModel)]="normal.genero"  required>
                 
                 
             </div>
@@ -125,11 +125,13 @@
         <div class="f-subtitle">
             <h2>Informacion Unidad</h2>
         </div>
-        <div class="container dflex" >
-            <label for="pais">Especialidad:</label>
-            <select name="unid" id="unid" [(ngModel)]="selectUnid.nombre">
-                <option *ngFor="let espex of unidades;" >{{espex.nombre}}</option>
-            </select>
+        <div class="container dflex " >
+            <div class="f-data">
+                <label for="pais">Unidad Medica:</label>
+                <select name="unid" id="unid" [(ngModel)]="selectUnid.nombre">
+                    <option *ngFor="let espex of unidades;" >{{espex.nombre}}</option>
+                </select>
+            </div>
         </div>
         <!--
             <div class="container dflex">
