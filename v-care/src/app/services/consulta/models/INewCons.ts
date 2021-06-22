@@ -5,7 +5,7 @@ export interface INewCons{
     idvllamada: number,
     anotaciones: string,
     sintomas: string,
-    //fecha: string,
+    especialidad: string,
     aceptada: boolean,
     rechazada: boolean
 }
