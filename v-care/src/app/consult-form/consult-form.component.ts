@@ -16,6 +16,7 @@ export class ConsultFormComponent implements OnInit {
     idvllamada: 0,
     anotaciones: '',
     sintomas: '',
+    especialidad: '',
     aceptada: true,
     rechazada: true
   }
