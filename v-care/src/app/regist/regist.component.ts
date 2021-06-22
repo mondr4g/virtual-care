@@ -5,6 +5,8 @@ import { UserDoctor } from '../services/register/models/userDoctor';
 import { UserNormal } from '../services/register/models/userNormal';
 import { UserPersonal } from '../services/register/models/userPersonal';
 import { RegistService } from '../services/register/regist.service';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-regist',
@@ -12,6 +14,8 @@ import { RegistService } from '../services/register/regist.service';
   styleUrls: ['./regist.component.css']
 })
 export class RegistComponent implements OnInit {
+    helper = new JwtHelperService();
+
   public address: UserAddress={
     calle:"",
     numero:"",
@@ -54,7 +58,7 @@ export class RegistComponent implements OnInit {
   }
   public espToShow?: IEsp[];  
 
-  constructor(private registService: RegistService) {
+  constructor(private registService: RegistService, private router:Router) {
     this.registService.getEsp().subscribe(data=>{
       console.log(data.body);
       this.espToShow = data.body;
@@ -62,7 +66,34 @@ export class RegistComponent implements OnInit {
   }
 
   ngOnInit(): void {
- 
+    this.checkLink();
+
+  }
+
+  
+  checkLink() {
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
+      this.router.navigateByUrl('');
+    }
+    else {
+      let decToken = this.helper.decodeToken(token);
+      switch(decToken.type){
+        case 0:
+          break; //admin
+        case 1:
+          break; //doc
+        case 2:
+          this.router.navigateByUrl('/dashboard/nurse');
+          break; //nurse
+        case 3:
+          this.router.navigateByUrl('/dashboard/registConsulta');
+          break; //url del componente de registro de pacientes
+        default:
+          this.router.navigateByUrl('');
+          break;
+      }
+    }
   }
 
   public registrar():void{
@@ -79,7 +110,9 @@ export class RegistComponent implements OnInit {
       this.esp.id = 0; 
     }
     this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
-      alert(a.message);
+      alert("Registrado correctamente verifica tu email!!");
+    }, (error)=>{
+      alert("Algo ha ido mal, revisa tus datos!!")
     });
   }
 

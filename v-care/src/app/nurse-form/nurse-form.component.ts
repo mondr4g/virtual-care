@@ -8,6 +8,7 @@ import { RegistService } from '../services/register/regist.service';
 import { ActivatedRoute } from '@angular/router';
 import { AdminMostService } from '../services/adminserve/admin-most.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nurse-form',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nurse-form.component.css']
 })
 export class NurseFormComponent implements OnInit {
+  helper = new JwtHelperService();
 
   public address: UserAddress={
     calle:"",
@@ -76,6 +78,7 @@ export class NurseFormComponent implements OnInit {
 
   ngOnInit(): void {
     //dashboard/admin/view-nurse/add-nurse
+    this.checkLink();
   }
 
   writeValues(){
@@ -134,15 +137,42 @@ export class NurseFormComponent implements OnInit {
     );
   }
 
+  checkLink() {
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
+      this.router.navigateByUrl('');
+    }
+    else {
+      let decToken = this.helper.decodeToken(token);
+      switch(decToken.type){
+        case 0:
+          break; //admin
+        case 1:
+          this.router.navigateByUrl('/dashboard/doc');
+          break; //doc
+        case 2:
+          this.router.navigateByUrl('/dashboard/nurse');
+          break; //nurse
+        case 3:
+          this.router.navigateByUrl('/dashboard/registConsulta');
+          break; //url del componente de registro de pacientes
+        default:
+          this.router.navigateByUrl('');
+          break;
+      }
+    }
+  }
+
+
   public registrar(){
-    console.log(this.address);
-    console.log(this.normal);
-    console.log(this.personal);
-    console.log(this.nurse);
-    console.log(this.selectUnid);
+    //console.log(this.address);
+    //console.log(this.normal);
+    ///console.log(this.personal);
+    //console.log(this.nurse);
+    //console.log(this.selectUnid);
 
     var a = this.guessUnit(this.selectUnid.nombre);
-    console.log(a);
+    //console.log(a);
     if(a.b){
       this.selectUnid.IdUnidad = a.id || 0;
       this.nurse.idUnidadmedica = a.id || 0;
@@ -151,14 +181,15 @@ export class NurseFormComponent implements OnInit {
     }
     if(this.id==''){
       this.registService.newNurse(this.address,this.personal,this.normal,this.nurse).subscribe(a=>{
-        alert(a.message);
+        alert("Registrada correctamente");
+      }, (error)=>{
+        alert("Algo ha ido mal, revisa tus datos!!")
       });
     }else{
       var aux = {dire: this.address,pers: this.personal, user: this.normal, nurs: this.nurse};
       this.admin.updateEnf(aux).subscribe(res=>{alert(res.body)},err=>{console.log(err)});
     }
     this.router.navigateByUrl('dashboard/admin/view-nurse');
-    console.log(this.nurse.idUnidadmedica);
   }
 
   private guessUnit(nombre:string):sE{

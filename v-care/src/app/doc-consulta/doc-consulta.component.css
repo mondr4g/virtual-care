@@ -67,12 +67,16 @@ a {
     margin: auto auto;
 }
 
-#m-1 {
-    background: linear-gradient(rgba(48,43,99,.9),rgba(36,36,62,.9)), url(https://images.unsplash.com/photo-1585842378054-ee2e52f94ba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80);
+#m-2 {
+    background: linear-gradient(rgba(203,53,107,.9),rgba(189,63,50,.9)), url(https://images.unsplash.com/photo-1612277795421-9bc7706a4a34?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);    
 }
 
-#m-2 {
+#m-3 {
     background: linear-gradient(rgba(100,43,115,.9),rgba(198,66,110,.9)), url(https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);        
+}
+
+#m-1 {
+    background: linear-gradient(rgba(0,180,219,.9),rgba(0,131,176,.9)), url(https://images.unsplash.com/photo-1601933470096-0e34634ffcde?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);   
 }
 
 .busqueda {
@@ -84,6 +88,7 @@ a {
 
 #user-data {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
 }
@@ -97,13 +102,18 @@ a {
     border-radius: 2px;
 }
 
-.receta {
+.consulta {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-#recet {
+#finish, #videocall {
+    margin-right: 20px;
     width: 30%;
+}
+
+.buttons {
+    display: flex;
 }
 
 /* Respondive */
@@ -116,13 +126,24 @@ a {
         width: 70%;
    }
 
-   .f-data {
-       width: 100%;
+   #finish, #videocall {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
    }
 
-   input {
-       width: 100%;
-   }
+   .buttons2 {
+        display: block;
+        width: 100%;
+    }
+
+    input {
+        width: 100%;
+    }
+     
+    .f-data {
+     width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -138,5 +159,18 @@ a {
 
    #panel-admin {
         width: 100%;
+   }
+
+   input {
+       width: 100%;
+   }
+    
+   .buttons {
+       display: block;
+       width: 100%;
+   }
+
+   .f-data {
+    width: 100%;
    }
 }

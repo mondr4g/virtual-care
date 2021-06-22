@@ -26,8 +26,30 @@
           </div>
       </div>
       <div class="busqueda">
-
+        <h2>Buscar Paciente por CURP:</h2>
+        <div class="input-group serach-bar">
+            <input type="search" class="form-control rounded" placeholder="CURP del Paciente" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-info">Buscar</button>
+        </div>
+        <div class="container" id="user-data">
+            <div class="f-data d-flex">
+                <label for="ids">ID:</label>
+                <input type="text" id="ids" name="ids" placeholder="ID">
+            </div>
+            <div class="f-data d-flex">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" placeholder="Nombre">
+            </div>
+            <div class="f-data d-flex">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Apellido">
+            </div>
+        </div>
       </div>
-  </div>
+      <div class="receta">
+        <h2>Receta Medica: </h2>
+        <a class="btn btn-warning" id="recet" aria-current="page" routerLink="/dashboard/nurse/recetas" routerLinkActive="active">Ver Receta</a>
+      </div>
+    </div>
 </div>
 

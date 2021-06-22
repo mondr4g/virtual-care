@@ -1,7 +1,7 @@
 <div id="regist-form-doctor">
     <form action="">
         <div class="f-title">
-            <h1>Registro Consulta</h1>
+            <h1>Informacion Consulta Paciente</h1>
         </div>
         <div class="f-subtitle">
             <h2>Informacion General</h2>
@@ -9,13 +9,13 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="sintomas">Sintomas:</label>
-                <textarea name="sintomas" id="sintomas" [(ngModel)]="consulta.sintomas" placeholder="Sintomas...." required></textarea>
+                <textarea name="sintomas" id="sintomas" [(ngModel)]="consulta.sintomas" placeholder="Sintomas...." readonly></textarea>
             </div>
         </div>
         <div class="container dflex">
             <div class="f-data">
                 <label for="anot">Anotaciones:</label>
-                <textarea name="anot" id="anot" [(ngModel)]="consulta.anotaciones" placeholder="Anotaciones...." required></textarea>
+                <textarea name="anot" id="anot" [(ngModel)]="consulta.anotaciones" placeholder="Anotaciones...." readonly></textarea>
             </div>
             <hr>
         </div>
@@ -25,21 +25,21 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="presion">Presion Arterial:</label>
-                <input type="number" id="presion" name="presion" [(ngModel)]="presionArt.medida" placeholder="Presion Art." required>
+                <input type="number" id="presion" name="presion" [(ngModel)]="presionArt.medida" readonly>
             </div>
             <div class="f-data">
                 <label for="resp">Respiracion:</label>
-                <input type="number" id="resp" name="resp" [(ngModel)]="resp.medida" placeholder="Respiracion" required>
+                <input type="number" id="resp" name="resp" [(ngModel)]="resp.medida" readonly>
             </div>
         </div>
         <div class="container dflex">
             <div class="f-data">
                 <label for="pulso">Pulso:</label>
-                <input type="number" id="pulso" name="pulso" [(ngModel)]="pulso.medida" required>
+                <input type="number" id="pulso" name="pulso" [(ngModel)]="pulso.medida" readonly>
             </div>
             <div class="f-data">
                 <label for="apellido">Temperatura:</label>
-                <input type="password" id="apellido" name="apellido" [(ngModel)]="temp.medida" placeholder="Apellido" required>
+                <input type="password" id="apellido" name="apellido" [(ngModel)]="temp.medida"  readonly>
             </div>
             <hr>
         </div>
@@ -49,21 +49,21 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="alergias">Alergias:</label>
-                <textarea name="alergias" id="alergias" [(ngModel)]="historial.alergias" placeholder="Alergias...." required></textarea>
+                <textarea name="alergias" id="alergias" [(ngModel)]="historial.alergias" placeholder="Alergias...." readonly></textarea>
             </div>
         </div>
         <div class="container dflex">
             <div class="f-data">
                 <label for="ecronic">Enfermedades Cronicas:</label>
-                <textarea name="ecronic" id="ecronic" [(ngModel)]="historial.enf_cronicas" placeholder="Enfermedades Cronicas...." required></textarea>
+                <textarea name="ecronic" id="ecronic" [(ngModel)]="historial.enf_cronicas" placeholder="Enfermedades Cronicas...." readonly></textarea>
             </div>
         </div>
         <div class="container dflex">
             <div class="f-data">
                 <label for="egen">Enfermedades Geneticas:</label>
-                <textarea name="egen" id="egen" [(ngModel)]="historial.enf_geneticas" placeholder="Enfermedades Geneticas...." required></textarea>
+                <textarea name="egen" id="egen" [(ngModel)]="historial.enf_geneticas" placeholder="Enfermedades Geneticas...." readonly></textarea>
             </div>
         </div>
-        <input type="submit" id="reg" class="btn btn-primary" value="Iniciar Consulta">
     </form>
 </div>
+
