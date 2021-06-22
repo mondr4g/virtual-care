@@ -72,6 +72,43 @@ export class NurseFormComponent implements OnInit {
     console.log(this.personal);
     console.log(this.nurse);
     console.log(this.selectUnid);
+
+    var a = this.guessUnit(this.selectUnid.nombre)
+    if(a.b){
+      this.selectUnid.IdUnidad = a.id || 0;
+      this.nurse.idUnidadmedica = a.id || 0;
+    }else{
+      this.nurse.idUnidadmedica = 0; 
+    }
+    this.registService.newNurse(this.address,this.personal,this.normal,this.nurse).subscribe(a=>{
+      alert(a);
+    });
+
+    console.log(this.nurse.idUnidadmedica);
   }
 
+  private guessUnit(nombre:string):sE{
+    var s = new sE(0,true);
+    var ll = this.unidades?.find(e=>e.nombre==nombre);
+    console.log(ll);
+    if(ll!=undefined){
+      s.id = ll.IdUnidad;
+      s.b = true;
+      return s;
+    }else{
+      s.id=0;
+      s.b=false;
+      return s;
+    }
+  }
+
+}
+class sE{
+  public id?:number;
+  public b?:boolean;
+
+  constructor(id:number, b:boolean){
+    this.id = id;
+    this.b = b;
+  }
 }
