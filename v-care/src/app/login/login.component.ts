@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     if(token){
       var url;
       var decToken = this.helper.decodeToken(token);
-      //console.log(decToken);
+      console.log(decToken);
       switch(decToken.type){
         case 0: url='/dashboard/admin'; break;
         case 1: url='/dashboard/doc'; break;

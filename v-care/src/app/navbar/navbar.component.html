@@ -7,26 +7,26 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav" id="vcare-nav" #vcarenav>
           <!-- No logged -->
-          <div id="nav-null" #navNull [style.display]='checkDisplay1()'>
+          <div id="nav-null" #navNull [style.display]='checkDisplay1()' class="links-nav">
             <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Home</a>
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
           </div>
           <!-- Admin -->
-          <div id="nav-admin" #navAdmin [style.display]='checkDisplay2()'>
+          <div id="nav-admin" #navAdmin [style.display]='checkDisplay2()' class="links-nav">
             <a class="nav-link active" aria-current="page" routerLink="/dashboard/admin" routerLinkActive="active">Admin</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
-          <div id="nav-doc" #navDoc [style.display]='checkDisplay3()'>
+          <div id="nav-doc" #navDoc [style.display]='checkDisplay3()' class="links-nav">
             <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Enfermera</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
           <!-- Nurse -->
-          <div id="nav-nurse" #navNurse [style.display]='checkDisplay4()'>
+          <div id="nav-nurse" #navNurse [style.display]='checkDisplay4()' class="links-nav"> 
             <a class="nav-link active" aria-current="page" routerLink="/dashboard/nurse" routerLinkActive="active">Enfermera</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
           <!-- Ayudante -->
-          <div id="nav-help" #navHelp [style.display]='checkDisplay5()'>
+          <div id="nav-help" #navHelp [style.display]='checkDisplay5()' class="links-nav">
             <a class="nav-link active" aria-current="page" routerLink="" routerLinkActive="active">Registro Paciente</a>
             <a class="nav-link" (click)="logOut()">Logout</a>
           </div>
