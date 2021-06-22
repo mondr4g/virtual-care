@@ -12,14 +12,24 @@ export class AdminMostService {
   getEnfe():Observable<any>{
     return this.http.get(this.url+'/getNurseInfo',{observe:"response"});
   }
+  getDoco():Observable<any>{
+    return this.http.get(this.url+'/getDoctorInfo',{observe:"response"});
+  }
 
   getAllofEnf(id: string):Observable<any>{
     const params =new HttpParams().set("id",id);
     return this.http.get(this.url+'/getNurses',{observe: 'response',params});
   }
+  getAllofDoc(id: string):Observable<any>{
+    const params =new HttpParams().set("id",id);
+    return this.http.get(this.url+'/getDoctors',{observe: 'response',params});
+  }
 
   updateEnf(data:any):Observable<any>{
     return this.http.post(this.url+'/upEnfe',data,{observe: 'response'});
+  }
+  updateDoc(data:any):Observable<any>{
+    return this.http.post(this.url+'/upDoc',data,{observe: 'response'});
   }
 
   elimEnf(id: number):Observable<any>{

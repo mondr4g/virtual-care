@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AdminMostService } from '../services/adminserve/admin-most.service';
 
 @Component({
   selector: 'app-crud-doctor',
@@ -10,10 +11,37 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class CrudDoctorComponent implements OnInit {
   helper = new JwtHelperService();
 
-  constructor(private router:Router) { }
+  nurss: any=[];
+  constructor(private router:Router, private amost:AdminMostService) { }
 
   ngOnInit(): void {
     this.checkLink();
+    this.bring();
+  }
+
+  async bring(){
+    const aux = await this.amost.getDoco().subscribe(
+      res=>{
+        console.log(res.body);
+        this.nurss = res.body;
+      },
+      err=>{
+        console.log(err);
+      }
+    );
+  }
+
+  async elim(nu:number){
+    console.log(nu);
+    const aux = await this.amost.elimEnf(nu).subscribe(
+      res=>{
+        alert(res.body);
+        window.location.reload();
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 
   checkLink() {
