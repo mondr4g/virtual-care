@@ -57,7 +57,12 @@
                 </select>
             </div>
         </div>
-        <input type="submit" id="reg" class="btn btn-primary" value="Registrar">
+        <div *ngIf="id==''">
+            <input type="submit" id="reg" class="btn btn-primary" value="Registrar">
+        </div>
+        <div *ngIf="id!=''">
+            <input type="submit" id="reg" class="btn btn-primary" value="Modificar">
+        </div>
     </form>
 </div>
 

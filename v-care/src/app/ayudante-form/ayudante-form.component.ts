@@ -5,11 +5,13 @@ import { UserStaff } from '../services/register/models/userStaff';
 import { RegistService } from '../services/register/regist.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ActivatedRoute } from '@angular/router';
+import { AdminMostService } from '../services/adminserve/admin-most.service';
 
 @Component({
   selector: 'app-ayudante-form',
   templateUrl: './ayudante-form.component.html',
-  styleUrls: ['./ayudante-form.component.css']
+  styleUrls: ['./ayudante-form.component.css'] 
 })
 export class AyudanteFormComponent implements OnInit {
   helper = new JwtHelperService();
@@ -35,15 +37,37 @@ export class AyudanteFormComponent implements OnInit {
     nombre:"",
     idDireccion:0
   };
-
+  public id:string='';
   public unidades!: IMedUniShow[];
-  constructor(private registService: RegistService, private router:Router) {
+  constructor(private registService: RegistService, private router:Router,
+    private route:ActivatedRoute,private admin: AdminMostService) {
     this.registService.getUnits().subscribe(data=>{
       console.log(data.body);
       this.unidades = data.body;
       console.log(this.unidades);
       this.selectUnid = this.unidades[0];
-    })
+    });
+    this.route.paramMap.subscribe(params => {
+      this.id = (params.get("id")||'');
+    });
+    if(this.id){
+      this.writeValues();
+    }
+  }
+
+  writeValues(){
+    this.admin.getAllofAyu(this.id).subscribe(
+      res=>{
+        console.log(res);
+        this.personal = res.body.pers;
+        this.ayudante = res.body.ayud;
+        this.selectUnid = res.body.unid;
+        this.personal.password="";
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -85,13 +109,19 @@ export class AyudanteFormComponent implements OnInit {
     }else{
       this.ayudante.idUnidadMedica = 0; 
     }
-    this.registService.newStaff(this.personal,this.ayudante).subscribe(a=>{
-      alert("Resgistrado correctamente");
-      //Redirigir
-//      limpiar form
-    }, (error)=>{
-      alert("Username o correo duplicados!!!");
-    });
+    if(this.id==''){
+      this.registService.newStaff(this.personal,this.ayudante).subscribe(a=>{
+        alert("Resgistrado correctamente");
+        //Redirigir
+  //      limpiar form
+      }, (error)=>{
+        alert("Username o correo duplicados!!!");
+      });
+    }else{
+      var aux = {pers: this.personal, unid: this.selectUnid, ayud: this.ayudante};
+      this.admin.updateAyud(aux).subscribe(res=>{alert(res.body)},err=>{console.log(err)});
+      this.router.navigateByUrl('dashboard/admin/view-ayudante');
+    }
 
     //console.log(this.nurse.idUnidadmedica);
   }

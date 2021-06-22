@@ -31,18 +31,21 @@ class UsersRoutes{
         this.router.get('/getNurses',usersController.getNurses.bind(usersController));
         this.router.get('/getNurseInfo', usersController.getNurseInfo.bind(usersController));
         this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
+        this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
         this.router.get('/getDoctorInfo', usersController.getDoctorInfo.bind(usersController));
+        this.router.get('/getHelperInfo', usersController.getPacients.bind(usersController));
         this.router.get('/getPacients', usersController.getPacients.bind(usersController));
         this.router.get('/getPacientInfo/:id', usersController.getPacientInfo.bind(usersController));
         this.router.get('/getEspecialities', usersController.getEspecialidades.bind(usersController));
         this.router.post('/getDpctorsByEsp', usersController.getDoctorsByEspe.bind(usersController));
         this.router.get('/getMedicalUnits', usersController.getMedicUnits.bind(usersController));
         this.router.get('/delNurse?:id', usersController.elimNurse.bind(usersController));
-        this.router.get('/delDoc?:id', usersController.elimNurse.bind(usersController));
+        this.router.get('/delAyu?:id', usersController.elimAyu.bind(usersController));
         this.router.post('/searchPacient', usersController.searchPacient.bind(usersController));
 
         this.router.post('/upEnfe',usersController.updateNurse.bind(usersController));
         this.router.post('/upDoc',usersController.updateDoc.bind(usersController));
+        this.router.post('/upAyud',usersController.updateAyud.bind(usersController));
     }
 }
 

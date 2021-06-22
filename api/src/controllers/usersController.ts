@@ -14,6 +14,35 @@ class UsersController{
         return bcp.hash(password,salt);
     }
 
+    public async updateAyud(req:Request, res:Response){
+        //console.log(req.body);
+        try {
+            const modu = await connect().then((conn)=>{
+                return conn.query("UPDATE `unidad_medica` SET `nombre`='"+req.body.user.nombre+"' WHERE Id="+req.body.user.Id+";");
+            });
+            if(req.body.pers.password==''){
+                const modp = await connect().then((conn)=>{
+                    return conn.query("UPDATE `personal` SET `email`='"+req.body.pers.email+"',`username`='"+req.body.pers.username+
+                    "',`profileimg`='"+req.body.pers.profileimg+"' WHERE Id="+req.body.pers.Id+";");
+                });
+            }else{
+                req.body.pers.password=this.encryptPass(req.body.pers.password);
+                const modp = await connect().then((conn)=>{
+                    return conn.query("UPDATE `personal` SET `email`='"+req.body.pers.email+"',`username`='"+req.body.pers.username+
+                    "',`password`='"+req.body.pers.password+"',`profileimg`='"+req.body.pers.profileimg+"' WHERE Id="+req.body.pers.Id+";");
+                });
+            }
+            const modc = await connect().then((conn)=>{
+                return conn.query("UPDATE `doctor` SET `nombre`='"+req.body.ayud.nombre+"',`apellido`='"+req.body.ayud.apellido+"' WHERE Id="+req.body.ayud.Id+";");
+            });
+            res.status(200).json("Se actualizo el Doctor");
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json("Medico no encontrado");
+        }
+
+    }
+
     public async updateDoc(req:Request, res:Response){
         //console.log(req.body);
         try {
@@ -123,10 +152,51 @@ class UsersController{
         }
     }
 
+    public async getHelpers(req:Request, res:Response){
+        var a = Number(req.query.id);
+        var answe:{};
+        try {
+            const per = await connect().then((conn)=>{
+                return conn.query("SELECT p.* "+
+                "FROM ayudante AS e INNER JOIN personal AS p ON e.idpersonal = p.Id "+
+                "WHERE e.Id="+a+";");
+            });
+            const uni =await connect().then((conn)=>{
+                return conn.query("SELECT u.* FROM ayudante AS e INNER JOIN unidad_medica AS u ON e.idUnidadMedica = u.Id WHERE e.Id="+a+";");
+            });
+            const ayu =await connect().then((conn)=>{
+                return conn.query("SELECT * FROM ayudante AS e WHERE e.Id="+a+";");
+            });
+            answe={
+                pers: per[0],
+                unid: uni[0],
+                ayud: ayu[0]
+            }
+            console.log(answe);
+            return res.json(answe);
+        } catch (error) {
+            console.log(error);
+            return res.status(400).json("Medico no encontrado");
+        }
+    }
+
     public async getDoctorInfo(req:Request, res:Response){
         
         const d = await connect().then((conn)=>{
             return conn.query("SELECT dc.Id,p.email,p.username,u.direccionId FROM doctor AS dc INNER JOIN personal AS p ON dc.idpersonal = p.Id INNER JOIN usuario AS u ON p.idUsuario = u.Id");
+            //"WHERE e.Id="+req.query.id+";");
+        }).catch(err=>{
+            console.log(err)
+            return res.status(400).json("Medico no encontrado"); 
+        })
+        
+        return res.json(d);
+    }
+
+    public async getHelperInfo(req:Request, res:Response){
+        
+        const d = await connect().then((conn)=>{
+            return conn.query("SELECT dc.Id,p.email,p.username,dc.idUnidadMedica FROM ayudante AS dc INNER JOIN personal AS p ON dc.idpersonal = p.Id");
             //"WHERE e.Id="+req.query.id+";");
         }).catch(err=>{
             console.log(err)
@@ -189,6 +259,17 @@ class UsersController{
     public async elimNurse(req: Request, res:Response){
         const e = await connect().then((conn)=>{
             return conn.query("DELETE FROM `direccion` WHERE Id="+req.query.id);
+            //"WHERE e.Id="+req.query.id+";");
+        }).catch(err=>{
+            console.log(err)
+            return res.status(400).json("Medico no encontrado"); 
+        })
+        console.log(e);
+        return res.status(200).json(e);
+    }
+    public async elimAyu(req: Request, res:Response){
+        const e = await connect().then((conn)=>{
+            return conn.query("DELETE FROM `personal` WHERE Id="+req.query.id);
             //"WHERE e.Id="+req.query.id+";");
         }).catch(err=>{
             console.log(err)

@@ -15,6 +15,9 @@ export class AdminMostService {
   getDoco():Observable<any>{
     return this.http.get(this.url+'/getDoctorInfo',{observe:"response"});
   }
+  getAyu():Observable<any>{
+    return this.http.get(this.url+'/getHelperInfo',{observe:"response"});
+  }
 
   getAllofEnf(id: string):Observable<any>{
     const params =new HttpParams().set("id",id);
@@ -24,6 +27,10 @@ export class AdminMostService {
     const params =new HttpParams().set("id",id);
     return this.http.get(this.url+'/getDoctors',{observe: 'response',params});
   }
+  getAllofAyu(id: string):Observable<any>{
+    const params =new HttpParams().set("id",id);
+    return this.http.get(this.url+'/getHelpers',{observe: 'response',params});
+  }
 
   updateEnf(data:any):Observable<any>{
     return this.http.post(this.url+'/upEnfe',data,{observe: 'response'});
@@ -31,8 +38,15 @@ export class AdminMostService {
   updateDoc(data:any):Observable<any>{
     return this.http.post(this.url+'/upDoc',data,{observe: 'response'});
   }
+  updateAyud(data:any):Observable<any>{
+    return this.http.post(this.url+'/upDoc',data,{observe: 'response'});
+  }
 
   elimEnf(id: number):Observable<any>{
+    const params =new HttpParams().set("id",id.toString());
+    return this.http.get(this.url+'/delNurse',{observe: 'response',params});
+  }
+  elimAyu(id: number):Observable<any>{
     const params =new HttpParams().set("id",id.toString());
     return this.http.get(this.url+'/delNurse',{observe: 'response',params});
   }
