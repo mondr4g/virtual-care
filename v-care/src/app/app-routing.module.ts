@@ -22,11 +22,13 @@ import { ViewHistConsComponent } from './view-hist-cons/view-hist-cons.component
 import { DocConsultaComponent } from './doc-consulta/doc-consulta.component';
 import { InfoConsultaComponent } from './info-consulta/info-consulta.component';
 import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
+import { CrudDoctorComponent } from './crud-doctor/crud-doctor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard/admin', component: AdminComponent },
+  { path: 'dashboard/admin/view-doc', component: CrudDoctorComponent },
   { path: 'dashboard/admin/view-nurse', component: CrudNurseComponent },
   { path: 'dashboard/admin/view-nurse/add-nurse/:idN', component: NurseFormComponent },
   { path: 'dashboard/admin/view-nurse/add-nurse', component: NurseFormComponent },
@@ -46,6 +48,7 @@ const routes: Routes = [
   { path: 'dashboard/nurse/add-pacient', component: PacientFormComponent },
   { path: 'dashboard/nurse/recetas', component: RecetaComponent },
   { path: 'dashboard', component: DashboardComponent},
+  { path: 'dashboard/admin/view-doc/registro/:id', component: RegistComponent },
   { path: 'registro', component: RegistComponent },
   { path: 'registConsulta', component: ConsultFormComponent }
 

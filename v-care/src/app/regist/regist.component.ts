@@ -6,7 +6,9 @@ import { UserNormal } from '../services/register/models/userNormal';
 import { UserPersonal } from '../services/register/models/userPersonal';
 import { RegistService } from '../services/register/regist.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AdminMostService } from '../services/adminserve/admin-most.service';
 
 @Component({
   selector: 'app-regist',
@@ -56,13 +58,22 @@ export class RegistComponent implements OnInit {
     id:0,
     nombre: ""
   }
+
+  public id:string='';
   public espToShow?: IEsp[];  
 
-  constructor(private registService: RegistService, private router:Router) {
+  constructor(private registService: RegistService, private router:Router,
+     private route: ActivatedRoute, private admin: AdminMostService) {
     this.registService.getEsp().subscribe(data=>{
       console.log(data.body);
       this.espToShow = data.body;
-    })
+    });
+    this.route.paramMap.subscribe(params => {
+      this.id = (params.get("id")||'');
+    });
+    if(this.id){
+      this.writeValues();
+    }
   }
 
   ngOnInit(): void {
@@ -70,6 +81,22 @@ export class RegistComponent implements OnInit {
 
   }
 
+  writeValues(){
+    this.admin.getAllofDoc(this.id).subscribe(
+      res=>{
+        console.log(res);
+        this.personal = res.body.pers;
+        this.normal = res.body.user;
+        this.doctor = res.body.doct;
+        this.esp = res.body.espe;
+        this.address = res.body.dire;
+        this.personal.password="";
+      },
+      err=>{
+        console.log(err);
+      }
+    );
+  }
   
   checkLink() {
     let token = localStorage.getItem('auth-token'); 
@@ -109,11 +136,17 @@ export class RegistComponent implements OnInit {
     }else{
       this.esp.id = 0; 
     }
-    this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
-      alert("Registrado correctamente verifica tu email!!");
-    }, (error)=>{
-      alert("Algo ha ido mal, revisa tus datos!!")
-    });
+    if(this.id==''){
+      this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
+        alert("Registrado correctamente verifica tu email!!");
+      }, (error)=>{
+        alert("Algo ha ido mal, revisa tus datos!!")
+      });
+    }else{
+      var aux = {dire: this.address,pers: this.personal, user: this.normal, doct: this.doctor,espe: this.esp};
+      this.admin.updateDoc(aux).subscribe(res=>{alert(res.body)},err=>{console.log(err)});
+      this.router.navigateByUrl('dashboard/admin/view-doc');
+    }
   }
 
   private SearchExp(nombre:string):sE{

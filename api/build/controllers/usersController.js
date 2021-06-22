@@ -25,6 +25,45 @@ class UsersController {
             return bcryptjs_1.default.hash(password, salt);
         });
     }
+    updateDoc(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //console.log(req.body);
+            try {
+                const modd = yield database_1.connect().then((conn) => {
+                    return conn.query("UPDATE `direccion` SET `calle`='" + req.body.dire.calle + "',`numero`='" + req.body.dire.numero + "',`interior`='" + req.body.dire.interior + "',`colonia`='" + req.body.dire.colonia +
+                        "',`cp`='" + req.body.dire.cp + "',`ciudad`='" + req.body.dire.ciudad + "',`estado`='" + req.body.dire.estado + "',`pais`='" + req.body.dire.pais + "' WHERE Id=" + req.body.dire.Id + ";");
+                });
+                const modu = yield database_1.connect().then((conn) => {
+                    return conn.query("UPDATE `usuario` SET `nombre`='" + req.body.user.nombre + "',`apellido`='" + req.body.user.apellido + "',`genero`='" + req.body.user.genero +
+                        "',`fecha_nac`='" + req.body.user.fecha_nac + "',`telefono`='" + req.body.user.telefono + "',`celular`='" + req.body.user.celular + "' WHERE Id=" + req.body.user.Id + ";");
+                });
+                if (req.body.pers.password == '') {
+                    const modp = yield database_1.connect().then((conn) => {
+                        return conn.query("UPDATE `personal` SET `email`='" + req.body.pers.email + "',`username`='" + req.body.pers.username +
+                            "',`profileimg`='" + req.body.pers.profileimg + "' WHERE Id=" + req.body.pers.Id + ";");
+                    });
+                }
+                else {
+                    req.body.pers.password = this.encryptPass(req.body.pers.password);
+                    const modp = yield database_1.connect().then((conn) => {
+                        return conn.query("UPDATE `personal` SET `email`='" + req.body.pers.email + "',`username`='" + req.body.pers.username +
+                            "',`password`='" + req.body.pers.password + "',`profileimg`='" + req.body.pers.profileimg + "' WHERE Id=" + req.body.pers.Id + ";");
+                    });
+                }
+                const mode = yield database_1.connect().then((conn) => {
+                    return conn.query("UPDATE `especialidades` SET `nombre`='" + req.body.espe.nombre + "' WHERE Id=" + req.body.espe.Id + ";");
+                });
+                const modc = yield database_1.connect().then((conn) => {
+                    return conn.query("UPDATE `doctor` SET `cedula`='" + req.body.doct.cedula + "' WHERE Id=" + req.body.doct.Id + ";");
+                });
+                res.status(200).json("Se actualizo el Doctor");
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(400).json("Medico no encontrado");
+            }
+        });
+    }
     updateNurse(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
@@ -63,28 +102,49 @@ class UsersController {
     }
     getDoctors(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const ds = yield database_1.connect().then((conn) => {
-                return conn.query("SELECT u.nombre, u.apellido, u.telefono, p.username, p.email, p.profileimg, d.cedula, es.nombre AS 'Especialidad' " +
-                    "FROM usuario AS u " +
-                    "INNER JOIN personal AS p ON u.Id=p.idUsuario " +
-                    "INNER JOIN doctor AS d ON p.Id = d.idpersonal" +
-                    "INNER JOIN especialidades AS es ON d.idEspecialidad = es.Id;");
-            }).catch(error => {
+            var a = Number(req.query.id);
+            var answe;
+            try {
+                const usr = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT u.* " +
+                        "FROM doctor AS e INNER JOIN personal AS p ON e.idpersonal = p.Id " +
+                        "INNER JOIN usuario AS u ON p.idUsuario = u.Id WHERE e.Id=" + a + ";");
+                });
+                const per = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT p.* " +
+                        "FROM doctor AS e INNER JOIN personal AS p ON e.idpersonal = p.Id " +
+                        "WHERE e.Id=" + a + ";");
+                });
+                const dir = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT d.* FROM doctor AS e INNER JOIN personal AS p ON e.idpersonal = p.Id INNER JOIN usuario AS u ON p.idUsuario = u.Id INNER JOIN direccion AS d ON u.direccionId = d.Id WHERE e.Id=" + a + ";");
+                });
+                const esp = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT u.* FROM doctor AS e INNER JOIN especialidades AS u ON e.idEspecialidad = u.Id WHERE e.Id=" + a + ";");
+                });
+                const doc = yield database_1.connect().then((conn) => {
+                    return conn.query("SELECT * FROM doctor AS e WHERE e.Id=" + a + ";");
+                });
+                answe = {
+                    user: usr[0],
+                    pers: per[0],
+                    dire: dir[0],
+                    espe: esp[0],
+                    doct: doc[0]
+                };
+                console.log(answe);
+                return res.json(answe);
+            }
+            catch (error) {
                 console.log(error);
                 return res.status(400).json("Medico no encontrado");
-            });
-            return res.json(ds);
+            }
         });
     }
     getDoctorInfo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const d = yield database_1.connect().then((conn) => {
-                return conn.query("SELECT * " +
-                    "FROM doctor AS d " +
-                    "INNER JOIN personal AS p ON d.idpersonal = p.Id " +
-                    "INNER JOIN usuario AS u ON u.Id=p.idUsuario " +
-                    "INNER JOIN especialidades AS es ON d.idEspecialidad = es.Id " +
-                    "WHERE d.Id=" + req.query.id + ";");
+                return conn.query("SELECT dc.Id,p.email,p.username,u.direccionId FROM doctor AS dc INNER JOIN personal AS p ON dc.idpersonal = p.Id INNER JOIN usuario AS u ON p.idUsuario = u.Id");
+                //"WHERE e.Id="+req.query.id+";");
             }).catch(err => {
                 console.log(err);
                 return res.status(400).json("Medico no encontrado");
