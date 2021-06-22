@@ -14,6 +14,9 @@ class AdminRoutes{
         this.router.get('/getUnits', adminController.getUnits.bind(adminController));
         this.router.get('/getEspes', adminController.getEsps.bind(adminController));
         this.router.get('/getUnitById', adminController.getUnitById.bind(adminController));
+        this.router.get('/checkNewPatient', adminController.isNewPatient.bind(adminController));
+        this.router.get('/getPersonalId', adminController.getPersonalId.bind(adminController));
+
         //post
         this.router.post('/newUnit', adminController.postUnit.bind(adminController));
         //put

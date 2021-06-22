@@ -25,6 +25,7 @@ import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
 import { GivheadInterceptor } from './givhead.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ConsultFormComponent } from './consult-form/consult-form.component';
+import { WaitingConsComponent } from './consulta-form/waiting/waiting-cons/waiting-cons.component';
 import { ViewPeticionesComponent } from './view-peticiones/view-peticiones.component';
 import { ViewHistConsComponent } from './view-hist-cons/view-hist-cons.component';
 import { DocConsultaComponent } from './doc-consulta/doc-consulta.component';
@@ -54,6 +55,7 @@ import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
     CrudAyudanteComponent,
     NavbarComponent,
     ConsultFormComponent,
+    WaitingConsComponent,
     ViewPeticionesComponent,
     ViewHistConsComponent,
     DocConsultaComponent,

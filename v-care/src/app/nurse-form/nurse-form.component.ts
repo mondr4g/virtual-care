@@ -5,6 +5,8 @@ import { UserNormal } from '../services/register/models/userNormal';
 import { UserNurse } from '../services/register/models/userNurse';
 import { UserPersonal } from '../services/register/models/userPersonal';
 import { RegistService } from '../services/register/regist.service';
+import { ActivatedRoute } from '@angular/router';
+import { AdminMostService } from '../services/adminserve/admin-most.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -56,19 +58,83 @@ export class NurseFormComponent implements OnInit {
   };
 
   public unidades!: IMedUniShow[];
+  public id: string='';
 
-  constructor(private registService: RegistService, private router:Router) { 
+  constructor(private registService: RegistService, private route: ActivatedRoute,
+    private admin: AdminMostService, private router:Router) { 
     this.registService.getUnits().subscribe(data=>{
       console.log(data.body);
       this.unidades = data.body;
       console.log(this.unidades);
       this.selectUnid = this.unidades[0];
-    })
+    });
+    this.route.paramMap.subscribe(params => {
+      this.id = (params.get("idN")||'');
+    });
+    if(this.id){
+      this.writeValues();
+    }
   }
 
   ngOnInit(): void {
     //dashboard/admin/view-nurse/add-nurse
     this.checkLink();
+  }
+
+  writeValues(){
+    this.admin.getAllofEnf(this.id).subscribe(
+      res=>{
+        console.log(res);
+        this.personal = res.body.pers;
+        this.normal = res.body.user;
+        this.nurse = res.body.enfe;
+        this.selectUnid = res.body.unid;
+        this.address = res.body.dire;
+        this.personal.password="";
+        this.address.interior = res.body.dire.interior;
+        //this.normal.fecha_nac = res.body.user.fecha_nac;
+        /*this.personal={
+          idUsuario: Number(this.id),
+          email:res.body[0],
+          username:res.body[0].username,
+          password:"",
+          profileimg:res.body[0].profileimg,
+          email_check:res.body[0].email_check,
+          email_verify_token:res.body[0].email_verify_token 
+        };
+        this.normal={
+          nombre:res.body[0].nombre,
+          apellido:res.body[0].apellido,
+          genero:res.body[0].genero,
+          direccionId:res.body[0].Id,
+          fecha_nac: res.body[0].fecha_nac,
+          telefono:res.body[0].telefono,
+          celular:res.body[0].celular
+        };
+        this.nurse={
+          idpersonal:res.body[0].idpersonal,
+          idUnidadmedica:res.body[0].idUnidadmedica
+        };
+        this.selectUnid={
+          IdUnidad:res.body[0].IdUnidad,
+          nombre:res.body[0].numero,
+          idDireccion:res.body[0].idDireccion
+        };
+        this.address={
+          calle:res.body[0].calle,
+          numero:res.body[0].numero,
+          interior:res.body[0].interior,
+          colonia:res.body[0].colonia,
+          cp:res.body[0].cp ,
+          ciudad:res.body[0].ciudad,
+          estado:res.body[0].estado,
+          pais:res.body[0].pais    
+        };*/
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 
   checkLink() {
@@ -113,13 +179,17 @@ export class NurseFormComponent implements OnInit {
     }else{
       this.nurse.idUnidadmedica = 0; 
     }
-    this.registService.newNurse(this.address,this.personal,this.normal,this.nurse).subscribe(a=>{
-      alert("Registrada correctamente");
-    }, (error)=>{
-      alert("Algo ha ido mal, revisa tus datos!!")
-    });
-
-    //console.log(this.nurse.idUnidadmedica);
+    if(this.id==''){
+      this.registService.newNurse(this.address,this.personal,this.normal,this.nurse).subscribe(a=>{
+        alert("Registrada correctamente");
+      }, (error)=>{
+        alert("Algo ha ido mal, revisa tus datos!!")
+      });
+    }else{
+      var aux = {dire: this.address,pers: this.personal, user: this.normal, nurs: this.nurse};
+      this.admin.updateEnf(aux).subscribe(res=>{alert(res.body)},err=>{console.log(err)});
+    }
+    this.router.navigateByUrl('dashboard/admin/view-nurse');
   }
 
   private guessUnit(nombre:string):sE{

@@ -171,20 +171,18 @@ class ConsultaController {
     getConsultasByMed(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.query.Id);
-            /**
-             * const a = await connect().then((conn)=>{
-                return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad', e.Id , u2.nombre AS 'enfermera' "+
-                "FROM consulta AS c "+
-                "INNER JOIN paciente AS p ON c.idPaciente = p.Id "+
-                "INNER JOIN usuario AS u ON p.idusuario = u.Id "+
-                "INNER JOIN unidad_medica AS um ON um.IdUnidad = p.idUnidadmedica "+
-                "INNER JOIN enfermera AS e ON e.Id = idEnfermera "+
-                "INNER JOIN personal AS p ON e.idpersonal = p.Id "+
-                "INNER JOIN usuario AS u2 ON p.idUsuario = u2.Id");
-            }).catch((error)=>{
+            const a = yield database_1.connect().then((conn) => {
+                return conn.query("SELECT c.Id, c.fecha, u.nombre, u.apellido, um.nombre AS 'Unidad', e.Id , u2.nombre AS 'enfermera' " +
+                    "FROM consulta AS c " +
+                    "INNER JOIN paciente AS p ON c.idPaciente = p.Id " +
+                    "INNER JOIN usuario AS u ON p.idusuario = u.Id " +
+                    "INNER JOIN unidad_medica AS um ON um.IdUnidad = p.idUnidadmedica " +
+                    "INNER JOIN enfermera AS e ON e.Id = idEnfermera " +
+                    "INNER JOIN personal AS p ON e.idpersonal = p.Id " +
+                    "INNER JOIN usuario AS u2 ON p.idUsuario = u2.Id");
+            }).catch((error) => {
                 return res.status(500).json(error.message);
             });
-             */
             return res.status(200).json("aasa");
         });
     }
@@ -194,8 +192,25 @@ class ConsultaController {
         });
     }
     //Recuperar el historial medico del paciente
-    getPacientHistory() {
+    getPacientHistory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const h = yield database_1.connect().then((conn) => {
+                return conn.query("SELECT * FROM historialmedico WHERE idpaciente=" + req.query.id + ";");
+            }).catch((error) => {
+                return res.status(500).json(error.message);
+            });
+            return res.status(200).json(h);
+        });
+    }
+    //Insertar historial medico
+    postPacientHistory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.connect().then((conn) => {
+                return conn.query("INSERT INTO historialmedico SET ? ;", [req.body.historialMedico]);
+            }).catch((error) => {
+                return res.status(500).json(error.message);
+            });
+            return res.status(200).json("Insertado correctamente");
         });
     }
     //Recuperar los resultados de laboratorio.

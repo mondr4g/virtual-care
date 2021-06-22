@@ -49,6 +49,7 @@ export class CrudNurseComponent implements OnInit {
   async bring(){
     const aux = await this.amost.getEnfe().subscribe(
       res=>{
+        console.log(res.body);
         this.nurss = res.body;
       },
       err=>{
@@ -57,7 +58,16 @@ export class CrudNurseComponent implements OnInit {
     );
   }
 
-  elim(nu:number){
+  async elim(nu:number){
     console.log(nu);
+    const aux = await this.amost.elimEnf(nu).subscribe(
+      res=>{
+        alert(res.body);
+        window.location.reload();
+      },
+      err=>{
+        console.log(err);
+      }
+    );
   }
 }
