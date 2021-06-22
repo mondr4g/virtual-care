@@ -25,20 +25,13 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay1(): string {
-    console.log('hola1');
     let display = "";
-    console.log(localStorage.getItem('auth-token'));
     let token = localStorage.getItem('auth-token'); 
-    console.log('holaaa2354354');
     if(!token) {
-      console.log('holaaa1');
       display = 'flex';
-      console.log('aqui si entro');
     }
     else {
-      console.log('holaaa2');
       let decToken = this.helper.decodeToken(token);
-      console.log(decToken);
       switch(decToken.type){
         case 0:
           display = 'none';
@@ -61,7 +54,6 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay2(): string {
-    console.log('hola2');
     let display = "";
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
@@ -91,7 +83,6 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay3(): string {
-    console.log('hola3');
     let display = "";
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
@@ -121,8 +112,6 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay4(): string {
-    console.log('hola4');
-
     let display = "";
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
@@ -152,7 +141,6 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay5(): string {
-    console.log('hola5');
     let display = "";
     let token = localStorage.getItem('auth-token'); 
     if(!token) {
@@ -160,7 +148,6 @@ export class NavbarComponent implements OnInit {
     }
     else {
       let decToken = this.helper.decodeToken(token);
-      console.log(decToken);
       switch(decToken.type){
         case 0:
           display = 'none';

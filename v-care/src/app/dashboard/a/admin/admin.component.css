@@ -82,3 +82,30 @@ a {
 #m-doctor {
     background: linear-gradient(rgba(100,43,115,.9),rgba(198,66,110,.9)), url(https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);        
 }
+
+/* Respondive */
+@media (max-width: 750px) {
+    #info-admin {
+        width: 30%;
+   }
+
+   #panel-admin {
+        width: 70%;
+   }
+}
+
+@media (max-width: 480px) {
+   #panel {
+        display: inline;
+   }
+   
+   #info-admin {
+        width: 100%;
+        min-height: auto;
+        height: auto; 
+   }
+
+   #panel-admin {
+        width: 100%;
+   }
+}

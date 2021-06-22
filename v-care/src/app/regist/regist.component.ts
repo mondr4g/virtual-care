@@ -56,7 +56,8 @@ export class RegistComponent implements OnInit {
 
   constructor(private registService: RegistService) {
     this.registService.getEsp().subscribe(data=>{
-      this.espToShow = data;
+      console.log(data.body);
+      this.espToShow = data.body;
     })
   }
 
@@ -78,7 +79,7 @@ export class RegistComponent implements OnInit {
       this.esp.id = 0; 
     }
     this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
-      alert(a);
+      alert(a.message);
     });
   }
 
