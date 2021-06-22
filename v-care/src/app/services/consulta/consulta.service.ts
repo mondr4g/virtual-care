@@ -35,7 +35,7 @@ export class ConsultaService {
   //revisar validez de consulta
   revisarConsulta(id: number):Observable<any>{
     const params =new HttpParams().set("id", String(id));
-    return this.http.get(this.url+'/revizarCons',{params});
+    return this.http.get(this.url+'/revisarCons',{params});
   }
 
   //confirmar consulta

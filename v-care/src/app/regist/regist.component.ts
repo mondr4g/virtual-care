@@ -4,6 +4,7 @@ import { UserAddress } from '../services/register/models/userAddress';
 import { UserDoctor } from '../services/register/models/userDoctor';
 import { UserNormal } from '../services/register/models/userNormal';
 import { UserPersonal } from '../services/register/models/userPersonal';
+import { RegistService } from '../services/register/regist.service';
 
 @Component({
   selector: 'app-regist',
@@ -44,7 +45,8 @@ export class RegistComponent implements OnInit {
     idpersonal:0,
     activo:true,
     consultando:false,
-    especialidad:""
+    idEspecialidad:0
+
   }
   public esp: IEsp={
     id:0,
@@ -52,13 +54,57 @@ export class RegistComponent implements OnInit {
   }
   public espToShow?: IEsp[];  
 
-  constructor() { }
+  constructor(private registService: RegistService) {
+    this.registService.getEsp().subscribe(data=>{
+      this.espToShow = data;
+    })
+  }
 
   ngOnInit(): void {
+ 
   }
 
-  registrar():void{
-
+  public registrar():void{
+    //console.log(this.address);
+    //console.log(this.normal);
+    //console.log(this.personal);
+    //console.log(this.doctor);
+    //console.log(this.esp);
+    var a = this.SearchExp(this.esp.nombre)
+    if(a.b){
+      this.esp.id = a.id || 0;
+      this.doctor.idEspecialidad = a.id || 0;
+    }else{
+      this.esp.id = 0; 
+    }
+    this.registService.newDoc(this.address,this.personal,this.normal,this.doctor,this.esp).subscribe(a=>{
+      alert(a);
+    });
   }
 
+  private SearchExp(nombre:string):sE{
+    var s = new sE(0,true);
+    var ll = this.espToShow?.find(e=>e.nombre==nombre);
+    console.log(ll);
+    if(ll!=undefined){
+      s.id = ll.id;
+      s.b = true;
+      return s;
+    }else{
+      s.id=0;
+      s.b=false;
+      return s;
+    }
+  }
+
+}
+
+class sE{
+  public id?:number;
+  public b?:boolean;
+
+  constructor(id:number, b:boolean){
+    this.id = id;
+    this.b = b;
+  }
 }

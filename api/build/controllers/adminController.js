@@ -34,8 +34,14 @@ class AdminController {
             return res.status(200).json(uns);
         });
     }
-    getEsp(req, res) {
+    getEsps(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const uns = yield database_1.connect().then((result) => {
+                return result.query("SELECT * FROM especialidades;");
+            }).catch((err) => {
+                return res.status(500).json(err.message);
+            });
+            return res.status(200).json(uns);
         });
     }
     //post

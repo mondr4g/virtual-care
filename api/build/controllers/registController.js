@@ -20,11 +20,15 @@ const moment_1 = __importDefault(require("moment"));
 class RegistController {
     registDoctor(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
             try {
-                const p = yield this.registPersonal(req, 0, true);
+                const un = yield this.registAddress(req);
+                const u = yield this.registUser(req, un);
+                //req.body.userPersonal.idUsuario = u;
+                const p = yield this.registPersonal(req, u, true);
                 req.body.userDoctor.idpersonal = p;
-                if (req.body.idEspecialidad == null) {
-                    req.body.idEspecialidad = yield this.registEsp(req);
+                if (req.body.userDoctor.idEspecialidad == 0) {
+                    req.body.userDoctor.idEspecialidad = yield this.registEsp(req);
                 }
                 yield database_1.connect().then((conn) => {
                     return conn.query("INSERT INTO doctor set ?", [req.body.userDoctor]);
@@ -237,7 +241,7 @@ class RegistController {
     registEsp(req) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.connect().then((conn) => {
-                return conn.query("INSERT INTO especialidades set ?", [req.body.especialidad.nombre]);
+                return conn.query("INSERT INTO especialidades SET ? ;", [req.body.especialidad]);
             }).catch(error => {
                 throw new Error("No se creo la especialidad");
             });

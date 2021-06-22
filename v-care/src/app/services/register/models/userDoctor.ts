@@ -3,5 +3,5 @@ export interface UserDoctor{
     idpersonal:number,
     activo:boolean,
     consultando:boolean,
-    especialidad:string
+    idEspecialidad:number
 }

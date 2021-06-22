@@ -25,7 +25,7 @@ export class RegistService {
       "userAddress":address,
       "userNormal":normal,
       "userDoctor": doctor,
-      "docEsp": esp 
+      "especialidad": esp 
     }, {observe: 'response'});
   }
 
@@ -57,7 +57,7 @@ export class RegistService {
     {
       "userPersonal":personal,
       "unitInfo": unid 
-    }, {observe: 'response'});
+    }, {observe: 'response'}); 
   }
 
   
@@ -69,7 +69,7 @@ export class RegistService {
   }
 
   getEsp():Observable<any>{
-    return this.http.get(this.urlAdmin + '/');
+    return this.http.get(this.urlAdmin + '/getEspes');
   }
 
 }
