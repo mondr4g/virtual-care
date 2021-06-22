@@ -14,11 +14,15 @@ import { UserNormal } from 'models/userNormal';
 class RegistController{
 
     public async registDoctor (req:Request, res:Response){
+        console.log(req.body);
         try{
-            const p = await this.registPersonal(req,0,true);
+            const un = await this.registAddress(req);
+            const u = await this.registUser(req, un);
+            //req.body.userPersonal.idUsuario = u;
+            const p = await this.registPersonal(req,u,true);
             req.body.userDoctor.idpersonal=p;
-            if(req.body.idEspecialidad == null){
-                req.body.idEspecialidad = await this.registEsp(req);
+            if(req.body.userDoctor.idEspecialidad == 0){
+                req.body.userDoctor.idEspecialidad = await this.registEsp(req);
             }
             await connect().then((conn)=>{
                 return conn.query("INSERT INTO doctor set ?",[req.body.userDoctor]);
@@ -223,7 +227,7 @@ class RegistController{
 
     private async registEsp(req: Request):Promise<number>{
         await connect().then((conn)=>{
-            return conn.query("INSERT INTO especialidades set ?",[req.body.especialidad.nombre]);
+            return conn.query("INSERT INTO especialidades SET ? ;",[req.body.especialidad]);
         }).catch(error=>{
             throw new Error("No se creo la especialidad");
         });

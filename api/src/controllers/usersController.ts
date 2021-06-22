@@ -58,8 +58,8 @@ class UsersController{
             return conn.query("SELECT * "+
             "FROM enfermera AS e "+
             "INNER JOIN personal AS p ON e.idpersonal = p.Id "+
-            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.IdUnidad "+
-            "WHERE e.Id="+req.query.id+";");
+            "INNER JOIN unidad_medica AS un ON e.idUnidadmedica = un.IdUnidad ;");
+            //"WHERE e.Id="+req.query.id+";");
         }).catch(err=>{
             console.log(err)
             return res.status(400).json("Medico no encontrado"); 

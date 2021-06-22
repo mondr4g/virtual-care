@@ -70,7 +70,7 @@ class ConsultaController{
                 return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+a+" ;");
             });
             return res.status(200).json(ss[0]);
-        }catch(error){
+        }catch(error:any){
             return res.status(500).json(error.message);
         }
     }
@@ -81,20 +81,19 @@ class ConsultaController{
     public async checkValidity(req: Request, res: Response){
         const idd = Number(req.query.id);
         //traemos el id en el request
-        try{
-            const a = await connect().then((conn)=>{
-                return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+idd+" ;");
-            });
-            if(a[0].rechazada==false && a[0].aceptada==false){
-                return res.status(200).json({"status":"espera"});
-            }else if(a[0].aceptada == true && a[0].rechazada==false){
-                return res.status(200).json({"status":"aceptada", "ruta":a[0].ruta});
-            }else{
-                return res.status(200).json({"status":"rechazada"});
-            }
-        }catch(error){
+        console.log(req.params);
+        const a = await connect().then((conn)=>{
+            return conn.query("SELECT c.rechazada AS rechazada, c.aceptada AS aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id="+idd+" ;");
+        }).catch((error)=>{
             console.log(error);
             return res.status(500).json("No se a encontrado la consulta");
+        });
+        if(a[0].rechazada==false && a[0].aceptada==false){
+            return res.status(200).json({"status":"espera"});
+        }else if(a[0].aceptada == true && a[0].rechazada==false){
+            return res.status(200).json({"status":"aceptada", "ruta":a[0].ruta});
+        }else{
+            return res.status(200).json({"status":"rechazada"});
         }
 
     } 

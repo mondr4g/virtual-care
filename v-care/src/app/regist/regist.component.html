@@ -53,14 +53,17 @@
             </div>
         </div>
         <div class="container dflex">
-            <div class="f-data list">
+            <div class="f-data list" >
                 <label id="title-list">Genero:</label>
+                
                 <label for="hombre">Hombre</label>
-                <input type="radio" id="hombre" name="genero" [(ngModel)]="normal.genero"  required>
+                <input type="radio" id="hombre" value="hombre" name="genero" [(ngModel)]="normal.genero"  required>
                 <label for="mujer">Mujer</label>
-                <input type="radio" id="mujer" name="genero" [(ngModel)]="normal.genero"  required>
+                <input type="radio" id="mujer" mujer="mujer"  name="genero" [(ngModel)]="normal.genero"  required>
                 <label for="otro">Otro</label>
-                <input type="radio" id="otro" name="genero" [(ngModel)]="normal.genero"  required>
+                <input type="radio" id="otro" mujer="otro" name="genero" [(ngModel)]="normal.genero"  required>
+                
+                
             </div>
             <hr>
         </div>
@@ -126,16 +129,25 @@
             </div>
             <div class="f-data">
                 <label for="pais">Especialidad:</label>
-                <select name="espc" id="espc">
-                    <option value="Pediatra">Pediatria</option>
+                <select name="espc" id="espc" [(ngModel)]="esp.nombre">
+                    <option *ngFor="let espex of espToShow" >{{espex.nombre}} </option>
+                    <!---
+                        (ngModelChange)="SearchExp(esp.nombre,esp.id)" 
+                        <option value="Pediatra">Pediatria</option>
                     <option value="Oculista">Ginecologia</option>
                     <option value="Ortopedista">Ortopedista</option>
                     <option value="Otorrinolaringologo">Otorrinolaringologo</option>
                     <option value="Internista">Internista</option>
                     <option value="Internista">Otra</option>
+                    -->
+                    
                 </select>
             </div>
+            <div class="f-data">
+                <label for="cedula">Otra:</label>
+                <input type="text" id="otra_es" name="otra_es" [(ngModel)]="esp.nombre" placeholder="Otra especialidad" required>
+            </div>
         </div>
-        <input type="button" id="reg" class="btn btn-primary" value="Registrar">
+        <input type="submit" id="reg" class="btn btn-primary" value="Registrar">
     </form>
 </div>

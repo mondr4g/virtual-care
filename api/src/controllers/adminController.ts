@@ -22,8 +22,13 @@ class AdminController{
         });
         return  res.status(200).json(uns);
     }
-    public async getEsp(req: Request, res: Response){
-        
+    public async getEsps(req: Request, res: Response){
+        const uns = await connect().then((result) => {
+            return result.query("SELECT * FROM especialidades;");
+        }).catch((err) => {
+            return res.status(500).json(err.message);
+        });
+        return  res.status(200).json(uns);
     }
     //post
     public async postUnit(req: Request, res: Response){
