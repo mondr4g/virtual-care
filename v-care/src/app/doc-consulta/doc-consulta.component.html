@@ -1,0 +1,53 @@
+<div class="container-fluid" id="panel">
+    <div class="container-fluid" id="info-admin">
+        <div id="profile-photo" class="d-flex">
+            <i class="fas fa-user-cog profile"></i>
+            <p>Doctor</p>
+        </div>
+        <div id="profile-info">
+            <div class="data d-flex"><i class="fas fa-user-tie"></i><p>Doctor</p></div>
+            <div class="data d-flex"><i class="fas fa-envelope"></i><p>doc@gmail.com</p></div>
+            <div class="data d-flex"><i class="fas fa-phone-alt"></i><p>(449) 123-45-67</p></div>
+        </div>
+    </div>
+    
+    <div class="container-fluid" id="panel-admin">
+        <h1>Dashboard</h1>
+        <div class="row manage">
+            <div class="col-md-6">
+                <div class="container manage-card" id="m-1">
+                    <a routerLink="/dashboard/doc/view-peticiones/consulta/info-consulta" routerLinkActive="active">Informacion Consulta</a>            
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="container manage-card" id="m-2">
+                    <a routerLink="/dashboard/doc/view-peticiones/consulta/diagnostico" routerLinkActive="active">Diagnostico</a>            
+                </div>
+            </div>
+        </div>
+        <div class="busqueda">
+          <h2>Informacion de Paciente:</h2>
+          <div class="container" id="user-data">
+              <div class="f-data d-flex">
+                  <label for="ids">ID:</label>
+                  <input type="text" id="ids" name="ids" placeholder="ID">
+              </div>
+              <div class="f-data d-flex">
+                  <label for="name">Nombre:</label>
+                  <input type="text" id="name" name="name" placeholder="Nombre">
+              </div>
+              <div class="f-data d-flex">
+                  <label for="apellido">Apellido:</label>
+                  <input type="text" id="apellido" name="apellido" placeholder="Apellido">
+              </div>
+          </div>
+        </div>
+        <div class="consulta">
+          <h2>Consulta Virtual: </h2>
+          <div class="buttons2">
+            <a class="btn btn-warning" id="videocall" aria-current="page">Iniciar Videolamada</a>
+            <a class="btn btn-danger" id="finish" aria-current="page">Iniciar Videolamada</a>
+          </div>
+        </div>
+      </div>
+  </div>

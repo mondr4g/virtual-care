@@ -1,0 +1,34 @@
+<div id="regist-form-doctor">
+    <form action="">
+        <div class="f-title">
+            <h1>Diagnostico</h1>
+        </div>
+        <div class="f-subtitle">
+            <h2>General</h2>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="obs">Observaciones:</label>
+                <textarea name="obs" id="obs" [(ngModel)]="d.observaciones" placeholder="Observaciones...." required></textarea>
+            </div>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="anot">Recomendaciones:</label>
+                <textarea name="anot" id="anot" [(ngModel)]="d.recomendaciones" placeholder="Recomendacione...." required></textarea>
+            </div>
+            <hr>
+        </div>
+        <div class="f-subtitle">
+            <h2>Tratamiento</h2>
+        </div>
+        <div class="container dflex">
+            <div class="f-data">
+                <label for="receta">Receta:</label>
+                <textarea name="receta" id="receta" [(ngModel)]="d.receta" placeholder="Receta...." required></textarea>
+            </div>
+        </div>
+        <input type="submit" id="reg" class="btn btn-primary" value="Guardar Diagnostico">
+    </form>
+</div>
+
