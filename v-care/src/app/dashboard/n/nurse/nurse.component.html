@@ -1,4 +1,33 @@
-<p #haa>nurse works!</p>
-<div *ngIf="signos">
-    {{ signos[0].Id }}
+<div class="container-fluid" id="panel">
+  <div class="container-fluid" id="info-admin">
+      <div id="profile-photo" class="d-flex">
+          <i class="fas fa-user-cog profile"></i>
+          <p>Enfermera</p>
+      </div>
+      <div id="profile-info">
+          <div class="data d-flex"><i class="fas fa-user-tie"></i><p>Enfermera</p></div>
+          <div class="data d-flex"><i class="fas fa-envelope"></i><p>enf@gmail.com</p></div>
+          <div class="data d-flex"><i class="fas fa-phone-alt"></i><p>(449) 123-45-67</p></div>
+      </div>
   </div>
+  
+  <div class="container-fluid" id="panel-admin">
+      <h1>Dashboard</h1>
+      <div class="row manage">
+          <div class="col-md-6">
+              <div class="container manage-card" id="m-1">
+                  <a routerLink="/registConsulta" routerLinkActive="active">Form Consulta</a>            
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="container manage-card" id="m-2">
+                  <a routerLink="/dashboard/nurse/add-pacient" routerLinkActive="active">Registrar Paciente</a>            
+              </div>
+          </div>
+      </div>
+      <div class="busqueda">
+
+      </div>
+  </div>
+</div>
+
