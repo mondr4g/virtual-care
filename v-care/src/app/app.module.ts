@@ -23,6 +23,7 @@ import { CrudDoctorComponent } from './crud-doctor/crud-doctor.component';
 import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
 import { GivheadInterceptor } from './givhead.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ConsultFormComponent } from './consult-form/consult-form.component';
 
 
 
@@ -45,7 +46,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     CrudPatientComponent,
     CrudDoctorComponent,
     CrudAyudanteComponent,
-    NavbarComponent
+    NavbarComponent,
+    ConsultFormComponent
   ],
   imports: [
     BrowserModule,
