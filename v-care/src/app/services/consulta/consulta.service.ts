@@ -61,6 +61,10 @@ export class ConsultaService {
   }
 
   //Rechazar
+  rejectConsulta(id: number):Observable<any>{
+    const params =new HttpParams().set("id", String(id));
+    return this.http.get(this.url+'/rejectCons',{params,observe:"response"});
+  }
 
   //Obtener consultas por medico
   getConsByMed(id:number):Observable<any>{
@@ -82,6 +86,11 @@ export class ConsultaService {
     return this.http.get(this.urla+'/getPersonalId',{params,observe:"response"});
   }
 
+  getPersonalIdD(id:number):Observable<any>{
+    const params =new HttpParams().set("id", String(id));
+    return this.http.get(this.urla+'/getPersonalIdD',{params,observe:"response"});
+  }
+
   getPacientHistroy(id:number):Observable<any>{
     const params =new HttpParams().set("id", String(id));
     return this.http.get(this.url+'/getPacientHistory',{params,observe:"response"});
@@ -99,4 +108,15 @@ export class ConsultaService {
     const params =new HttpParams().set("curp", String(curp))
     return this.http.get(this.urlu+'/getPacients', {params,observe:"response"});
   }
+
+  getAllconsultas(id:number):Observable<any>{
+    const params =new HttpParams().set("Id", String(id))
+    return this.http.get(this.urlu+'/getAllCons', {params,observe:"response"});
+  }
+
+  getUser(id:number):Observable<any>{
+    const params =new HttpParams().set("Id", String(id))
+    return this.http.get(this.urlu+'/getPacientById', {params,observe:"response"});
+  }
+
 }

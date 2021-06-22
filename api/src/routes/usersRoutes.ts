@@ -31,7 +31,7 @@ class UsersRoutes{
         this.router.get('/getNurses',usersController.getNurses.bind(usersController));
         this.router.get('/getNurseInfo', usersController.getNurseInfo.bind(usersController));
         this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
-        this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
+        this.router.get('/getHelper', usersController.getHelpers.bind(usersController));
         this.router.get('/getDoctorInfo', usersController.getDoctorInfo.bind(usersController));
         this.router.get('/getHelperInfo', usersController.getPacients.bind(usersController));
         this.router.get('/getPacients', usersController.getPacients.bind(usersController));
