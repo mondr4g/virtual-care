@@ -7,7 +7,17 @@ class AdminController{
     //get
     public async getUnits(req: Request, res: Response){
         const uns = await connect().then((result) => {
-            result.query("SELECT *,u.IdUnidad FROM unidad_medica AS u INNER JOIN direccion AS d ON u.idDireccion = d.Id;");
+            return result.query("SELECT * FROM unidad_medica ;");
+        }).catch((err) => {
+            return res.status(500).json(err.message);
+        });
+        console.log(uns)
+        return res.status(200).json(uns);
+    }
+
+    public async getUnitsFull(req: Request, res: Response){
+        const uns = await connect().then((result) => {
+            return result.query("SELECT * FROM unidad_medica AS u INNER JOIN direccion AS d ON u.idDireccion = d.Id;");
         }).catch((err) => {
             return res.status(500).json(err.message);
         });
@@ -28,7 +38,8 @@ class AdminController{
         }).catch((err) => {
             return res.status(500).json(err.message);
         });
-        return  res.status(200).json(uns);
+        console.log(uns);
+        return res.status(200).json(uns);
     }
     //post
     public async postUnit(req: Request, res: Response){

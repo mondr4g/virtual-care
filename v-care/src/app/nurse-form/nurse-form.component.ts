@@ -4,6 +4,7 @@ import { UserAddress } from '../services/register/models/userAddress';
 import { UserNormal } from '../services/register/models/userNormal';
 import { UserNurse } from '../services/register/models/userNurse';
 import { UserPersonal } from '../services/register/models/userPersonal';
+import { RegistService } from '../services/register/regist.service';
 
 @Component({
   selector: 'app-nurse-form',
@@ -53,9 +54,24 @@ export class NurseFormComponent implements OnInit {
 
   public unidades?: IMedUniShow[];
 
-  constructor() { }
+  constructor(private registService: RegistService) { 
+    this.registService.getUnits().subscribe(data=>{
+      console.log(data.body);
+      this.unidades = data.body;
+      console.log(this.unidades);
+    })
+  }
 
   ngOnInit(): void {
+    //dashboard/admin/view-nurse/add-nurse
+  }
+
+  public registrar(){
+    console.log(this.address);
+    console.log(this.normal);
+    console.log(this.personal);
+    console.log(this.nurse);
+    console.log(this.selectUnid);
   }
 
 }

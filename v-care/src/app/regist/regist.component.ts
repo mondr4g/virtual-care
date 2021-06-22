@@ -56,7 +56,8 @@ export class RegistComponent implements OnInit {
 
   constructor(private registService: RegistService) {
     this.registService.getEsp().subscribe(data=>{
-      this.espToShow = data;
+      console.log(data.body);
+      this.espToShow = data.body;
     })
   }
 

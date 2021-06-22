@@ -69,7 +69,10 @@ export class RegistService {
   }
 
   getEsp():Observable<any>{
-    return this.http.get(this.urlAdmin + '/getEspes');
+    return this.http.get(this.urlAdmin + '/getEspes', {observe:"response"});
   }
 
+  getUnits():Observable<any>{
+    return this.http.get(this.urlAdmin + '/getUnits', {observe:"response"});
+  }
 }
