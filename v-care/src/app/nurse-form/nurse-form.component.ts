@@ -5,6 +5,8 @@ import { UserNormal } from '../services/register/models/userNormal';
 import { UserNurse } from '../services/register/models/userNurse';
 import { UserPersonal } from '../services/register/models/userPersonal';
 import { RegistService } from '../services/register/regist.service';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-nurse-form',
@@ -12,6 +14,7 @@ import { RegistService } from '../services/register/regist.service';
   styleUrls: ['./nurse-form.component.css']
 })
 export class NurseFormComponent implements OnInit {
+  helper = new JwtHelperService();
 
   public address: UserAddress={
     calle:"",
@@ -54,7 +57,7 @@ export class NurseFormComponent implements OnInit {
 
   public unidades!: IMedUniShow[];
 
-  constructor(private registService: RegistService) { 
+  constructor(private registService: RegistService, private router:Router) { 
     this.registService.getUnits().subscribe(data=>{
       console.log(data.body);
       this.unidades = data.body;
@@ -65,7 +68,35 @@ export class NurseFormComponent implements OnInit {
 
   ngOnInit(): void {
     //dashboard/admin/view-nurse/add-nurse
+    this.checkLink();
   }
+
+  checkLink() {
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
+      this.router.navigateByUrl('');
+    }
+    else {
+      let decToken = this.helper.decodeToken(token);
+      switch(decToken.type){
+        case 0:
+          break; //admin
+        case 1:
+          this.router.navigateByUrl('/dashboard/doc');
+          break; //doc
+        case 2:
+          this.router.navigateByUrl('/dashboard/nurse');
+          break; //nurse
+        case 3:
+          this.router.navigateByUrl('/dashboard/registConsulta');
+          break; //url del componente de registro de pacientes
+        default:
+          this.router.navigateByUrl('');
+          break;
+      }
+    }
+  }
+
 
   public registrar(){
     //console.log(this.address);
