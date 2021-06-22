@@ -77,8 +77,9 @@ class ConsultaController {
     //retornar los signos de la consulta
     getSignsCons(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const a = Number(req.params.id);
             const ss = yield database_1.connect().then((conn) => {
-                return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta=" + req.params.id + " ;");
+                return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta=" + a + " ;");
             }).catch((error) => {
                 return res.status(500).json(error.message);
             });
@@ -90,9 +91,11 @@ class ConsultaController {
     //Una vez confirmada, se habilita el link en la vista
     checkValidity(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const idd = Number(req.params.id);
             //traemos el id en el request
+            console.log(req.params);
             const a = yield database_1.connect().then((conn) => {
-                return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id=" + req.params.id + " ;");
+                return conn.query("SELECT c.rechazada, c.aceptada, v.id_dinamico AS ruta FROM consulta AS c INNER JOIN videollamada AS v ON c.idvllamada = v.Id  WHERE c.Id=" + idd + " ;");
             }).catch((error) => {
                 console.log(error);
                 return res.status(500).json("No se a encontrado la consulta");
