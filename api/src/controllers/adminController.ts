@@ -41,6 +41,26 @@ class AdminController{
         console.log(uns);
         return res.status(200).json(uns);
     }
+    public async getUnitById(req: Request, res:Response){
+        //console.log(req.query)
+        var id = undefined;
+        if(req.query.tipo == String(2)){
+            console.log(req.query.id + ":::"+ req.query.tipo)
+            id = await connect().then((result) => {
+                return result.query("SELECT idUnidadMedica FROM enfermera WHERE idpersonal = "+req.query.id+" ;");
+            }).catch((err) => {
+                return res.status(500).json(err.message);
+            });
+        }else{
+            id = await connect().then((result) => {
+                return result.query("SELECT idUnidadMedica FROM ayudante WHERE idpersonal = "+Number(req.query.id)+" ;");
+            }).catch((err) => {
+                return res.status(500).json(err.message);
+            });
+        }
+        //console.log(id);
+        return res.status(200).json(id);
+    }
     //post
     public async postUnit(req: Request, res: Response){
         req.body.unitInfo.idDireccion = registController.registAddress(req);

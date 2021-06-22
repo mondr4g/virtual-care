@@ -68,14 +68,14 @@ export class NurseFormComponent implements OnInit {
   }
 
   public registrar(){
-    console.log(this.address);
-    console.log(this.normal);
-    console.log(this.personal);
-    console.log(this.nurse);
-    console.log(this.selectUnid);
+    //console.log(this.address);
+    //console.log(this.normal);
+    ///console.log(this.personal);
+    //console.log(this.nurse);
+    //console.log(this.selectUnid);
 
     var a = this.guessUnit(this.selectUnid.nombre);
-    console.log(a);
+    //console.log(a);
     if(a.b){
       this.selectUnid.IdUnidad = a.id || 0;
       this.nurse.idUnidadmedica = a.id || 0;
@@ -83,10 +83,12 @@ export class NurseFormComponent implements OnInit {
       this.nurse.idUnidadmedica = 0; 
     }
     this.registService.newNurse(this.address,this.personal,this.normal,this.nurse).subscribe(a=>{
-      alert(a.message);
+      alert("Registrada correctamente");
+    }, (error)=>{
+      alert("Algo ha ido mal, revisa tus datos!!")
     });
 
-    console.log(this.nurse.idUnidadmedica);
+    //console.log(this.nurse.idUnidadmedica);
   }
 
   private guessUnit(nombre:string):sE{

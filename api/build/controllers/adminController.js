@@ -56,6 +56,29 @@ class AdminController {
             return res.status(200).json(uns);
         });
     }
+    getUnitById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //console.log(req.query)
+            var id = undefined;
+            if (req.query.tipo == String(2)) {
+                console.log(req.query.id + ":::" + req.query.tipo);
+                id = yield database_1.connect().then((result) => {
+                    return result.query("SELECT idUnidadMedica FROM enfermera WHERE idpersonal = " + req.query.id + " ;");
+                }).catch((err) => {
+                    return res.status(500).json(err.message);
+                });
+            }
+            else {
+                id = yield database_1.connect().then((result) => {
+                    return result.query("SELECT idUnidadMedica FROM ayudante WHERE idpersonal = " + Number(req.query.id) + " ;");
+                }).catch((err) => {
+                    return res.status(500).json(err.message);
+                });
+            }
+            //console.log(id);
+            return res.status(200).json(id);
+        });
+    }
     //post
     postUnit(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

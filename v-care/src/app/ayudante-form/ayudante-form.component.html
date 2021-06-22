@@ -1,5 +1,5 @@
 <div id="regist-form-doctor">
-    <form action="">
+    <form action="" (submit)="registrar()">
         <div class="f-title">
             <h1>Registro Ayudante</h1>
         </div>
@@ -9,13 +9,13 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="uname">Username:</label>
-                <input type="text" id="uname" name="uname" placeholder="Username" required>
+                <input type="text" id="uname" name="uname" [(ngModel)]="personal.username" placeholder="Username" required>
             </div>
         </div>
         <div class="container dflex">
             <div class="f-data">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Ex. vacre@gmail.com" required>
+                <input type="email" id="email" name="email" [(ngModel)]="personal.email" placeholder="Ex. vacre@gmail.com" required>
             </div>
             <div class="f-data">
                 <label for="vemail">Verify Email:</label>
@@ -25,7 +25,7 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="pswd">Password:</label>
-                <input type="password" id="pswd" name="pswd" placeholder="Password" required>
+                <input type="password" id="pswd" name="pswd" [(ngModel)]="personal.password" placeholder="Password" required>
             </div>
             <div class="f-data">
                 <label for="vpswd">Verify Password:</label>
@@ -39,23 +39,25 @@
         <div class="container dflex">
             <div class="f-data">
                 <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" placeholder="Nombre" required>
+                <input type="text" id="name" name="name" [(ngModel)]="ayudante.nombre" placeholder="Nombre" required>
             </div>
             <div class="f-data">
                 <label for="apellido">Apellido:</label>
-                <input type="password" id="apellido" name="apellido" placeholder="Apellido" required>
+                <input type="text" id="apellido" name="apellido" [(ngModel)]="ayudante.apellido" placeholder="Apellido" required>
             </div>
         </div>
         <div class="f-subtitle">
             <h2>Informacion Unidad</h2>
         </div>
-        <div class="container dflex">
+        <div class="container dflex " >
             <div class="f-data">
-                <label for="umedic">Unidad Medica:</label>
-                <input type="text" id="umedic" name="umedic" placeholder="Ex. AGS-01" required>
+                <label for="pais">Unidad Medica:</label>
+                <select name="unid" id="unid" [(ngModel)]="selectUnid.nombre">
+                    <option *ngFor="let espex of unidades;" >{{espex.nombre}}</option>
+                </select>
             </div>
         </div>
-        <input type="button" id="reg" class="btn btn-primary" value="Registrar">
+        <input type="submit" id="reg" class="btn btn-primary" value="Registrar">
     </form>
 </div>
 

@@ -244,7 +244,7 @@ class RegistController{
         
     }
 
-    public async registStaf(req: Request, res: Response){
+    public async registStaff(req: Request, res: Response){
         try {
             const p = await this.registPersonal(req,0,false);
             req.body.userAyudante.idpersonal=p;
@@ -272,6 +272,27 @@ class RegistController{
         return res.status(200).json("Admin Registrado");
     }
     
+    public async sendmail_Prueba(req: Request, res: Response){
+        //const message = Object.assign({}, req.body.userPersonal);
+
+        //let url = "http://localhost:3000/api/regist/verifyAccount?id="+message.email_verify_token;
+
+        //let mensaje = "<a href='"+url+"' >Verifica tu cuenta</a>";
+        mailHelper.to = req.body.email;
+        mailHelper.subject = "Verificacion de cuenta Virtual Care";
+        mailHelper.message = req.body.mensaje;
+        
+        try{
+            let result = mailHelper.sendMail();
+
+            //return "Mail enviado correctamente";
+            return res.status(200).json("Mail enviado correctamente");
+        }catch(err){
+            throw new Error("Hubo un problema con el mail");
+            
+        }  
+    } 
+
 }
 
 export const registController = new RegistController();
