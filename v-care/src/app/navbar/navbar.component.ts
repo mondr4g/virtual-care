@@ -25,13 +25,20 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay1(): string {
-    let display = ""
-    let token = JSON.parse(localStorage.getItem('auth-token') || '{}');
-    if(JSON.stringify(token) == '{}') {
+    console.log('hola1');
+    let display = "";
+    console.log(localStorage.getItem('auth-token'));
+    let token = localStorage.getItem('auth-token'); 
+    console.log('holaaa2354354');
+    if(!token) {
+      console.log('holaaa1');
       display = 'flex';
+      console.log('aqui si entro');
     }
     else {
-      let decToken = this.helper.decodeToken(token['auth-token']);
+      console.log('holaaa2');
+      let decToken = this.helper.decodeToken(token);
+      console.log(decToken);
       switch(decToken.type){
         case 0:
           display = 'none';
@@ -54,13 +61,14 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay2(): string {
-    let display = ""
-    let token = JSON.parse(localStorage.getItem('auth-token') || '{}');
-    if(JSON.stringify(token) == '{}') {
+    console.log('hola2');
+    let display = "";
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
       display = 'none';
     }
     else {
-      let decToken = this.helper.decodeToken(token['auth-token']);
+      let decToken = this.helper.decodeToken(token);
       switch(decToken.type){
         case 0:
           display = 'flex';
@@ -83,13 +91,14 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay3(): string {
-    let display = ""
-    let token = JSON.parse(localStorage.getItem('auth-token') || '{}');
-    if(JSON.stringify(token) == '{}') {
+    console.log('hola3');
+    let display = "";
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
       display = 'none';
     }
     else {
-      let decToken = this.helper.decodeToken(token['auth-token']);
+      let decToken = this.helper.decodeToken(token);
       switch(decToken.type){
         case 0:
           display = 'none';
@@ -112,13 +121,15 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay4(): string {
-    let display = ""
-    let token = JSON.parse(localStorage.getItem('auth-token') || '{}');
-    if(JSON.stringify(token) == '{}') {
+    console.log('hola4');
+
+    let display = "";
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
       display = 'none';
     }
     else {
-      let decToken = this.helper.decodeToken(token['auth-token']);
+      let decToken = this.helper.decodeToken(token);
       switch(decToken.type){
         case 0:
           display = 'none';
@@ -141,13 +152,15 @@ export class NavbarComponent implements OnInit {
   }
 
   checkDisplay5(): string {
-    let display = ""
-    let token = JSON.parse(localStorage.getItem('auth-token') || '{}');
-    if(JSON.stringify(token) == '{}') {
+    console.log('hola5');
+    let display = "";
+    let token = localStorage.getItem('auth-token'); 
+    if(!token) {
       display = 'none';
     }
     else {
-      let decToken = this.helper.decodeToken(token['auth-token']);
+      let decToken = this.helper.decodeToken(token);
+      console.log(decToken);
       switch(decToken.type){
         case 0:
           display = 'none';

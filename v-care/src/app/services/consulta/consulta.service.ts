@@ -24,12 +24,23 @@ export class ConsultaService {
 
   //Nueva peticion de consulta
   newPeticion(datos: INewCons):Observable<any>{
-    return this.http.post(this.url+'/newCons', {"infoConsulta":datos}, {observe: "response"});
+    let aux = {
+      idDoctor: datos.idDoctor,
+      idPaciente: datos.idPaciente,
+      idEnfermera: datos.idEnfermera,
+      idvllamada: datos.idvllamada,
+      anotaciones: datos.anotaciones,
+      sintomas: datos.sintomas,
+      aceptada: datos.aceptada,
+      rechazada: datos.rechazada
+      
+    }
+    return this.http.post(this.url+'/newCons', {"infoConsulta":aux,"espe":datos.especialidad}, {observe: "response"});
   }
   //obtener signos de la consulta por el doc
   getSignsDocSide(id: number):Observable<any>{
     const params =new HttpParams().set("id", String(id));
-    return this.http.get(this.url+'/getSignsDoctor')
+    return this.http.get(this.url+'/getSignsDoctor',{params})
   }
 
   //revisar validez de consulta

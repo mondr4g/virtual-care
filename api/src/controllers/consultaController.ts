@@ -5,16 +5,13 @@ import {v4 as uuidv4} from 'uuid';
 class ConsultaController{
     //esta cosa retorna el id de la peticion para saber si fue aceptada.
     public async newPeticion(req: Request, res: Response){
-        console.log(req.body);
-        
         //Recibimos toda la info de los forms de la enfermera
         //llenar registro en BD sin videollamada
         req.body.infoConsulta.aceptada = false;
         req.body.infoConsulta.rechazada = false;
         req.body.infoConsulta.idvllamada = null;
         //Obtener el doctor adecuado
-        req.body.infoConsulta.idDoctor = this.getDoctor(req.body.infoConsulta.especialidad);
-
+        req.body.infoConsulta.idDoctor = await this.getDoctor(req.body.espe);
         await connect().then((conn)=>{
             conn.query("INSERT INTO consulta SET ?", [req.body.infoConsulta]);
         }).catch((error:any)=>{
@@ -40,7 +37,6 @@ class ConsultaController{
      *    
      */
     public async setSigns(req: Request, res: Response){
-        console.log(req.body);
         req.body.signos.forEach(async (e:any) => {
             console.log(e);
             //e.idconsulta = null;
@@ -67,20 +63,23 @@ class ConsultaController{
     //retornar los signos de la consulta
 
     public async getSignsCons(req: Request, res: Response){
-        const a = Number(req.params.id);
-        const ss = await connect().then((conn)=>{
-            return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+a+" ;");
-        }).catch((error)=>{
+        const a = Number(req.query.id);
+        console.log(a+"hola");
+        try{
+            const ss = await connect().then((conn)=>{
+                return conn.query("SELECT sv.nombre, sc.medida, sv.unidades, sv.rango_superior, sv.rango_inferior FROM signosconsulta AS sc INNER JOIN signovital AS sv ON sc.idsigno = sv.Id WHERE sc.idconsulta="+a+" ;");
+            });
+            return res.status(200).json(ss[0]);
+        }catch(error:any){
             return res.status(500).json(error.message);
-        });
-        return res.status(200).json(ss);
+        }
     }
 
     //aqui validar de manera asincrona que la consulta haya sido aceptada o rechazada, esta funcion se realizara en intervalos desde el cliente
     //* Por el momento la idea es que el cliente revise esta funcion cada vez, en lugar de suscribirlo a notificaciones *//
     //Una vez confirmada, se habilita el link en la vista
     public async checkValidity(req: Request, res: Response){
-        const idd = Number(req.params.id);
+        const idd = Number(req.query.id);
         //traemos el id en el request
         console.log(req.params);
         const a = await connect().then((conn)=>{
@@ -143,6 +142,7 @@ class ConsultaController{
     private async getDoctor(esp:string): Promise<number>{
 
         //SELECT d.Id AS 'seleccionado' FROM doctor AS d INNER JOIN consulta AS c ON c.idDoctor=d.Id INNER JOIN especialidades AS e ON d.idEspecialidad=e.Id WHERE e.nombre='especialidad' AND (c.aceptada=false AND c.rechazada=false ) GROUP BY c.idDoctor ORDER BY seleccionado ASC LIMIT 1;
+        console.log(esp+"doctor");
         const a = await connect().then((conn)=>{
             return conn.query("SELECT d.Id AS 'seleccionado' FROM doctor AS d INNER JOIN consulta AS c ON c.idDoctor=d.Id INNER JOIN especialidades AS e ON d.idEspecialidad=e.Id WHERE e.nombre='"+esp+"' AND (c.aceptada=false AND c.rechazada=false ) GROUP BY c.idDoctor ORDER BY seleccionado ASC LIMIT 1;")
         }).catch((error)=>{
