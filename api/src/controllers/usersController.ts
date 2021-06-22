@@ -185,6 +185,7 @@ class UsersController{
         return res.json(d);
     }
 
+
     public async elimNurse(req: Request, res:Response){
         const e = await connect().then((conn)=>{
             return conn.query("DELETE FROM `direccion` WHERE Id="+req.query.id);

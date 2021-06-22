@@ -34,6 +34,7 @@ class UsersRoutes {
         this.router.post('/getDpctorsByEsp', usersController_1.usersController.getDoctorsByEspe.bind(usersController_1.usersController));
         this.router.get('/getMedicalUnits', usersController_1.usersController.getMedicUnits.bind(usersController_1.usersController));
         this.router.get('/delNurse?:id', usersController_1.usersController.elimNurse.bind(usersController_1.usersController));
+        this.router.get('/delDoc?:id', usersController_1.usersController.elimNurse.bind(usersController_1.usersController));
         this.router.post('/searchPacient', usersController_1.usersController.searchPacient.bind(usersController_1.usersController));
         this.router.post('/upEnfe', usersController_1.usersController.updateNurse.bind(usersController_1.usersController));
         this.router.post('/upDoc', usersController_1.usersController.updateDoc.bind(usersController_1.usersController));
