@@ -26,7 +26,7 @@
             <td>{{nurse.email}}</td>
             <td class="op">
               <a [routerLink]="['/dashboard/admin/view-nurse/add-nurse',nurse.Id]" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a>
-              <a routerLink="#" (click)="elim(nurse.Id)" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a>
+              <a (click)="elim(nurse.direccionId)"><i class="fas fa-trash-alt delete"></i></a>
             </td>
           </tr>
         </tbody>
