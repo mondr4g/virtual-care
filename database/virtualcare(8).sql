@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2021 a las 08:21:14
+-- Tiempo de generación: 22-06-2021 a las 17:41:10
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 7.3.28
 
@@ -30,6 +30,7 @@ USE `virtualcare`;
 -- Estructura de tabla para la tabla `admin`
 --
 -- Creación: 14-06-2021 a las 15:57:55
+-- Última actualización: 22-06-2021 a las 15:24:03
 --
 
 DROP TABLE IF EXISTS `admin`;
@@ -57,6 +58,7 @@ TRUNCATE TABLE `admin`;
 -- Estructura de tabla para la tabla `ayudante`
 --
 -- Creación: 20-06-2021 a las 00:30:16
+-- Última actualización: 22-06-2021 a las 07:39:02
 --
 
 DROP TABLE IF EXISTS `ayudante`;
@@ -89,7 +91,7 @@ TRUNCATE TABLE `ayudante`;
 --
 -- Estructura de tabla para la tabla `consulta`
 --
--- Creación: 20-06-2021 a las 06:16:54
+-- Creación: 22-06-2021 a las 15:21:40
 --
 
 DROP TABLE IF EXISTS `consulta`;
@@ -193,6 +195,7 @@ TRUNCATE TABLE `diagnostico`;
 -- Estructura de tabla para la tabla `direccion`
 --
 -- Creación: 13-06-2021 a las 20:55:23
+-- Última actualización: 22-06-2021 a las 15:36:20
 --
 
 DROP TABLE IF EXISTS `direccion`;
@@ -207,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `direccion` (
   `estado` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `pais` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `direccion`:
@@ -218,12 +221,21 @@ CREATE TABLE IF NOT EXISTS `direccion` (
 --
 
 TRUNCATE TABLE `direccion`;
+--
+-- Volcado de datos para la tabla `direccion`
+--
+
+INSERT INTO `direccion` VALUES
+(1, 'Mexico', '10', 'a', 'lomas', '2140', 'GDL', 'Jalisco', 'Mexico'),
+(2, 'Mexico', '10', 'a', 'lomas', '2140', 'GDL', 'Jalisco', 'Mexico');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `doctor`
 --
 -- Creación: 14-06-2021 a las 04:58:42
+-- Última actualización: 22-06-2021 a las 15:35:05
 --
 
 DROP TABLE IF EXISTS `doctor`;
@@ -237,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `PERSONALD` (`idpersonal`) USING BTREE,
   KEY `ESPECIALD` (`idEspecialidad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `doctor`:
@@ -252,6 +264,13 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 --
 
 TRUNCATE TABLE `doctor`;
+--
+-- Volcado de datos para la tabla `doctor`
+--
+
+INSERT INTO `doctor` VALUES
+(2, 'sadsadasdsad1sadsadsa1das1sa2dsa2dsa2d', 1, 1, 0, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -283,6 +302,7 @@ TRUNCATE TABLE `enfermedad`;
 -- Estructura de tabla para la tabla `enfermera`
 --
 -- Creación: 14-06-2021 a las 04:24:06
+-- Última actualización: 22-06-2021 a las 15:37:29
 --
 
 DROP TABLE IF EXISTS `enfermera`;
@@ -293,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `enfermera` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `PERSONALE` (`idpersonal`) USING BTREE,
   KEY `UNIDADENF` (`idUnidadmedica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `enfermera`:
@@ -308,12 +328,20 @@ CREATE TABLE IF NOT EXISTS `enfermera` (
 --
 
 TRUNCATE TABLE `enfermera`;
+--
+-- Volcado de datos para la tabla `enfermera`
+--
+
+INSERT INTO `enfermera` VALUES
+(2, 2, 1);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `especialidades`
 --
 -- Creación: 14-06-2021 a las 04:06:32
+-- Última actualización: 22-06-2021 a las 02:13:57
 --
 
 DROP TABLE IF EXISTS `especialidades`;
@@ -321,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `especialidades` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `especialidades`:
@@ -332,6 +360,16 @@ CREATE TABLE IF NOT EXISTS `especialidades` (
 --
 
 TRUNCATE TABLE `especialidades`;
+--
+-- Volcado de datos para la tabla `especialidades`
+--
+
+INSERT INTO `especialidades` VALUES
+(1, 'pediatria'),
+(2, 'general'),
+(3, 'cardiologia'),
+(4, 'dientero');
+
 -- --------------------------------------------------------
 
 --
@@ -366,7 +404,8 @@ TRUNCATE TABLE `estudiolab`;
 --
 -- Estructura de tabla para la tabla `historialmedico`
 --
--- Creación: 14-06-2021 a las 04:38:31
+-- Creación: 22-06-2021 a las 02:18:56
+-- Última actualización: 22-06-2021 a las 09:11:15
 --
 
 DROP TABLE IF EXISTS `historialmedico`;
@@ -374,6 +413,8 @@ CREATE TABLE IF NOT EXISTS `historialmedico` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idpaciente` int(11) NOT NULL,
   `alergias` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `enf_cronicas` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `enf_geneticas` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `HISTORIAP` (`idpaciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -395,6 +436,7 @@ TRUNCATE TABLE `historialmedico`;
 -- Estructura de tabla para la tabla `paciente`
 --
 -- Creación: 14-06-2021 a las 18:01:03
+-- Última actualización: 22-06-2021 a las 09:10:45
 --
 
 DROP TABLE IF EXISTS `paciente`;
@@ -428,6 +470,7 @@ TRUNCATE TABLE `paciente`;
 -- Estructura de tabla para la tabla `personal`
 --
 -- Creación: 13-06-2021 a las 20:55:23
+-- Última actualización: 22-06-2021 a las 15:36:20
 --
 
 DROP TABLE IF EXISTS `personal`;
@@ -444,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `personal` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `USUARIO` (`idUsuario`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `personal`:
@@ -462,21 +505,23 @@ TRUNCATE TABLE `personal`;
 --
 
 INSERT INTO `personal` VALUES
-(1, NULL, 'aaaaa', 'aaaaasassas', 'sdsadsadsadsa', 'dsadsadsa', 1, 'dssadsadsadsad');
+(1, 1, 'al210581edu.uaa.mx', 'pepe', '$2a$10$2H48YiCOQkNKKX5jPDo/rOl8L6FIrW.NQbNE/h1WhBJn8R/UHylnG', 'sdsdsd', 0, 'NarQpWxCyH5NjzSQlzYOO5qa4wONY6AzqrLZ9bqmVq8mb1CRHtlB1yrxN9yzHM'),
+(2, 2, '255798edu.uaa.mx', 'pepa', '$2a$10$c/6CkYAqQhqnjZiP1Cx.nOPVXzdTYMpf44Z5ZSV1H0tMIicRhkKpm', 'sdsdsd', 1, 'completo');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `signosconsulta`
 --
--- Creación: 13-06-2021 a las 20:55:23
+-- Creación: 21-06-2021 a las 16:03:30
+-- Última actualización: 21-06-2021 a las 16:05:34
 --
 
 DROP TABLE IF EXISTS `signosconsulta`;
 CREATE TABLE IF NOT EXISTS `signosconsulta` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `idsigno` int(11) NOT NULL,
-  `idconsulta` int(11) NOT NULL,
+  `idconsulta` int(11) DEFAULT NULL,
   `medida` decimal(4,3) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `SIGNOC` (`idsigno`),
@@ -539,16 +584,17 @@ INSERT INTO `signovital` VALUES
 -- Estructura de tabla para la tabla `unidad_medica`
 --
 -- Creación: 14-06-2021 a las 04:22:24
+-- Última actualización: 22-06-2021 a las 15:36:59
 --
 
 DROP TABLE IF EXISTS `unidad_medica`;
 CREATE TABLE IF NOT EXISTS `unidad_medica` (
   `IdUnidad` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `idDireccion` int(11) NOT NULL,
   PRIMARY KEY (`IdUnidad`),
   KEY `DIRECCIONUNIDAD` (`idDireccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `unidad_medica`:
@@ -561,12 +607,21 @@ CREATE TABLE IF NOT EXISTS `unidad_medica` (
 --
 
 TRUNCATE TABLE `unidad_medica`;
+--
+-- Volcado de datos para la tabla `unidad_medica`
+--
+
+INSERT INTO `unidad_medica` VALUES
+(1, 'el purri', 1),
+(2, 'Paseos', 2);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `usuario`
 --
 -- Creación: 14-06-2021 a las 16:11:15
+-- Última actualización: 22-06-2021 a las 15:36:20
 --
 
 DROP TABLE IF EXISTS `usuario`;
@@ -581,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `celular` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `DIRECCION` (`direccionId`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- RELACIONES PARA LA TABLA `usuario`:
@@ -594,6 +649,14 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 TRUNCATE TABLE `usuario`;
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` VALUES
+(1, 'pepe', 'pecas', 'hombre', 1, '1990-10-01', '44892', 'el pepe'),
+(2, 'pepe', 'pecas', 'hombre', 2, '1990-10-01', '44892', 'el pepe');
+
 -- --------------------------------------------------------
 
 --
@@ -643,9 +706,9 @@ ALTER TABLE `ayudante`
 -- Filtros para la tabla `consulta`
 --
 ALTER TABLE `consulta`
-  ADD CONSTRAINT `CONSULTADOC` FOREIGN KEY (`idDoctor`) REFERENCES `doctor` (`Id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `CONSULTAENF` FOREIGN KEY (`idEnfermera`) REFERENCES `enfermera` (`Id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `CONSULTAPAC` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`Id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTADOC` FOREIGN KEY (`idDoctor`) REFERENCES `doctor` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTAENF` FOREIGN KEY (`idEnfermera`) REFERENCES `enfermera` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CONSULTAPAC` FOREIGN KEY (`idPaciente`) REFERENCES `paciente` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `VIDEOLL` FOREIGN KEY (`idvllamada`) REFERENCES `videollamada` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

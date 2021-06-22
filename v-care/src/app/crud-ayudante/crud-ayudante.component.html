@@ -13,30 +13,21 @@
     <table class="table">
         <thead class="bg-dark">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
+            <th scope="col">Id</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Email</th>
             <th scope="col">Operacion</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td class="op"><a routerLink="/dashboard/admin/view-nurse/add-nurse" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a><a routerLink="/dashboard/admin/view-nurse/add/nurse" routerLinkActive="active"><i class="fas fa-trash-alt delete"></i></a></td>
+          <tr *ngFor="let nurse of this.nurss,let i = index">
+            <td>{{nurse.Id}}</td>
+            <td>{{nurse.username}}</td>
+            <td>{{nurse.email}}</td>
+            <td class="op">
+              <a [routerLink]="['/dashboard/admin/view-ayudante/add-ayudante',nurse.Id]" routerLinkActive="active"><i class="fas fa-pen-square edit"></i></a>
+              <a (click)="elim(nurse.direccionId)"><i class="fas fa-trash-alt delete"></i></a>
+            </td>
           </tr>
         </tbody>
     </table>
