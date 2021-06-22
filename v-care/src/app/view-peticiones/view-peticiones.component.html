@@ -14,6 +14,7 @@
     <div class="container-fluid" id="panel-admin">
         <div class="title">
             <h1>Peticiones de Consulta</h1>
+            
         </div>
         <div class="table-responsive" id="table-info">
             <table class="table">
@@ -22,10 +23,13 @@
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Enfermera</th>
                     <th scope="col">Operacion</th>
                   </tr>
                 </thead>
-                <tbody>
+                <!--
+                  <tbody>
                   <tr>
                     <td>1</td>
                     <td>Amaury</td>
@@ -36,17 +40,32 @@
                     </td>
                   </tr>
                 </tbody>
-                <!-- <tbody>
-                  <tr *ngFor="let nurse of this.nurss,let i = index">
-                    <td>{{nurse.Id}}</td>
-                    <td>{{nurse.username}}</td>
-                    <td>{{nurse.email}}</td>
+                
+                -->
+                
+
+                 <tbody>
+                  <tr *ngFor="let pet of peticiones; let i = index">
+                    <td>{{pet.Id}}</td>
+                    <td>{{pet.nombre}}</td>
+                    <td>{{pet.apellido}}</td>
+                    <td>{{pet.fecha}}</td>
+                    <td>{{pet.enfermera}}</td>
                     <td class="op">
-                      <a [routerLink]="['/dashboard/admin/view-nurse/add-nurse',nurse.Id]" routerLinkActive="active"><i class="fas fa-check-square"></i></a>
+                      <a (click)="aceptar(pet.Id)"><i class="fas fa-check-square"></i></a>
+                      <a (click)="rechazar(pet.Id)"><i class="fas fa-times-circle"></i></a>
+                      <!---
+                         <a routerLink="['/dashboard/admin/view-nurse/add-nurse',pet.Id]" routerLinkActive="active" (click)="aceptar(6)"><i class="fas fa-check-square"></i></a>
+                      <a routerLink="/registConsulta" routerLinkActive="active" (click)="rechazar()"><i class="fas fa-times-circle"></i></a>
+                      
+                        dashboard/doc/view-peticiones/consulta
+                        <a [routerLink]="['/dashboard/admin/view-nurse/add-nurse',pet.Id]" routerLinkActive="active"><i class="fas fa-check-square"></i></a>
                       <a routerLink="#" (click)="elim(nurse.Id)" routerLinkActive="active"><i class="fas fa-times-circle"></i></a>
-                    </td>
+                    
+                      -->
+                      </td>
                   </tr>
-                </tbody> -->
+                </tbody>
             </table>
         </div>
     </div>

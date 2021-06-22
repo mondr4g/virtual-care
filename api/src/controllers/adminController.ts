@@ -145,6 +145,21 @@ class AdminController{
             return res.status(200).json({"id":i[0].idpersonal});
         }
     }
+
+    public async getPersonalIdD(req: Request, res:Response){
+        console.log(req.query.id);
+        const i = await connect().then(result =>{
+            return result.query("SELECT e.idpersonal FROM doctor AS e WHERE e.Id="+req.query.id+" ;");
+        }).catch((error)=>{
+            return res.status(500).json("algo fallo");
+        });
+        console.log(i);
+        if(i[0]==null){
+            return res.status(200).json({"id":null});
+        }else{
+            return res.status(200).json({"id":i[0].idpersonal});
+        }
+    }
 }
 export const adminController = new AdminController();
 /* Esto nel

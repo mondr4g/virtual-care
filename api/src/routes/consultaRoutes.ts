@@ -18,6 +18,8 @@ class ConsultaRoutes{
         this.router.get('/getSignsDoctor', consultaController.getSignsCons.bind(consultaController));
         this.router.get('/revizarCons', consultaController.checkValidity.bind(consultaController));
         this.router.get('/getPacientHistory', consultaController.getPacientHistory.bind(consultaController));
+        this.router.get('/getAllCons', consultaController.getAllConsultas.bind(consultaController));
+        this.router.get('/rejectCons', consultaController.rejectConsulta.bind(consultaController));
         
         //post
         this.router.post('/setSigns',consultaController.setSigns.bind(consultaController));

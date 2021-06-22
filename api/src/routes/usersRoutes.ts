@@ -28,14 +28,14 @@ class UsersRoutes{
         //Rutas que no requieren
         /*
         */
-        this.router.get('/getNurses',usersController.getNurses.bind(usersController));
-        this.router.get('/getNurseInfo', usersController.getNurseInfo.bind(usersController));
-        this.router.get('/getDoctors', usersController.getDoctors.bind(usersController));
-        this.router.get('/getDoctorInfo/:id', usersController.getDoctorInfo.bind(usersController));
-        this.router.get('/getPacients', usersController.getPacients.bind(usersController));
-        this.router.get('/getPacientInfo/:id', usersController.getPacientInfo.bind(usersController));
-        this.router.get('/getEspecialities', usersController.getEspecialidades.bind(usersController));
-        this.router.post('/getDpctorsByEsp', usersController.getDoctorsByEspe.bind(usersController));
+        this.router.get('/getNurses',tokenValid,usersController.getNurses.bind(usersController));
+        this.router.get('/getNurseInfo',tokenValid, usersController.getNurseInfo.bind(usersController));
+        this.router.get('/getDoctors', tokenValid, usersController.getDoctors.bind(usersController));
+        this.router.get('/getDoctorInfo/:id', tokenValid,usersController.getDoctorInfo.bind(usersController));
+        this.router.get('/getPacients', tokenValid, usersController.getPacients.bind(usersController));
+        this.router.get('/getPacientInfo/:id', tokenValid, usersController.getPacientInfo.bind(usersController));
+        this.router.get('/getEspecialities', tokenValid, usersController.getEspecialidades.bind(usersController));
+        this.router.post('/getDpctorsByEsp',  tokenValid, usersController.getDoctorsByEspe.bind(usersController));
         this.router.get('/getMedicalUnits', usersController.getMedicUnits.bind(usersController));
         this.router.get('/delNurse?:id', usersController.elimNurse.bind(usersController));
         this.router.post('/searchPacient', usersController.searchPacient.bind(usersController));
