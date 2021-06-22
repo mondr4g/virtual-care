@@ -16,9 +16,11 @@ import { CrudNurseComponent } from './crud-nurse/crud-nurse.component';
 import { CrudAyudanteComponent } from './crud-ayudante/crud-ayudante.component';
 import { RecetaComponent } from './dashboard/n/nurse/receta/receta.component';
 import { CrudPatientComponent } from './crud-patient/crud-patient.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'vcare', component: AppComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard/admin', component: AdminComponent },
   { path: 'dashboard/admin/view-nurse', component: CrudNurseComponent },

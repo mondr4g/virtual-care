@@ -6,3 +6,7 @@ nav a:hover, .navbar-nav .nav-link:hover, .navbar-brand, .navbar-brand:hover {
 #vcare-nav a {
     cursor: pointer;
 }
+
+.links-nav {
+    justify-content: space-between;
+}
