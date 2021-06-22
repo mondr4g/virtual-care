@@ -10,6 +10,6 @@ export class AdminMostService {
   constructor(private http: HttpClient) { }
 
   getEnfe():Observable<any>{
-    return this.http.get(this.url+'/getNurses',{observe:"response"});
+    return this.http.get(this.url+'/getNurseInfo',{observe:"response"});
   }
 }
